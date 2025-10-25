@@ -58,6 +58,7 @@
  % keep at list of listing
 }
 
+\setcounter{tocdepth}{3}  % Subsubsections im TOC
 \tableofcontents
 \newpage
 \setcounter{RPages}{\value{page}}
@@ -66,42 +67,162 @@
 \pagestyle{scrheadings}
 
 \begin{spacing}{1}
-\chapter{Einleitung}\label{chapter:introduction}
-\end{spacing}
-\input{./sections/introduction}
 
-\begin{spacing}{1}
-\chapter{Umfeldanalyse}
-\end{spacing}
-\input{./sections/related_work}
+% =========================
+% Kapitel 1 – Einleitung
+% =========================
+\chapter{Einleitung}
 
-\begin{spacing}{1}
-\chapter{Technologien}\label{chapter:tech}
-\end{spacing}
-\input{./sections/technologies}
+\section{Ausgangslage}
+\textit{Beschreibung der aktuellen Situation: Warum besteht Bedarf für die Matura-Lernplattform? Probleme beim Lernen, fehlendes Feedback, etc.}
 
-\begin{spacing}{1}
-\chapter{Umsetzung}\label{chapter:implementation}
-\end{spacing}
-\input{./sections/implementation}
+\section{Motivation und Problemstellung}
+\textit{Warum ist das Thema interessant und relevant? Hauptproblem, das gelöst werden soll.}
 
-\begin{spacing}{1}
-\chapter{Zusammenfassung}
+\section{Zielsetzung}
+\textit{Was soll am Ende entstehen? Funktionen und Ziele der Plattform.}
+
+\section{Grundlagen und Analyse}
+
+\subsection{Marktanalyse}
+\textit{Analyse bestehender Lernplattformen und digitaler Angebote.}
+
+\subsubsection{StudySmarter}
+\textit{Funktionsweise, Zielgruppe, Vorteile/Schwächen, Vergleich mit eigenem Projekt.}
+
+\subsection{Anforderungen eines digitales Maturatraining}
+\textit{Funktionale und nicht-funktionale Anforderungen.}
+
+\subsection{Nutzen für Schüler:innen}
+\textit{Mehrwert der Plattform: Motivation, individuelles Lernen, Feedback, Vorbereitung.}
+
+\section{Lernstrategien}
+\setauthor{\secondauthor}
+
+\subsection{Leitner-System}
+\textit{Karteikarten-Prinzip, Vorteile, Umsetzung im Projekt.}
+
+\subsection{Spaced Repetition}
+\textit{Verteiltes Lernen, Effektivität, Umsetzung digital.}
+
+\subsection{Vergleich verschiedener Lernstrategien und Schlussfolgerung}
+\textit{Leitner, Spaced Repetition, klassisches Lernen – Vor- und Nachteile - Ergebnis.}
+
+% =========================
+% Kapitel 2 – Technologische Entscheidungen
+% =========================
+\chapter{Technologische Entscheidungen und Architektur}
+
+\section{Backend}
+\textit{Backend-Aufbau}
+
+\subsection{Datenbankstruktur}
+\textit{Datenbanktabellen}
+
+\subsection{Quarkus}
+\textit{REST-Endpunkte, Speicherung von Feedback/Statistiken.}
+
+\section{Frontend – Angular}
+
+\subsection{Aufbau und Komponenten}
+\textit{Struktur der App: Login, Dashboard, Übungsmodus, Prüfung, Ergebnisübersicht. Komponenteninteraktion.}
+
+\section{Entwicklungsumgebung und Versionsverwaltung}
+\textit{Verwendete Tools (IntelliJ, GitHub, Docker), Branching-Strategie, Teamwork.}
+
+% =========================
+% Kapitel 3 – Praktische Umsetzung
+% =========================
+\chapter{Praktische Umsetzung}
+
+\section{Usecases}
+
+\subsection{Üben}
+\textit{User (Schüler) möchte für gezielte Themen für die Matura lernen.}
+\textit{Usecase-Diagramme für User (Schüler) → Fragen beantworten, Feedback erhalten, eigenen Fragenpool erstellen}
+
+\subsection{Prüfungssimulationen}
+\textit{User (Schüler) möchte eine Prüfungssimulation starten, um sein Wissen zu testen.}
+\textit{Usecase-Diagramme für User (Schüler) → Fragen beantworten, Feedback am Ende erhalten, Note erhalten}
+
+\subsection{Fortschrittsübersicht}
+\textit{User (Schüler) möchte seinen Lernfortschritt jederzeit einsehen und Statistiken betrachten.}
+\textit{Usecase-Diagramme für User (Schüler) → Fortschritt (\% der unbeantworteten, falsch beantworteten, 1x, 2x, genug beantworteten Fragen), Durchschnittswertung bei Prüfungen usw.}
+
+\section{Benutzeroberfläche und Design}
+
+\subsection{Mockups und User Flow}
+\textit{UI-Entwürfe (Figma), Nutzerführung Start → Übungsmodus → Ergebnis. Fokus auf Usability.}
+
+% ------------------------------------------
+% Use Case: Üben
+% ------------------------------------------
+\section{Use Case: Üben}
+
+\subsection{Fragenhandling und Fragetypen}
+\setauthor{\firstauthor}
+\textit{Speicherung, Abruf, Darstellung verschiedener Fragetypen, Feedbacksystem.}
+
+\subsection{Übungsmodus mit direktem Feedback}
+\setauthor{\firstauthor}
+\textit{Technische Umsetzung, Ablauf, User Experience.}
+
+\subsection{Lösungswege und Nutzerinteraktion}
+\setauthor{\secondauthor}
+\textit{Einsehen von Lösungswegen, Feedbackmechanismen}
+
+\subsection{Verwaltung von Fragenpools}
+\setauthor{\secondauthor}
+\textit{Auswahl eigener Fragen, Erstellung von individuellen Pools, Backend- und Frontend-Umsetzung.}
+
+% ------------------------------------------
+% Use Case: Prüfungssimulation
+% ------------------------------------------
+\section{Use Case: Prüfungssimulation}
+
+\subsection{Prüfungsmodus mit Zeitlimit}
+\setauthor{\firstauthor}
+\textit{Simulation der Prüfung, Zeitlimit, realistische Prüfungssituation.}
+
+\subsection{Bewertung und Ergebnisausgabe}
+\setauthor{\firstauthor}
+\textit{Ergebnisanzeige am Ende, Notenberechnung, Auswertung.}
+
+% ------------------------------------------
+% Use Case: Fortschritt
+% ------------------------------------------
+\section{Use Case: Fortschritt einsehen \& analysieren}
+
+\subsection{Lernstrategien und Fehleranalyse}
+\setauthor{\secondauthor}
+\textit{Identifikation von Wiederholungsbedarf und Schwachstellen.}
+
+\subsection{Spaced Repetition nach Leitner}
+\setauthor{\secondauthor}
+\textit{Technische Umsetzung der Lernstrategie, Speicherintervalle, Fortschrittslevel.}
+
+\subsection{Lernstatistiken und Visualisierung}
+\setauthor{\secondauthor}
+\textit{Erhebung und grafische Darstellung der Daten zur Nutzerleistung. Bibliotheken und Darstellungskonzepte.}
+
+\section{Usability-Test mit Mitschülern}
+\textit{Testbeschreibung, Szenarien, Feedback, Umsetzung von Verbesserungen.}
+
 \end{spacing}
-\input{./sections/summary}
+
+
 
 \newpage
 \pagenumbering{Roman}
 \setcounter{page}{\value{RPages}}
 \input{glossary}
-%\setlength{\glsdescwidth}{0.8\linewidth}
 \glsnogroupskiptrue
 \IfStrEq{\thesislang}{de}
 {
-	\printglossary[title=Glossar,toctitle=Glossar] %,style=long]
+	\printglossary[title=Glossar,toctitle=Glossar]
 }
 {
-	\printglossary[title=Glossary,toctitle=Glossary] %,style=long]
+	\printglossary[title=Glossary,toctitle=Glossary]
 }
 \spacing{1}{
 \IfStrEq{\thesislang}{de}

@@ -1,10 +1,139 @@
 \section{Use Case: Üben}
 
+Der Kern der Anwendung ist der Übungsmodus, welcher Schüler:innen ermöglicht, gezielt
+Maturafragen zu trainieren und ihr Wissen Stück für Stück auszubauen. Anders als beim
+Prüfungsmodus steht hier nicht der Leistungsdruck im Vordergrund, sondern das aktive 
+Lernen mit direktem Feedback. Nutzer:innen soll es ermöglich werden, ein Fundament für 
+ihr Wissen festigen zu können. 
+
+Funktionen umfassen das Auswählen von bestimmten Themen, das Zusammenstellen 
+von eigenen Fragenpools und das Erstellen und Einsehen von Lösungswegen für die 
+jeweiligen Aufgaben. Nutzer:innen können hierbei also genau die Themen lernen, die ihnen
+Probleme bereiten, und das durch eigene Fragen oder Fragen anderer Nutzer:innen. 
+
+Die Plattform unterstützt dabei verschiedene Fragetypen, um das Lernerlebnis flexibler zu 
+gestalten. Um nicht einfach nur ein Ergebnis von "richtig" und "falsch" zu liefern, 
+können Nutzer:innen auch Lösungswege einsehen, um das Verständnis nachhaltig zu fördern.
+
+Durch diese wiederholbare und flexible Übungsumgebung eignet sich die Anwendung sowohl
+für den schnellen Gebrauch als Wissenscheck als auch für die langfristige Vorbereitung
+auf Tests, Schularbeiten oder die Matura.
+
 \subsection{Fragenhandling und Fragetypen}
 \setauthor{\firstauthor}
 \textit{Speicherung, Abruf, Darstellung verschiedener Fragetypen, Feedbacksystem.}
 
+Wie in \autoref{fig:question-runner} dargestellt befindet sich der/die Nutzer:in nun beim
+Question-Runner, also der Ansicht, bei der Fragen beantwortet und ausgewertet werden können.
+Hierbei gibt es 3 verschiedene Modi, in der sich der Question-Runner befinden kann:
+\begin{itemize}
+    \item \textbf{Übungsmodus} (\ref{chap:uebung}): 
+        Nutzer:in erhält direkt Feedback zu den Antworten, ohne Zeitdruck.
+    \item \textbf{Prüfungsmodus} (\ref{chap:pruefung}): 
+        Prüfung wird unter Zeitlimit simuliert, Feedback erfolgt erst am Ende.
+    \item \textbf{Reviewmodus} (\ref{chap:review}): 
+        Bereits abgeschlossene Tests können erneut durchgesehen werden, 
+        Antworten und Lösungswege sind sichtbar, Änderungen sind nicht möglich.
+\end{itemize}
+
+\vspace{1cm}
+\textbf{User-Interface des Question Runners}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{question-runner-mc.png}
+    \caption{Beispielhafte Ansicht einer Frage im Question Runner}
+    \label{fig:question-runner-mc}
+\end{figure}
+
+Der Question Runner zeigt zunächst, aus welchem Fach und welchem Themenpool die Frage stammt,
+die der/die Nutzer:in gerade bearbeitet. Direkt darunter wird die Frage als Überschrift angezeigt, rechts daneben 
+ggf. das zugehörige Bild.
+
+Unter der Frage befinden sich die Antwortfelder, abhängig vom Fragetyp: Multiple-Choice-Fragen als Auswahlfelder 
+(\autoref{fig:question-runner-mc}), Freitextfragen als Eingabefeld (\autoref{fig:question-runner-freetext}). 
+Ganz unten befinden sich die Aktionsbuttons: 
+im Übungsmodus der \textbf{„Prüfen“-Button}, in den anderen Modi allgemeine Navigationsbuttons (\textbf{Weiter}/\textbf{Zurück}).
+
+\vspace{1cm}
+\textbf{Datenfluss im Question Runner} 
+
+Im Übungsmodus ruft der Question Runner zunächst die angegebene Frage anhand ihrer eindeutigen ID ab, 
+falls der/die Nutzer:in eine konkrete Frage auswählen möchte, wie bei der Verwaltung von
+Fragenpools (\ref{chap:fragenpools}) beschrieben.
+
+Wurde keine einzelne Frage ausgewählt, werden zunächst die Filterkriterien für Themen und Fragetypen geprüft. 
+Anschließend werden die passenden Fragen aus dem Fragenpool des/der Nutzers/Nutzerin abgerufen und dem Question 
+Runner übergeben. Auf diese Weise wird sichergestellt, dass sowohl gezieltes Üben einzelner Fragen als 
+auch das Bearbeiten thematisch gefilterter Mengen möglich ist.
+
+Der Question Runner erhält von anderen Komponenten im Frontend eine \textbf{Liste von Frage-IDs} oder alternativ eine einzelne ID, 
+die der/die Nutzer:in bearbeiten möchte. Diese IDs repräsentieren die Fragen, die im Anschluss nacheinander 
+abgerufen und angezeigt werden. Die Auswahl der IDs erfolgt zuvor in der Themen- oder Fragenpool-Ansicht 
+und wird hier nicht weiter gefiltert.
+
+Das Backend liefert das vollständige Frageobjekt zurück, das alle für die Anzeige im Question Runner erforderlichen 
+Informationen enthält (siehe Abschnitt „User-Interface des Question Runners“).
+
+Nachdem der/die Nutzer:in eine Antwort eingibt, hängt das Verhalten vom Modus ab:
+
+\begin{itemize}
+    \item \textbf{Übungsmodus}: 
+        Die Antwort wird direkt ans Backend gesendet und dort ausgewertet. Das Ergebnis wird sofort zurückgesendet und
+        im Question Runner angezeigt. Danach ruft der Question Runner automatisch die nächste ID auf.
+    \item \textbf{Prüfungsmodus}: 
+        Antworten werden gesammelt und erst nach Abschluss der Prüfung ans Backend gesendet. Feedback erfolgt danach.
+    \item \textbf{Reviewmodus}: 
+        Nur Anzeige von Antworten und Lösungswegen. Der/Die Nutzer:in kann hier also keine Antworten eingeben.
+\end{itemize}
+
+\vspace{1cm}
+\textbf{Unterstützung verschiedener Fragetypen}
+
+Neben der Unterscheidung der Modi werden im Question Runner die verschiedenen Fragetypen berücksichtigt. Aktuell 
+werden zwei Haupttypen unterstützt:
+
+\begin{itemize}
+    \item \textbf{Multiple-Choice-Fragen:} 
+        Nutzer:innen wählen eine oder mehrere richtige Antworten aus einer Liste vorgegebener Auswahlmöglichkeiten aus. 
+        Multiple-Choice-Fragen sind besonders geeignet, um Faktenwissen abzufragen oder schnelle Wissenskontrollen durchzuführen. 
+        Das System wertet die Antwort automatisch aus und kann im Übungsmodus direkt Feedback geben. 
+        Die Darstellung erfolgt als übersichtliche Auswahlfelder, die klar zwischen ausgewählt und nicht ausgewählt unterscheiden.
+        (siehe \autoref{fig:question-runner-mc})
+        
+    \item \textbf{Freitext-Fragen:} 
+        Nutzer:innen geben ihre Antwort in ein Texteingabefeld ein. 
+        Dieser Fragetyp eignet sich für offene Aufgabenstellungen, bei denen die Antwort nicht auf eine vorgegebene Auswahl 
+        beschränkt ist. 
+        Im Backend wird die Eingabe des/der Nutzer:in mit einer Menge möglicher korrekter Antworten abgeglichen. 
+        Entspricht die Eingabe einer dieser Antwortmöglichkeiten, wird die Antwort als korrekt bewertet, andernfalls als falsch. 
+        Im Frontend steht ein ausreichend großes Eingabefeld bereit, um längere Antworten komfortabel einzugeben 
+        (siehe \autoref{fig:question-runner-freetext}).
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{question-runner-mc.png}
+        \caption{Multiple-Choice-Frage}
+        \label{fig:question-runner-mc}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{question-runner-freetext.png}
+        \caption{Freitext-Frage}
+        \label{fig:question-runner-freetext}
+    \end{subfigure}
+    \caption{Question-Runner: Beispiele für verschiedene Fragetypen}
+    \label{fig:question-runner}
+\end{figure}
+
+
+
 \subsection{Übungsmodus mit direktem Feedback}
+\label{chap:uebung}
 \setauthor{\firstauthor}
 \textit{Technische Umsetzung, Ablauf, User Experience.}
 
@@ -13,5 +142,6 @@
 \textit{Einsehen von Lösungswegen, Feedbackmechanismen}
 
 \subsection{Verwaltung von Fragenpools}
+\label{chap:fragenpools}
 \setauthor{\secondauthor}
 \textit{Auswahl eigener Fragen, Erstellung von individuellen Pools, Backend- und Frontend-Umsetzung.}

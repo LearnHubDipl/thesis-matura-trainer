@@ -1,12 +1,77 @@
 \section{Use Case: Fortschritt einsehen \& analysieren}
 
+Ein wichtiger Bestandteil unserer Lernplattform ist Fortschrittseinsicht, um den User 
+die Möglichkeit zu bieten seinen aktuellen Wissensstand jeder Zeit einsehen zu können. 
+Mit übersichtlichen Diagrammen und Statistiken hat der User immer einen klaren
+Überbklick auf seinen Lernfortschritt und kann so effizient einschätzen wie viel Übungsbedarf besteht.
+Filteroptionen ermöglichen es auch nach verschiedenen Themenpools zu filtern damit Schüler gezielt erkennen  
+in welchen Themenpools sie noch mehr Übung bräuchten.
+
+Neben der Darstellung des Lernfortschritts mit Diagrammen sind Statistiken auch zur Motivation gut geeignet, ein sichtbarer Fortschritt motiviert für zukünftiges Lernen. 
+Ein positives Lernerlebnis kann Nutzer auch für weitere Lernziele anspornen bzw. ihnen helfen regelmäßiger zu üben um ihre Leistung zu verbessern.
+
+Aufgebaut sind die Statistiken und Diagramme auf den Ergebnissen und Daten aus dem Übungsmodus oder wenn der User eine Frage explizit übt.
+Die Auswahl der gestellten Fragen erfolgt über ein recherchiertes und ausgewähltes Lernsystem, um den Wissenstand langfristig im Kopf zu behalten
+
+
 \subsection{Lernstrategien und Fehleranalyse}
 \setauthor{\secondauthor}
 \textit{Identifikation von Wiederholungsbedarf und Schwachstellen.}
 
+Um den Lernerfolg langfristig zu verbessern, ist es notwendig, das Lernverhalten analysieren und Schwachstellen zu erkennen. 
+Auf Grundlage der Fehleranalyse wird der Wiederholungsbedarf festgelegt. Da Nutzer:innen verstärkt die Fragen oder Themenpools üben die 
+ihnen schwer fallen wird ihr Wissen und Sicherheit gestützt. Aufgaben und Fragen die sie bereits beherschen und mehrfach korrekt beantwortet hatten, kommen hingegen in selteneren Abständen
+bzw. fallen zur gänze raus. Durch diese Anpassungen wird effizienter gelernt und somit auch mehr Lernerfolg erzielt.
+
+Darüber hinaus unterstützt diese Funktion das selbstreflektierende Lernen. Die Nutzer:innen können nachvollziehen und selbst Muster erkennen, bei welchen Inhalten oder Fragen sie des öfteren 
+mal Schwierigkeiten haben. Dadurch können die User selbst sehen wo sie Probelme haben und besser ihre Personaliserten Fragenpools auswählen, diese können sie anschließend üben.
+
+
+
+
 \subsection{Spaced Repetition nach Leitner}
 \setauthor{\secondauthor}
 \textit{Technische Umsetzung der Lernstrategie, Speicherintervalle, Fortschrittslevel.}
+
+Die Grundlage für die Lernplattform bildet das Leitner-System in kombination mit Spaced Repetition, die in Kapitel 1.5 beschrieben wurden. Die Lernmethoden bestehen aus 3 wichtigen Punkten
+\begin{enumerate}
+    \item \textbf{Level}: 
+        Fragen werden in Level eingeteilt - je öfter richtig desto höher das Level
+    \item \textbf{Wiederholungsintervall}: 
+        Fragen werden gesperrt wenn man sie richtig hatte und erst nach einen gewissen Zeitraum entsperrt
+    \item \textbf{Anzeige}: 
+        Gesperrte und offene Fragen werden angezeigt 
+        Die Anzeige im Frontend dient dazu den 
+\end{enumerate}
+
+In Abbildung 4 Homecomponente bzw. die Umsetzung der Lernstrategien 
+sieht man die verschiedenen "Level". Die Level sind nach dem Leitner-System aufgebaut, von denen es in diesem Fall vier gibt: Startlevel, Basislevel, Trainigslevel und Highscorelevel.
+
+Jede Frage wird durch QuestionPoolEntry abgebildet, diese speichert alle relevante Daten für die Fehleranalyse oder das Wiederholen.
+Für das einteilen in die Level sind die Einträge lastAnsweredCorrectly und correctCount wichtig.LastAnsweredCorrectly merkt sich ob die Frage das letzte mal korrekt beantwortet wurden und correctCount wie oft
+du diese Frage bereits richtig hattest. Mithilfe einer Abfrage kann eingeordnet werden welche Frage in welches Level kommt. Es verläuft nach dem Schema 
+
+\begin{itemize}
+    \item \textbf{Startlevel}:  
+        Dort sind die falsch oder nicht beantworteten Fragen, diese sind immer zum üben offen. 
+    \item \textbf{Basislevel}: 
+        Hier befinden sich Fragen die einmalig richtig beantwortet waren, direkt danach sind sie für 1 Tag gesperrt.
+    \item \textbf{Trainigslevel}: 
+        Fragen die der User 2x richtig hatte kommen ins Trainigslevel und sind nun 3 Tage gesperrt.
+    \item \textbf{Highscorelevel}: 
+        Hier befinden sich Fragen die schon zur Genüge geübt wurden und somit kaum mehr geübt werden müssen.
+\end{itemize}
+
+Das Sperren erfolgt durch die Auswertung des Parameters answeredAt. So lässt sich nachvollziehen, wann der Nutzer die Frage zuletzt 
+bearbeitet hat, ob die Antwort korrekt oder falsch war, in welchem Level sich die Frage zuvor befand bzw. wie hoch der correctCount ist. Schlussendlich lässt sich dann sagen 
+wie lange die Frist zum Wiederholen eingestellt wird.
+
+
+Mit einen klick auf üben werden nicht nur irgendwelche Fragen ausgewählt, sondern genau die die der User am dringendsten benötigt. So zusagen die falsch oder nicht beantworteten Fragen zuerst,
+darauffolgend erst die mehrmals korrekt beantworteten Inhalte.
+
+Die Anzeige im Frontend dient dazu den Nutzer:innen einen Überbllick über ihren eigenen Lernfortschritt zu geben.
+Die einzelnen Level im Leitner-System werden als Progressbars visualisiert und mit Farben wird dem User sein Fortschritt symbolisert.
 
 \subsection{Lernstatistiken und Visualisierung}
 \setauthor{\secondauthor}

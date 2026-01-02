@@ -1,6 +1,173 @@
+% ==================
+% 2.1 Backend
+% ==================
+
 \section{Backend}
-\textit{Backend Auswahl - such dir noch andere raus neben Quarkus}
+\setauthor{\firstauthor}
+% \textit{Backend Auswahl - such dir noch andere raus neben Quarkus}
+
+Das Backend bildet die zentrale Kernkomponente der Lernplattform. Es stellt die Verbindung zwischen Datenbank,
+Geschäftslogik und dem Frontend her und ist somit für die Verarbeitung von Anfragen von außen und die Verwaltung 
+der persisitierten Daten aus der Datenbank verantwortlich. Es dient als gemeinsame technische Grundlage beider 
+Diplomarbeitsprojekte und verarbeitet sowohl die Funktionen des interaktiven Lernens als auch jene des 
+Lernmaterialsystems. Alle Anfragen aus dem Frontend werden über REST-Schnittstellen an das Backend übermittelt, 
+dort validiert, verarbeitet und anschließend persistiert oder als Antwort zurückgegeben.
+
+Ein Aufgabenbereich des Backends liegt in der Verwaltung von lernbezogenen Inhalten. Dazu zählen unter anderem 
+Fragen und Lösungsvorschläge, sowie von Nutzer:innen bereitgestellte Lernmaterialien. Lerninhalte, die 
+von anderen Nutzer:innen hochgeladen oder erstellt werden, sollen im Backend gespeichert und strukturiert abgelegt 
+werden, sodass sie von beiden Teilprojekten verwendet und wiederverwendet werden können.
+
+Darüber hinaus übernimmt das Backend die Auswertung und Verarbeitungen von Nutzeraktionen im interaktiven Lernsystem.
+Dazu zählen insbesondere das Beantworten von Fragen, das Erstellen von Prüfungen und das Protokollieren von 
+Fortschritts- und Fehleradaten. Antworten auf Fragen werden vom Frontend ans Backend übermittelt und dort validiert.
+Dabei besitzt das Backend die endgültige Entscheidungshoheit über die Annahme und Interpretation von Anfragen 
+und stellt sicher, dass keine ungültigen Datensätze ins System gelangen.
+
+Ein wesentlicher Aufgabenbereich des Backends liegt in der Verwaltung von Lernmaterialien. Nutzer:innen sollen die 
+Möglichkeit haben, ihre Lernmaterialien hochladen zu können. Diese sollen dann persistiert in der Datenbank liegen 
+und später wieder abgerufen werden können. Dazu zählen sowohl Mitschriften, als auch selbst erstellte Fragen. 
+
+Durch diese Aufgabenteilung fungiert das Backend als gemeinsame, konsistente Daten- und Logikschicht der Plattform. 
+Es ermöglicht, dass beide Diplomarbeitsprojekte unabhängig voneinander Funktionen entwickeln können, während 
+Lerninhalte, Fragen und Fortschrittsinformationen dennoch in einem einheitlichen System verarbeitet und verwaltet 
+werden. 
+
+Nach Ausführung der Aufgabenbereiche, welche das Backend abdecken muss, wird also ersichtlich, wie zentral die 
+Rolle des Backends ist. Daher ist auch die Wahl einer geeigneten und verlässlichen Technologie von besonderer 
+Bedeutung. Im folgenden Abschnitt werden also verschiedene Backend-Technologien analysiert, in Bezug auf die 
+Eignung für die Anforderungen dieser Diplomarbeit bewertet und anschließend die Entscheidung für das 
+letztendlich eingesetzte Framework begründet.
 
 
-\subsection{Quarkus}
-\textit{Was ist Quarkus - Vor- und Nachteile}
+% ==================
+% 2.1.1 
+% ==================
+
+\subsection{Backend Technologien im Vergleich}
+\setauthor{\firstauthor}
+
+Bevor die finale Entscheidung auf Quarkus fiel, wurden verschiedene Backend-Frameworks hinsichtlich ihrer Eignung 
+für die Lernplattform analysiert. Kriterien waren unter anderem:
+
+\begin{itemize}
+    \item Performance und Ressourcenverbrauch
+    \item Entwicklungsproduktivität
+    \item Integration mit Datenbanken
+    \item Unterstützung für REST-APIs
+    \item Community- und Unternehmenssupport
+    \item Skalierbarkeit und Wartbarkeit
+\end{itemize}
+
+
+
+% ==================
+% 2.1.1.Quarkus
+% ==================
+
+\subsubsection{Quarkus}
+\setauthor{\firstauthor}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{Quarkus-logo.png}
+    \caption{Logo von Quarkus}
+\end{figure}
+
+Quarkus ist ein vergleichsweise modernes, Java-basiertes Framework, das speziell für den Einsatz in Cloud- und 
+Containerumgebungen entwickelt wurde. Anders als bei klassischen Java-Frameworks wie Spring Boot oder Jakarta EE
+fokussiert sich Quarkus stark auf eine geringe Startzeit, niedrigen Speicherverbrauch sowohl auf der Festplatte, 
+als auch im Arbeitsspeicher und die effiziente Ausführung in Mircoservice-Architekturen und serverlosen 
+Umgebungen.
+
+Die Basis von Quarkus bildet eine Kombination aus Jakarta EE, Eclipse MicroProfile und eine Reihe aus optimierten 
+Bibliotheken. Ein zentrales Ziel von Quarkus besteht darin, die JVM-basierte Backend-Entwicklung an moderne 
+Cloud-Infrastrukturen anzupassen, dabei aber nicht auf etablierte Java-Standards verzichten zu müssen.
+
+
+\vspace{0.7cm}
+\textbf{Architekturprinzip: Build-Time-Augmentation}
+
+Eine der zentralen technischen Besonderheiten von Quarkus liegt in der sogenannten \textit{Build-Time-Augmentation}. 
+Während klassiche Frameworks viele Konfigurationen und Initalisierungsschritte erst zur Laufzeit durchführen, 
+werden diese bei Quarkus weitgehend bereits wöhrend des Build-Prozesses ausgeführt.
+
+Dadurch ergeben sich:
+\begin{itemize}
+    \item deutlich reduzierte Startzeiten
+    \item geringere Anforderungen an die CPU und den Speicher
+    \item weniger Reflection-Overhead
+    \item bessere Eignung für Container-Deployments
+\end{itemize}
+
+Insbesondere bei Microservices oder bei horizontal skalierenden Anwendungen stellt dies einen großen Vorteil dar.
+
+
+\vspace{0.7cm}
+\textbf{Unterstützte Technologien und Laufzeitkomponenten}
+
+Quarkus stellt eine breite Palette an Erweiterungen (Extensions) bereit. Für typische Web- und Datenbankanwendungen 
+besonders relevant sind:
+
+\begin{itemize}
+    \item \textbf{RESTEasy Classic Jackson}\\ für performante REST-Schnittstellen
+    \item \textbf{Hibernate ORM mit Panache}\\ für vereinfachte Datenbankzugriffe und Entity-Verwaltung
+    \item \textbf{Quarkus Security \& JWT-Authentifizierung}\\ für Zugriffsschutz und Rollenverwaltung
+\end{itemize}
+
+Diese Erweiterungen machen Quarkus besonders flexibel und eignen sich deshalb auch besonders für Anwendungen, die 
+immer erweiterbar bleiben soll und modular aufgebaut sind.
+
+
+\vspace{0.7cm}
+\textbf{Entwicklungsunterstützung und Produktivität}
+
+Für die Entwicklungsumgebung bietet Quarkus einen eingebauten Dev-Modus, der automatisches Neuladen von Klassen und
+Konfigurationen ermöglicht. Änderungen am Quellcode werden ohne manelles Neustarten der Anwendung übernommen.
+
+Das führt zu verkürzten Entwicklungszyklen, da nicht nach jeder kleinen Änderung auf das erneute Starten der 
+Anwendung gewartet werden muss. Gleichzeitig erhalten Entwickler unmittelbares Feedback und die Zeit für die 
+Entwicklung kann effizienter genutzt werden. Der Dev-Modus unterstptzt außerdem integrierte Test- und Debug Werkzeuge.
+
+
+\vspace{0.7cm}
+\textbf{Eignung für die im Projekt entwickelte Lernplattform}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{p{0.47\textwidth} p{0.47\textwidth}}
+    \textbf{Vorteile für die Lernplattform} &
+    \textbf{Einschränkungen} \\ \hline
+    
+    Kurze Startzeiten und geringer Ressourcenverbrauch &
+    Kleinere Community im Vergleich zu etablierten Frameworks \\
+    
+    Effiziente Verarbeitung von REST-Anfragen &
+    Weniger verfügbare Praxisbeispiele und Dokumentationen \\
+    
+    Gute Eignung für Container- und Cloud-Umgebungen &
+    Teilweise höherer Einarbeitungsaufwand \\
+    
+    Modularer und erweiterbarer Systemaufbau &
+    Native-Builds erfordern projektspezifische Prüfung \\
+    
+    \end{tabular}
+    \caption{Zusammenfassung der Bewertung von Quarkus für die Lernplattform}
+\end{table}
+    
+
+
+% ==================
+% 2.1.1.Springboot
+% ==================
+
+\subsubsection{Springboot}
+\setauthor{\firstauthor}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{Springboot-logo.png}
+    \caption{Logo von Springboot}
+\end{figure}
+
+\textit{ungefähr so wie bei Quarkus argumentieren}

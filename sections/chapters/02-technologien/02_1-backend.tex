@@ -44,7 +44,7 @@ letztendlich eingesetzte Framework begründet.
 % 2.1.1 
 % ==================
 
-\subsection{Backend Technologien im Vergleich}
+\subsection{Backend-Technologien im Vergleich}
 \setauthor{\firstauthor}
 
 Bevor die finale Entscheidung auf Quarkus fiel, wurden verschiedene Backend-Frameworks hinsichtlich ihrer Eignung 
@@ -82,7 +82,8 @@ Umgebungen.
 
 Die Basis von Quarkus bildet eine Kombination aus Jakarta EE, Eclipse MicroProfile und eine Reihe aus optimierten 
 Bibliotheken. Ein zentrales Ziel von Quarkus besteht darin, die JVM-basierte Backend-Entwicklung an moderne 
-Cloud-Infrastrukturen anzupassen, dabei aber nicht auf etablierte Java-Standards verzichten zu müssen.
+Cloud-Infrastrukturen anzupassen, dabei aber nicht auf etablierte Java-Standards verzichten zu müssen. 
+\cite{QuarkusIO}
 
 
 \vspace{0.7cm}
@@ -90,7 +91,8 @@ Cloud-Infrastrukturen anzupassen, dabei aber nicht auf etablierte Java-Standards
 
 Eine der zentralen technischen Besonderheiten von Quarkus liegt in der sogenannten \textit{Build-Time-Augmentation}. 
 Während klassiche Frameworks viele Konfigurationen und Initalisierungsschritte erst zur Laufzeit durchführen, 
-werden diese bei Quarkus weitgehend bereits wöhrend des Build-Prozesses ausgeführt.
+werden diese bei Quarkus weitgehend bereits während des Build-Prozesses ausgeführt.
+\cite{QuarkusAugmentation}
 
 Dadurch ergeben sich:
 \begin{itemize}
@@ -106,8 +108,8 @@ Insbesondere bei Microservices oder bei horizontal skalierenden Anwendungen stel
 \vspace{0.7cm}
 \textbf{Unterstützte Technologien und Laufzeitkomponenten}
 
-Quarkus stellt eine breite Palette an Erweiterungen (Extensions) bereit. Für typische Web- und Datenbankanwendungen 
-besonders relevant sind:
+Quarkus stellt eine breite Palette an Erweiterungen (Extensions) bereit. \cite{QuarkusExtensions} Für typische Web-
+und Datenbankanwendungen besonders relevant sind:
 
 \begin{itemize}
     \item \textbf{RESTEasy Classic Jackson}\\ für performante REST-Schnittstellen
@@ -116,7 +118,7 @@ besonders relevant sind:
 \end{itemize}
 
 Diese Erweiterungen machen Quarkus besonders flexibel und eignen sich deshalb auch besonders für Anwendungen, die 
-immer erweiterbar bleiben soll und modular aufgebaut sind.
+immer erweiterbar bleiben sollen und modular aufgebaut sind.
 
 
 \vspace{0.7cm}
@@ -127,7 +129,7 @@ Konfigurationen ermöglicht. Änderungen am Quellcode werden ohne manelles Neust
 
 Das führt zu verkürzten Entwicklungszyklen, da nicht nach jeder kleinen Änderung auf das erneute Starten der 
 Anwendung gewartet werden muss. Gleichzeitig erhalten Entwickler unmittelbares Feedback und die Zeit für die 
-Entwicklung kann effizienter genutzt werden. Der Dev-Modus unterstptzt außerdem integrierte Test- und Debug Werkzeuge.
+Entwicklung kann effizienter genutzt werden. Der Dev-Modus unterstützt außerdem integrierte Test- und Debug Werkzeuge.
 
 
 \vspace{0.7cm}
@@ -154,6 +156,24 @@ Entwicklung kann effizienter genutzt werden. Der Dev-Modus unterstptzt außerdem
     \end{tabular}
     \caption{Zusammenfassung der Bewertung von Quarkus für die Lernplattform}
 \end{table}
+
+
+\vspace{0.5cm}
+\textbf{Kriterienbewertung Quarkus}
+
+Die nachfolgende stichpunktartige Übersicht fasst die Bewertung von Quarkus anhand der definierten 
+Vergleichskriterien zusammen:
+
+
+\begin{itemize}
+    \item \textbf{Performance und Ressourcenverbrauch:} sehr gut (geringe Startzeiten, niedriger Speicherverbrauch)
+    \item \textbf{Entwicklungsproduktivität:} gut (Dev-Modus verkürzt Entwicklungszyklen)
+    \item \textbf{Integration mit Datenbanken:} gut (Hibernate ORM mit Panache)
+    \item \textbf{Unterstützung für REST-APIs:} sehr gut (RESTEasy Classic Jackson)
+    \item \textbf{Community- und Unternehmenssupport:} in Ordnung (kleinere Community, weniger Praxisbeispiele)
+    \item \textbf{Skalierbarkeit und Wartbarkeit:} sehr gut (modular, gut für Container- und Cloud-Deployments)
+\end{itemize}
+
     
 
 
@@ -170,4 +190,274 @@ Entwicklung kann effizienter genutzt werden. Der Dev-Modus unterstptzt außerdem
     \caption{Logo von Springboot}
 \end{figure}
 
-\textit{ungefähr so wie bei Quarkus argumentieren}
+Spring Boot ist ein Java-basiertes Framework zur schnellen Entwicklung von produktionsreifen Anwendungen. Es 
+ist Teil des Spring-Ökosystems und baut somit direkt auf dem etablierten Spring-Framework auf, jedoch mit dem 
+sogenannten \textit{"Konvention über Konfiguration"} - Prinzip, dem Kernprinzip von Spring Boot. Ziel dieses 
+Prinzips ist es, den Entwicklungsaufwand durch sinnvolle Standardwerte und automatische Konfigurationen zu 
+mindern. Entwickler:innen müssen also weniger Entscheidungen treffen und können sich direkt der Geschäftslogik 
+widmen. Spring Boot wird häufig für Web-APIs, Micorservices und komplexe Enterprise-Anwendungen eingesetzt.
+\cite{SpringBoot}
+
+
+\vspace{0.7cm}
+\textbf{Architekturprinzip: Konvention über Konfiguration}
+
+Spring Boot zeichnet sich vor allem dadurch aus, möglichst viele Einstellungen und Abhängigkeiten automatisch
+zu konfigurieren. Sobald entsprechende Bibliotheken ins Projekt eingebaut werden, erkennt Spring Boot deren 
+Bedarf nimmt passende Standard-Konfigurationen zur Laufzeit vor. Dadurch soll der Initialaufwand minimiert 
+werden.
+
+Wichtige Eigenschaften dieses Prinzips sind:
+
+\begin{itemize}
+    \item Automatische Konfiguration gängiger Komponenten (Datenbank, Web‑Server, Sicherheit)
+    \item Reduzierte Boilerplate‑Konfiguration, also redundanten, standardmäßigen Code und XML-Einrichtungen, die in reinen Spring Framework-Anwendungen notwendig waren
+    \item Konsistente Entwicklungserfahrung im gesamten Spring‑Ökosystem
+\end{itemize}
+
+
+\vspace{0.7cm}
+\textbf{Unterstützte Technologien und Laufzeitkomponenten}
+
+Spring Boot integriert viele ausgereifte Bibliotheken und Starter‑Abhängigkeiten, die für typische 
+Backend‑Anforderungen relevant sind. Diese sind zum Beispiel:
+
+\begin{itemize}
+    \item \textbf{Spring Web}\ für leistungsfähige REST APIs und Web‑Services
+    \item \textbf{Spring Data JPA}\ zur einfachen Datenbankzugriffsschicht mit Unterstützung für relationale Systeme
+    \item \textbf{Spring Security}\ für Authentifizierung, Autorisierung und rollenbasierte Zugriffssteuerung
+    \item \textbf{Actuator}\ Monitoring‑ und Management‑Endpunkte für Produktion und Betrieb
+\end{itemize}
+
+Dadurch eignet sich Spring Boot sehr gut für Backend‑Anwendungen, die stark auf Integrationen, Sicherheit und robuste 
+Betriebsfähigkeit angewiesen sind.
+
+
+\vspace{0.7cm}
+\textbf{Entwicklungsunterstützung und Produktivität}
+
+Spring Boot ist auf Entwicklerproduktivität ausgelegt. Die wichtigsten Mechanismen dafür umfassen:
+
+\begin{itemize}
+\item \textbf{Spring Initializr}\ ein webbasiertes Tool zur Generierung von Starter‑Projekten \cite{SpringInitializr}
+\item \textbf{Automatische Abhängigkeitsverwaltung}\ über Starter‑POMs und Bill of Materials (BOM)
+\item \textbf{Testunterstützung}\ umfangreiche Testframework‑Integration für Unit‑ und Integrationstests
+\item \textbf{IDE‑Integration}\ moderne IDEs wie IntelliJ IDEA oder Eclipse bieten tiefgreifende Unterstützung für Spring‑Projekte
+\end{itemize}
+
+Dies führt zu einem schnellen Onboarding neuer Entwickler:innen und einer hohen Entwicklungsgeschwindigkeit im Team.
+
+
+\vspace{0.7cm}
+\textbf{Eignung für die im Projekt entwickelte Lernplattform}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.47\textwidth} p{0.47\textwidth}}
+\textbf{Vorteile für die Lernplattform} &
+\textbf{Einschränkungen} \\
+\hline
+
+Sehr große Community und umfassende Dokumentation &
+Höherer Ressourcenverbrauch im Vergleich zu leichteren Frameworks \\
+
+Umfangreiche Standardkomponenten für REST, Sicherheit &  
+Längere Startzeiten als kompaktere JVM‑Frameworks \\
+
+Gute Integration mit Datenbanken und Monitoring &
+Mehr Konfigurationsoptionen bedeuten potentiell mehr Komplexität \\
+
+Starke IDE‑ und Tool‑Unterstützung &
+Einarbeitungszeit für Spring‑Konzepte bei Neueinsteigern \\
+
+\end{tabular}
+\caption{Zusammenfassung der Bewertung von Spring Boot für die Lernplattform}
+\end{table}
+
+
+\vspace{0.5cm}
+\textbf{Kriterienbewertung Spring Boot}
+
+Die nachfolgende stichpunktartige Übersicht fasst die Bewertung von Spring Boot anhand der definierten 
+Vergleichskriterien zusammen:
+
+\begin{itemize}
+    \item \textbf{Performance und Ressourcenverbrauch:} schlecht (höherer Ressourcenverbrauch, längere Startzeiten)
+    \item \textbf{Entwicklungsproduktivität:} sehr gut (Spring Initializr, automatische Konfiguration, gute IDE-Unterstützung)
+    \item \textbf{Integration mit Datenbanken:} sehr gut (Spring Data JPA, Monitoring, robust)
+    \item \textbf{Unterstützung für REST-APIs:} sehr gut (Spring Web)
+    \item \textbf{Community- und Unternehmenssupport:} sehr gut (große Community, umfassende Dokumentation)
+    \item \textbf{Skalierbarkeit und Wartbarkeit:} gut (umfangreiche Standardkomponenten, starke Tool-Unterstützung, etwas komplexer)
+\end{itemize}
+
+
+
+% ==================
+% 2.1.1.Node js
+% ==================
+
+\subsubsection{Node.js}
+\setauthor{\firstauthor}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{Node-js-logo.png}
+    \caption{Logo von Node.js}
+\end{figure}
+
+Node.js ermöglicht die Entwicklung von Webanwendungen und APIs in JavaScript auf der Serverseite. Durch sein ereignisgesteuertes Modell 
+eignet es sich besonders für Anwendungen mit vielen gleichzeitigen Verbindungen. Deshalb ist Node.js auch besonders populär für 
+Web-APIs, Microservices und Echtzeitanwendungen wie Chat-Systeme.
+\cite{NodeJS}
+
+Somit lässt sich Node.js gut mit den Java-basierten Frameworks vergleichen, da es ebenfalls in modernen Webanwendungen und Microservices 
+Verwendung findet, aber auf einer ganz anderen Laufzeitumgebung basiert.
+
+
+\vspace{0.7cm}
+\textbf{Architekturprinzip: Event-driven, Non-blocking I/O}
+
+Das Ziel von Node.js ist es, viele gleichzeitige Anfragen effizient verarbeiten zu können. Dazu verwendet es ein ereignisgesteuertes, 
+nicht-blockierendes I/O-Modell, bei dem nicht für jede Anfrage ein eigener Thread gestartet werden muss.
+
+Dieses Prinzip führt zu folgenden Vorteilen:
+
+\begin{itemize}
+    \item Hohe Skalierbarkeit bei I/O-lastigen Anwendungen
+    \item Effiziente Nutzung von Ressourcen durch Single-Threaded-Event-Loop
+    \item Gut geeignet für Echtzeit- und REST-API-Server
+\end{itemize}
+
+
+\vspace{0.7cm}
+\textbf{Unterstützte Technologien und Laufzeitkomponenten}
+
+Node.js kann mit verschiedensten Bibliotheken und Frameworks kombiniert werden, was es zu einer besonders vielseitigen Laufzeitumgebung macht.
+Beispiele für kombinierbare Bibliotheken und Frameworks umfassen:
+
+\begin{itemize}
+    \item \textbf{Express.js} – beliebtes Web-Framework für REST-APIs
+    \item \textbf{Socket.io} – Echtzeitanwendungen / Websockets
+    \item \textbf{JWT / Passport.js} – Authentifizierung und Sicherheitsfunktionen
+\end{itemize}
+
+Durch diese Technologien ist es möglich, schnell performante REST-APIs, Echtzeitfunktionen und sichere Authentifizierungslösungen zu 
+implementieren, was Node.js für die Lernplattform grundsätzlich geeignet macht.
+
+
+\vspace{0.7cm}
+\textbf{Entwicklungsunterstützung und Produktivität}
+
+Neben der effizienten Verarbeitung von gleichzeitigen Anfragen unterstützt Node.js auch einen effizienten Entwicklungszyklus.
+Der integrierte Package-Manager \textbf{npm} vereinfacht die Installation und Verwaltung von Bibliotheken, während Hot-Reload-Tools wie 
+\textit{nodemon} eine schnelle Änderung am Code ermöglichen. Moderne Entwicklungsumegebungen lassen sich problemlos integrieren, wodurch 
+Entwickler:innen direkt produktiv arbeiten können.
+
+
+\vspace{0.7cm}
+\textbf{Eignung für die im Projekt entwickelte Lernplattform}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.47\textwidth} p{0.47\textwidth}}
+\textbf{Vorteile für die Lernplattform} &
+\textbf{Einschränkungen} \\
+\hline
+
+Sehr populär, viele Bibliotheken und Community &
+Nicht JVM-basiert, keine direkte Wiederverwendung von Java-Code \\
+
+Effiziente Verarbeitung von REST-Anfragen &  
+Single-Threaded kann CPU-intensive Tasks verlangsamen \\
+
+Einfach zu lernen und schnelle Entwicklungszyklen &
+Keine standardisierte Enterprise-Struktur, mehr Designentscheidungen nötig \\
+
+Gute Unterstützung für Echtzeitanwendungen &
+Geringere Typensicherheit (JavaScript vs. Java)
+\end{tabular}
+\caption{Zusammenfassung der Bewertung von Node.js für die Lernplattform}
+\end{table}
+
+
+\vspace{0.5cm}
+\textbf{Kriterienbewertung Node.js}
+
+Die nachfolgende stichpunktartige Übersicht fasst die Bewertung von Node.js anhand der definierten 
+Vergleichskriterien zusammen:
+
+\begin{itemize}
+    \item \textbf{Performance und Ressourcenverbrauch:} sehr gut bei I/O-lastigen Anwendungen, eingeschränkt bei CPU-intensiven Tasks
+    \item \textbf{Entwicklungsproduktivität:} sehr gut (npm, Hot-Reload, schnelle Serverstarts)
+    \item \textbf{Integration mit Datenbanken:} gut (MongoDB, SQL-Datenbanken über Bibliotheken)
+    \item \textbf{Unterstützung für REST-APIs:} sehr gut (Express.js, Fastify)
+    \item \textbf{Community- und Unternehmenssupport:} sehr gut (große Community, viele Tutorials)
+    \item \textbf{Skalierbarkeit und Wartbarkeit:} in Ordnung (gut für Microservices, Typensicherheit allerdings eingeschränkt)
+\end{itemize}
+
+
+
+
+
+% ==================
+% 2.1.2
+% ==================
+
+\subsection{Auswahl der Backend-Technologie für die Lernplattform}
+\setauthor{\firstauthor}
+
+Nach der Analyse der drei betrachteten Backend-Technologien \textbf{Quarkus, Spring Boot} und \textbf{Node.js} fällt die Wahl auf Quarkus.
+Im folgenden Abschnitt wird diese Entscheidung sowohl durch technische Kriterien, als auch durch praktische Erwägungen begründet.
+
+
+\vspace{0.7cm}
+\textbf{Technische Eignung}
+
+Quarkus überzeugt vor allem durch seine sehr kurzen Startzeiten, den geringen Ressourcenverbrauch und die schnelle und effiziente Verarbeitung 
+von REST-Anfragen. \cite{QuarkusIO, QuarkusAugmentation} Besonders für Microservices oder containerisierte Deployments ist die Build-Time-Augmentation 
+ein klarer Vorteil. Die Flexibilität, die Quarkus durch die integrierte Unterstützung gängiger Technologien wie Hibernate ORM oder RESTEasy bietet, 
+sorgt für eine modulare, erweiterbare und zukunftssichere Systemarchitektur, die den Anforderungen einer Lernplattform mehr als nur entspricht.
+
+Im Vergleich dazu kann man von Spring Boot zwar eine hohe Entwicklungsproduktivität und umfangreiche Standardkomponenten erwarten, es ist 
+allerdings ressourcenintensiver, startet langsamer und erfordert für containerisiertes Deployment teilweise mehr Anpassungen. Node.js ist zwar 
+sehr gut für I/O-lastige Anwendungen und Echtzeitanwendungen geeignet und flexibel einsetzbar, jedoch zeigt die Analyse, dass Quarkus im Sinne der
+Datenbankzugriffe, Sicherheit und REST-Schnittstellen besser zu den Anforderungen der Lernplattform passt. \cite{SpringBoot,NodeJS} 
+
+
+\vspace{0.7cm}
+\textbf{Praktische Erwägungen}
+
+Ein ausschlaggebender Faktor bei der Wahl des Frameworks war auch die bisherige Erfahrung des Entwicklerteams. Quarkus wurde bereits im Unterricht behandelt 
+und hat sich in vergangen Projekten als zuverlässig erwiesen. Dadurch konnte auf vorhandenes Wissen zurückgegriffen werden, was den Einstieg erleichtert
+und die Entwicklungsgeschwindigkeit fördert. Spring Boot wurde bisher nicht im Unterricht behandelt und hätte daher eine längere Einarbeitunszeit erfordert.
+Node.js wurde im Unterricht in Ansätzen behandelt, allerdings nicht in einem Umfang, der für die komplexe Backend-Entwicklung der Lernplattform ausreichend wäre.
+
+
+\vspace{0.7cm}
+\textbf{Abwägung der Backend-Frameworks}
+
+Die nachfolgende Tabelle fasst die Bewertung von Quarkus, Spring Boot und Node.js anhand der zuvor definierten Vergleichskriterien zusammen. Sie verdeutlicht, 
+in welchen Bereichen Quarkus die beste Übereinstimmung mit den Anforderungen der Lernplattform bietet.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{p{0.25\textwidth} p{0.20\textwidth} p{0.20\textwidth} p{0.20\textwidth}}
+    \textbf{Kriterium} & \textbf{Quarkus} & \textbf{Spring Boot} & \textbf{Node.js} \\
+    \hline
+    Performance und Ressourcenverbrauch & sehr gut & schlecht & gut \\
+    Entwicklungs-produktivität & gut & sehr gut & sehr gut \\
+    Integration mit Datenbanken & gut & sehr gut & gut \\
+    Unterstützung für REST-APIs & sehr gut & sehr gut & sehr gut \\
+    Community- und Unternehmenssupport & in Ordnung & sehr gut & sehr gut \\
+    Skalierbarkeit und Wartbarkeit & sehr gut & gut & in Ordnung \\
+    \end{tabular}
+    \caption{Vergleich von Quarkus, Spring Boot und Node.js (kompakt)}
+\end{table}
+
+
+\vspace{0.7cm}
+\textbf{Fazit}
+
+Auf Basis der technischen Analyse und der praktischen Erfahrung des Teams wurde Quarkus als Backend-Framework für die Lernplattform ausgewählt. Durch diese 
+Entscheidung ist sichergestellt, dass die Plattform sowohl performant als auch erweiterbar bleibt und das Entwicklerteam effizient arbeiten kann. Spring Boot
+und Node.js bleiben zwar interessante Alternativen, werden aber nicht gleichermaßen den spezifischen Anforderungen des Projekts gerecht.

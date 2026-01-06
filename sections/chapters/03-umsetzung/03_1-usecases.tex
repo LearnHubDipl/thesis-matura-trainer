@@ -1,16 +1,121 @@
+% ==================
+% 3.1 Use Cases
+% ==================
 \section{Usecases}
+\setauthor{\firstauthor}
 
+
+% ==================
+% 3.1.1 User Flow
+% ==================
 \subsection{User Flow}
-\textit{UML, Flow-Charts, daraus leiten sich 3 use cases ab - Übergang in nächste sections}
 
-\subsection{Üben}
-\textit{User (Schüler) möchte für gezielte Themen für die Matura lernen.}
-\textit{Usecase-Diagramme für User (Schüler) → Fragen beantworten, Feedback erhalten, eigenen Fragenpool erstellen}
+Der User Flow beschreibt klar, wie der typische Interaktionsablauf eines Schülers oder einer Schülerin mit der Lernplattform 
+aussieht. Dabei ist wichtig, welche Schritte der User von der Anmeldung bis zur Lernaktivität durchläuft und welche 
+Handlungsmöglichkeiten ihm dabei zur Verfügung stehen. Besonders entscheidend sind hierbei die Hauptfunktionen der 
+Anwendung, nicht aber technische Details oder Sonderfälle.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{UserFlow.png}
+    \caption{Ablaufdiagramm eines Users} \cite{PlantUMLGenerator}
+\end{figure}
+
+Aus diesem User Flow lassen sich 3 zentrale Abläufe erkennen, die den Kernfunktionen der Lernplattform entsprechen. Sie sind 
+die Basis für die weiteren Use Cases:
+
+\begin{itemize}
+    \item \textbf{Üben}\\ Bearbeiten von Fragen mit unmittelbarem Feedback
+    \item \textbf{Prüfungssimulation}\\ Bearbeiten einer Prüfungssituation mit Auswertung am Ende
+    \item \textbf{Fortschrittsübersicht}\\ Einsehen von Lernstatistiken und gespeicherten Ergebnissen
+\end{itemize}
+
+Diese drei Pfade werden in den folgenden Abschnitten als eigenständige Use Cases detailliert beschrieben.
+
+% ==================
+% 3.1.2 Üben
+% ==================
+\subsection{Übungsmodus}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{UseCaseUeben.png}
+    \caption{Use-Case Diagramm: Übungsmodus} \cite{PlantUMLGenerator}
+\end{figure}
+
+Der Übungsmodus ist einer der Kernfunktionen der Lernplattform und soll Schüler:innen die Möglichkeit bieten, gezielt für 
+Prüfungssituationen lernen zu können. Der Ablauf von diesem Modus beginnt normalerweise damit, dass der User durch 
+vorhandene Fragen von anderen Nutzern stöbert. Dabei kann er Themenbereiche auswählen, dessen Fragen betrachten und sich 
+so einen Überblick über den Umfang des Themas beschaffen.
+
+Während des Browsens besteht die Möglichkeit, interessante Fragen in seinen eigenen Fragenpool aufzunehmen, um sie später 
+gezielt zu lernen. Der primäre Anwendungszweck des Übungsmodus besteht darin, wiederholt Fragen aus dem eigenen 
+Fragenpool zu bearbeiten. Alternativ können Fragen direkt beim Browsen beantwortet werden, wobei das System diese sofort 
+auswertet und eine Rückmeldung über die Richtigkeit der Antworten gibt. Somit können Nutzer direkt ihre Fehler erkennen und 
+korrigieren.
+
+Wenn der Nutzer Fragen in seinen eigenen Fragenpool aufgenommen hat, kann direkt aus dem Fragenpool gelernt werden. Auch 
+hier werden Antworten ausgewertet und direktes Feedback gegeben, im Unterschied zum direkten Beantworten während des Browsens 
+wird im Fragenpool allerdings gespeichert, ob eine Frage zuletzt richtig oder falsch beantwortet wurde. Auf diese Weise kann 
+das System die in Kapitel \ref{chap:lernstrategien} analysierte Lernstrategie erfolgreich anwenden und den Nutzer effektiv beim 
+Lernvorgang unterstützen.
+
+Der Übungsmodus bietet somit einen strukturierten Ablauf, bei dem selbständiges Lernen unterstützt, die Wiederholung 
+wichtiger Inhalte erleichtert, und durch unmittelbares Feedback der Lernprozess effektiv begleitet wird. Anders als beim 
+Prüfungsmodus steht hier also nicht die Bewertung, sondern der Lernprozess im Vordergrund. Aus diesem Grund erfolgt 
+das Feedback auch unmittelbar nach jeder beantworteten Frage.
+
+Nach jedem Übungsdurchlauf verfügt der User über eine Rückmeldung zu seinen Antworten und kann leicht erkennen, welche 
+Themen bereits sicher beherrscht werden und in welchen Bereichen mehr Übung notwendig ist.
+
+
+% ==================
+% 3.1.3 Prüfung
+% ==================
 \subsection{Prüfungssimulationen}
-\textit{User (Schüler) möchte eine Prüfungssimulation starten, um sein Wissen zu testen.}
-\textit{Usecase-Diagramme für User (Schüler) → Fragen beantworten, Feedback am Ende erhalten, Note erhalten}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{UseCasePruefungssimulation.png}
+    \caption{Use-Case Diagramm: Prüfungsmodus} \cite{PlantUMLGenerator}
+\end{figure}
+
+Nachdem die Schüler:innen im Übungsmodus ihr Wissen vertiefen konnten und einige Themen wiederholt haben, dient der 
+Prüfungsmodus dazu, dieses Wissen unter realitätsnahen Bedingungen unter Beweis zu stellen. Er ermöglicht es, den aktuellen
+Wissensstand zu testen und ein Gefühl für echte Prüfungssituationen zu bekommen.
+
+Im Gegensatz zum Übungsmodus steht im Prüfungsmodus nicht der Lernprozess, sondern die Simulation einer echten Prüfungssituation
+im Vordergrund.Dazu kann der User individuelle Prüfungskonfigurationen vornehmen, indem er die zu testenden Themenbereiche 
+auswählt, sowie die Anzahl der Fragen und das gewünschte Zeitlimit bestimmt. Auf diese Weise kann die Prüfung sowohl in Umfang 
+als auch in Schwierigkeit auf den aktuellen persönlichen Lernfortschritt angepasst werden.
+
+Ist der Nutzer mit seiner vorgenommenen Konfiguration für seine Prüfung zufrieden, so werden zunächst zufällig ausgewählte
+Fragen aus dem persönlichen Fragenpool zu einer Prüfungssimulation zusammengestellt. Um das Gefühl einer echten Prüfung 
+zu stärken hat der User während der Prüfung zu jeder Zeit die Möglichkeit, zwischen allen Fragen zu navigieren und seine
+Fragen beliebig oft zu ändern. Feedback erhält er aber erst nach eigener Abgabe oder nach Ablauf des Zeitlimits, um die 
+Prüfungssituation möglichst authentisch nachzubilden.
+
+Im Anschluss erfolgt die Auswertung. Der User erhält nun eine zusammengefasste Rückmeldung über seine Leistung. Es wird 
+das Prüfungsergebnis und eine Übersicht über richtig und falsch beantwortete Fragen übermittelt. Wichtig dabei ist, dass die Fragen 
+einer Prüfung hierbei unabhängig vom Übungsmodus behandelt werden und nicht in die Lernstrategie oder den Fortschritt 
+des Fragenpools einfließen. Der Prüfungsmodus dient also ausschließlich der Überprüfung des Wissenstands. Dadurch bleiben 
+Prüfungs- und Übungsmodus klar voneinander getrennt.
+
+Die Ergebnisse vergangener Prüfungen werden gespeichert und können im Zuge der Fortschritts- und Statistikübersicht später
+erneut eingesehen werden. Somit ist es für den User möglich, den eigenen Leistungsforschritt über mehrere Prüfungsversuche 
+hinweg nachzuverfolgen, ohne den Lernprozess im Übungsmodus zu beeinflussen.
+
+
+% ==================
+% 3.1.4 Fortschrittsanzeige
+% ==================
 \subsection{Fortschrittsübersicht}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{UseCaseFortschritt.png}
+    \caption{Use-Case Diagramm: Fortschrittsübersicht} \cite{PlantUMLGenerator}
+\end{figure}
+
 \textit{User (Schüler) möchte seinen Lernfortschritt jederzeit einsehen und Statistiken betrachten.}
 \textit{Usecase-Diagramme für User (Schüler) → Fortschritt (\% der unbeantworteten, falsch beantworteten, 1x, 2x, genug beantworteten Fragen), Durchschnittswertung bei Prüfungen usw.}

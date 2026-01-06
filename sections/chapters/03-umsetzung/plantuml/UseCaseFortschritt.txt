@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "User (Schüler)" as User
+
+rectangle "Fortschrittsübersicht" {
+
+    usecase "Fortschrittsübersicht einsehen" as UC_Main
+
+    usecase "Übungsfortschritt anzeigen" as UC_Practice
+    usecase "Prüfungsergebnisse anzeigen" as UC_Exams
+    usecase "Durchschnittsnote berechnen" as UC_Avg
+    usecase "Themenstatistiken anzeigen" as UC_Topics
+    usecase "Streak anzeigen" as UC_Streak
+}
+
+User --> UC_Main
+
+UC_Main --> UC_Practice : <<include>>
+UC_Main --> UC_Exams : <<include>>
+UC_Main --> UC_Avg : <<include>>
+UC_Main --> UC_Topics : <<include>>
+UC_Main --> UC_Streak : <<include>>
+@enduml

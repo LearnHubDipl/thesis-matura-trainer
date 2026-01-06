@@ -1,0 +1,31 @@
+@startuml
+title Activity Diagramm – Vereinfachter User Flow
+
+start
+
+:Login;
+:Dashboard anzeigen;
+:Modus auswählen;
+
+if (Üben) then (ja)
+  :Fragen auswählen;
+  :Fragen beantworten;
+  :Feedback erhalten;
+  :Ergebnis speichern;
+
+else (nein)
+  if (Prüfung) then (ja)
+    :Prüfung starten;
+    :Fragen beantworten;
+    :Prüfung abschließen;
+    :Auswertung erhalten;
+    :Ergebnis speichern;
+
+  else (nein)
+    :Statistiken anzeigen;
+  endif
+endif
+
+:Zurück zum Dashboard;
+stop
+@enduml

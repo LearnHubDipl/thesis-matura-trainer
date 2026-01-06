@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "User (Schüler)" as User
+
+rectangle "Prüfungssimulation" {
+
+    usecase "Prüfungssimulation durchführen" as UC_Main
+
+    usecase "Prüfung konfigurieren\n(Themen, Fragenanzahl, Zeitlimit wählen)" as UC_Config
+    usecase "Zufällige Fragen aus\nFragenpool generieren" as UC_Generate
+    usecase "Fragen beantworten" as UC_Answer
+    usecase "Prüfung abgeben\noder Zeitablauf" as UC_Submit
+    usecase "Auswertung einsehen\n(Note & Ergebnisübersicht)" as UC_Result
+}
+
+User --> UC_Main
+
+UC_Main --> UC_Config  : <<include>>
+UC_Main --> UC_Generate : <<include>>
+UC_Main --> UC_Answer : <<include>>
+UC_Main --> UC_Submit : <<include>>
+UC_Main --> UC_Result : <<include>>
+@enduml

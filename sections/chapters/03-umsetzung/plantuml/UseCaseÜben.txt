@@ -1,0 +1,21 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "User (Schüler)" as User
+
+rectangle "Übungsmodus" {
+    usecase "Fragen Browsen" as UC1
+    usecase "Fragen in Fragenpool aufnehmen" as UC2
+    usecase "Frage aus dem Browser beantworten" as UC3
+    usecase "Feedback erhalten" as UC4
+    usecase "Fragen aus dem Fragenpool beantworten" as UC5
+}
+
+User --> UC1
+User --> UC5
+UC1 --> UC2
+UC1 --> UC3
+UC3 --> UC4 : <<include>>
+UC5 --> UC4 : <<include>>
+@enduml

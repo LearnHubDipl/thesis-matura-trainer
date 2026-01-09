@@ -1,11 +1,167 @@
+% ================
+% 3.3 Prüfung
+% ================
 \section{Use Case: Prüfungssimulation}
+\setauthor{\firstauthor}
 
+Im Prüfungsmodus können Nutzer:innen ihr Wissen, das sie im Übungsmodus (\ref{chap:uebung}) erlangt
+haben, auf die Probe stellen. Er richtet sich also an Schüler:innen, die bereits gelernt und ihr 
+Wissen gefestigt haben, und nun eine Prüfungssituation simulieren möchten, um ihren aktuellen 
+Wissensstand einzuschätzen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{navigation-bar-exam-selected.png}
+    \caption{Seitennavigationsleiste bei ausgewähltem Prüfungsmodus}
+\end{figure}
+
+Wie in der obenstehenden Abbildung erkenntlich, ist der Prüfungsmodus über die Seitennavigation der Lernplattform 
+zugänglich. Er dient ausschließlich zur Überprüfung des Wissensstands, nicht aber des aktiven Lernens. Die 
+Kernfunktionen umfassen die Bearbeitung einer Reihe an Fragen aus ausgewählten Themenbereichen unter Zeitlimit, 
+die Navigation zwischen Fragen während der Prüfung sowie die Auswertung der Prüfung am Ende mit einer Übersicht
+über richtig und falsch beantworteter Fragen.
+
+Nutzer:innen können realistische Prüfungssituationen erleben, ohne dass dies Auswirkungen auf ihren Fortschritt
+im Übungsmodus hat. So bleibt Üben und Prüfen klar voneinander getrennt, während gleichzeitig ein Eindruck über den 
+eigenen Lernfortschritt gewonnen wird. Dabei kann auch ein Einblick über die eigene Performance unter Zeitdruck
+helfen, neue Baustellen aufzudecken.
+
+
+% ================
+% 3.3.1 Konfiguration einer Prüfung
+% ================
+\subsection{Konfiguration einer Prüfung}
+
+Die erste Ansicht, wenn der/die Nutzer:in zum Prüfungsmodus navigiert, ist die Konfigurationsansicht. Vor dem Start 
+der Prüfung kann der/die Nutzer:in die Prüfung individuell konfigurieren. Die Optionen werden dafür übersichtlich 
+auf der Ansicht dargestellt, sodass der/die Nutzer:in gezielt entscheiden kann, welche Themenbereich getestet 
+werden sollen, wie viele Fragen die Prüfung beinhalten soll und welches Zeitlimit dafür zur Verfügung stehen soll.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{exam-configuration-screen.png}
+    \caption{Beispielhafte Ansicht der Prüfungs-Konfiguration}
+\end{figure}
+
+Folgende Optionen sind dabei vorhanden:
+
+\begin{itemize}
+    \item \textbf{Themenbereich auswählen:} \\ Nutzer:innen können einzelne Fächer und Themenbereiche auswählen. Dabei
+    werden nur jene ausgewählt, von welchem Fragen auch im eigenen Fragenpool vorhanden sind. 
+    \item \textbf{Anzahl der Fragen:} \\ Es kann festgelegt werden, wie viele Fragen insgesamt in der Prüfung enthalten 
+    sein sollen. Dies ermöglicht sowohl kurze Tests als auch längere Prüfungssimulationen. Die Prüfung besteht dann
+    aus zufälligen Fragen aus dem Fragenpool über die ausgewählten Bereiche, wobei zu jedem Themenbereich mindestens 
+    eine Frage gestellt wird, wenn die Anzahl der Fragen dafür ausreicht.
+    \item \textbf{Zeitlimit:} \\ Das gewünschte Zeitlimit für die gesamte Prüfung kann eingestellt werden, um die Situation 
+    einer realen Prüfung nachzubilden. Läuft die Zeit aus, so wird die Prüfung automatisch mit den aktuell eingegebenen
+    Antworten abgeschickt und ausgewertet.
+\end{itemize}
+
+Sobald die Konfiguration abgeschlossen ist, kann der/die Nutzer:in die Prüfung über den \textit{"Starten"}-Button 
+beginnen. Die Plattform wechselt automatisch in den Prüfungsmodus im Question Runner, wobei die zuvor festgelegten 
+Konfigurationen angewendet werden.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{exam-started-screen.png}
+    \caption{Start der Prüfung nach Konfiguration}
+    \label{fig:exam-started}
+\end{figure}
+
+
+% ================
+% 3.3.2 Prüfungsmodus mit Zeitlimit
+% ================
 \subsection{Prüfungsmodus mit Zeitlimit}
 \label{chap:pruefung}
-\setauthor{\firstauthor}
-\textit{Simulation der Prüfung, Zeitlimit, realistische Prüfungssituation.}
+
+Ist die Prüfung gestartet, so gelangt der/die Nutzer:in in den Prüfungsmodus des Question Runners. Diesr Modus soll möglichst
+authentisch eine realistische Prüfungssituation nachbilden und sich somit klar vom Übungsmodus unterscheiden. Der Fokus soll 
+hierbei nicht mehr auf dem Lernen liegen, sondern auf der Überprüfung des aktuellen Leistungsstands unter Zeitdruck. 
+
+Wie in der oberen \autoref{fig:exam-started} dargestellt wird in der oberen Zeile nun zusätzlich zum Fach und Themenpool wie im 
+Übungsmodus auch permaanent die verbleibende Zeit angezeigt. Durch diese Darstellung soll der zeitliche Rahmen der Prüfung
+verdeutlicht werden, ohne dabei zu stark abzulenken. Die aktuelle Frage wird darunter angezeigt inklusive Antwortfeldern und 
+gegebenenfalls das zugehörige Bild, analog zur Darstellung im Übungsmodus.
+
+Der zentrale Unterschied zum Übungsmodus ist das verzögerte Feedback. Im Gegensatz zum Übungsmodus erhält der/die Nutzer:in während
+der Prüfung keinerlei Rückmeldung darüber, ob eine Frage korrekt oder falsch beantwortet wurde. Es kann lediglich zwischen den 
+einzelnen Fragen beliebig oft hin und her navigiert werden, während sich das System die eingegebenen Antworten merkt. Dadurch 
+kommt der Prüfungsmodus einer realen Prüfung besonders nahe, da man bis zum Ende der Prüfung seine Antworten beliebig oft 
+verändern kann, doch nur die letzte wirklich zählt.
+
+
+\vspace{0.7cm}
+\textbf{Navigation durch die Prüfung}
+Der/Die Nutzer:in kann während der Prüfung beliebig oft zwischen Fragen hin und her navigieren und dabei seine Antworten beliebig
+oft ändern. Das Navigieren erfolgt über 2 Arten:
+
+\begin{itemize}
+    \item \textbf{\textit{"Zurück"}- und \textit{"Weiter"}-Buttons} (siehe \autoref{fig:exam-navigation-forward-backward}) \\
+    Ermöglichen es, zur nächsten oder zur letzten Frage zu wechseln.
+    \item \textbf{Hauptnavigationsleiste über dem Question Runner} (siehe \autoref{fig:exam-navigation-menu}) \\
+    Ermöglicht es, zu einer beliebigen Frage in der Prüfung zu springen.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{exam-navigation-forward-backward.png}
+        \caption{Weiter- und Zurück-Buttons im Prüfungsmodus}
+        \label{fig:exam-navigation-forward-backward}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{exam-navigation-menu.png}
+        \caption{Hauptnavigationsleiste des Prüfungsmodus}
+        \label{fig:exam-navigation-menu}
+    \end{subfigure}
+    \caption{Prüfungsmodus: Navigationsarten}
+\end{figure}
+
+Die \textit{"Zurück"}- und \textit{"Weiter"}-Buttons navigieren den/die Nutzer:in zur vorherigen beziehungweise nächsten Frage. 
+Befindet sich der/die Nutzer:in bereits auf der ersten Frage der Prüfung, so ist der \textit{"Zurück"}-Button ausgegraut und es
+ist nicht möglich, eine weitere Frage zurück zu springen. Erreicht der/die Nutzer:in allerdings die letzte Frage, so wird der 
+\textit{"Weiter"}-Button zum \textit{"Fertigstellen"}-Button, mit welchem die Prüfung abgegeben werden kann.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{exam-navigation-last-question.png}
+    \caption{Prüfungsmodus: Letzte Frage - Fertigstellen-Button}
+\end{figure}
+
+Alternativ zu den beiden Navigations-Buttons gibt es auch die Prüfungsnavigationsleiste über dem Question Runner. Diese ermöglicht
+es, jederzeit zu jeder beliebigen Frage zu springen. Wie in \autoref{fig:exam-navigation-menu} zu erkennen, repräsentiert jeder 
+dieser Boxen eine eigene Frage, welche entweder grau oder orange markiert ist. Diese Farben haben folgende Bedeutungen:
+
+\begin{itemize}
+    \item \textbf{Grau:} Diese Frage wurde noch nicht beantwortet
+    \item \textbf{Orange:} Für diese Frage wurde bereits eine Antwort gespeichert. Diese Markierung gibt allerdings keine Auskunft darüber,
+    ob die abgegebene Antwort korrekt oder falsch ist.
+\end{itemize}
+
+
+\vspace{0.7cm}
+\textbf{Abgabe der Prüfung}
+Läuft das vorgegebene Zeitlimit ab, so wird die Prüfung automatisch abgegeben. In diesem Fall werden alle bis dahin gespeicherten
+Antworten zur Auswertung an das Backend übermittelt. Alle Fragen, die bis zum Ablauf der Zeit nicht beantwortet wurden, gelten 
+dementsprechend auch als unbeantwortet und werden automatisch als falsch gewertet. Der/Die Nutzer:in kann die Prüfung somit nicht
+über die konfigurierte Dauer hinaus fortsetzen.
+
+Neben der automatischen Abgabe durch Zeitablauf kann die Prüfung auch jederzeit manuell abgeschlossen werden. Wie im oberen
+Abschnitt bereits angeführt, erfolgt dies über den \textit{"Fertigstellen"}-Button, der beim Erreichen der letzten Frage 
+angezeigt wird. Durch das manuelle Abgeben wird die Prüfung sofort beendet und alle gespeicherten Antworten werden zur Auswertung
+wetiergegeben. Auch hier ist eine nachträgliche Änderung der Antworten ab diesem Zeitpunkt nicht mehr möglich.
+
+Während der gesamten Prüfung werden die eingegebenen Antworten regelmäßig zwischengespeichert, was das Erhalten des Bearbeitunsstands
+auch beim Navigieren ermöglicht. Ein explizites Pausieren oder Abbrechen der Prüfung ist allerdings nicht vorgesehen. Wird die
+Prüfung vorzeitig verlassen, so gilt die Prüfung als nicht ordnungsgemäß abgeschlossen und kann nicht fortgesetzt werden. 
+Dies sorgt für einen authentischeren Umgang mit Prüfungssituationen, welche nicht einfach abgebrochen und neu gestartet werden 
+können.
+
 
 \subsection{Bewertung und Ergebnisausgabe}
 \label{chap:review}
-\setauthor{\firstauthor}
 \textit{Ergebnisanzeige am Ende, Notenberechnung, Auswertung.}

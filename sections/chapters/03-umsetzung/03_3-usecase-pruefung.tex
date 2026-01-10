@@ -162,6 +162,61 @@ Dies sorgt für einen authentischeren Umgang mit Prüfungssituationen, welche ni
 können.
 
 
+% ================
+% 3.3.3 Bewertung und Ergebnisausgabe
+% ================
 \subsection{Bewertung und Ergebnisausgabe}
 \label{chap:review}
-\textit{Ergebnisanzeige am Ende, Notenberechnung, Auswertung.}
+Nach dem Abschluss einer Prüfung durch Zeitablauf oder manueller Abgabe wird die Prüfung automatisch ausgewertet. Der/Die Nutzer:in 
+gelangt im Anschluss zur Ergebnisansicht, in der eine zusammenfassende Auswertung der eben abgelegten Prüfung dargestellt wird.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{exam-review-overview.png}
+    \caption{Ergebnisübersicht nach Abschluss der Prüfung}
+\end{figure}
+
+In dieser Übersicht kann auf den ersten Blick erkannt werden, wie viele Fragen korrekt beziehungsweise falsch ausgewertet wurden. 
+Zusätzlich wird der erreichte Anteil korrekt beantworteter Fragen in Prozent dargestellt. Auf Basis dieser Anzeige kann 
+der/die Nutzer:in direkt grob einschätzen, wie sehr die ausgewählten Themenbereiche unter Zeitdruch beherrscht werden.
+
+Neben der Gesamtauswertung bietet die Ergebnisansicht auch einen detaillierten Überblick über alle einzelnen Fragen der Prüfung.
+Die Navigation zwischen den Fragen erfolgt hierbei analog zum Prüfungsmodus. Es ist also sowhl über die \textit{"Zurück"}- und 
+\textit{"Weiter"}-Buttons als auch über die Navigationsleiste über dem Question Runner möglich, schnell zwischen Fragen zu springen.
+Die Navigationsleiste unterscheidet sich allerdings darin, dass bei dieser sofort sichtbar ist, ob die jeweilige Frage korrekt
+oder falsch beantwortet wurde. Dafür ist die Box für die zugehörige Frage grün beziehungsweise rot markiert.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{exam-review-navigation-menu.png}
+    \caption{Navigationsleiste nach Auswertung der Prüfung}
+\end{figure}
+
+Beim Aufruf einer einzelnen Frage innerhalb der Ergebnisansicht wird diese im Question Runner angezeigt. Die Darstellung der
+Frage und des Feedbacks entspricht dabei bewusst der des Übungsmodus (siehe Kapitel \ref{chap:uebung}). Korrekte und falsche
+Antworten werden also entsprechend farblich hervorgehoben, die richtige Lösung sowie zugehörige Lösungswege werden angezeigt.
+
+Durch die identische Darstellung des Feedbacks in Übungs- sowie Reviewmodus müssen sich Nutzer:innen nicht an eine neue Oberfläche 
+gewöhnen. Dadurch wird die Orientierung erleichtert und die Prüfung besser als Lerneffekt fungieren, da Fehler direkt im 
+bekannten Kontext nachvollzogen werden können.
+
+Ist der/die Nutzer:in mit dem Analysieren der Fehler fertig, so kann der Reviewmodus jederzeit verlassen werden. Befindet sich 
+der/die Nutzer:in auf der letzten Frage der Prüfung, so wird wie beim Prüfungsmodus der \textit{"Weiter"}-Button durch einen 
+\textit{"Fertigstellen"}-Button ersetzt. Durch das Betätigen dieses Buttons wird der Reviewmodus beendet und der/die Nutzer:in 
+zurück zur Prüfungskonfiguration geführt. 
+
+Alternativ kann diese Prüfung von hier aus auch neu gestartet werden. Dabei wird eine exakte Kopie der Prüfung mit den selben 
+Fragen und dem selben Zeitlimit erstellt. Der/Die Nutzer:in kann somit die Prüfung beliebig oft neu starten, wenn das Verständnis
+für die eben gemachten Fehler direkt geprüft werden soll. Für diese Funktion ist direkt neben dem \textit{"Weiter"}-Button ein
+Neustart-Symbol zu finden.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{exam-review-retry-button.png}
+    \caption{Neustart-Button im Reviewmodus}
+\end{figure}
+
+Damit ist der jeweilige Prüfungsdurchlauf vollständig abgeschlossen. Alle Ergebnisse bleiben gespeichert und können später erneut 
+im Reviewmodus eingesehen werden, ohne den Übungsmodus oder den Lernfortschritt zu beeinflussen. Wird eine Prüfung über die 
+Neustart-Funktion erneut begonnen, so entsteht ein neuer, unabhängiger Prüfungsdurchlauf, während die Ergebnisse vorheriger 
+Durchläufe weiterhin erhalten bleiben.

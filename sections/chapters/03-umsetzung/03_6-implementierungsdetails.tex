@@ -1,18 +1,166 @@
+% ========================
+% 3.6 Implementierungsdetails
+% ========================
 \section{Implementierungsdetails}
 
+
+% ========================
+% 3.6.1 Datenmodell
+% ========================
 \subsection{Datenmodell}
-\textit{Datenbanktabellen}
+\setauthor{\firstauthor}
+
+Das Datenmodell bildet die grundlegende Struktur der gesamten Anwendung und wurde als gemeinsames Schema 
+von beiden Entwicklungsteams entworfen. Es umfasst alle zentralen Entitäten zur Verwaltung von Nutzer:innen,
+Fragen, Themenbereichen, Übungsfortschritt und Prüfungssimulation.
 
 \begin{figure}[H]
-    \centering
-    \fbox{
-      \includegraphics[width=0.7\textwidth]{datamodel.png}
-    }
-    \caption{Datenbankmodell der Anwendung}
-    \label{fig:datamodel}
+  \centering
+  \fbox{
+    \includegraphics[width=0.85\textwidth]{datamodel.png}
+  }
+  \caption{Datenbankmodell der Anwendung}
+  \label{fig:datamodel}
 \end{figure}
 
+\autoref{fig:datamodel} zeigt das vollständige relationale Datenbankmodell der Anwendung. Nicht alle 
+dargestellten Tabellen werden in jedem beschriebenen Use Case dieser Arbeit verwendet, da einzelne Komponenten 
+von unterschiedlichen Teams umgesetzt wurden. Für die folgenden Abschnitte werden daher nur jene Entitäten 
+näher betrachtet, die für die Umsetzung der Übungs- und Prüfungsfunktionen relevant sind.
 
+
+% ========================
+% 3.6.1.1 Übungsmodus
+% ========================
+\subsubsection{Zentrale Entitäten für den Übungsmodus}
+Für den Übungsmodus sind insbesondere die Entitäten \textit{Question}, \textit{Answer}, \textit{QuestionPool}, 
+\textit{QuestionPoolEntry} und \textit{User} relevant. Sie bilden die Grundlage, um Fragen darzustellen, Antworten 
+zu erfassen und den Lernfortschritt der Nutzer:innen nachzuvollziehen.
+
+\vspace{0.2cm}
+\textbf{Question} \\
+Die Entität \textit{Question} repräsentiert eine einzelne Übungsfrage. Sie enthält den Fragetext und den Fragetyp
+(\textit{MULTIPLE CHOICE}, \textit{TEXT}). Jede Frage kann mehrere Antworten besitzen, die in der Entität \textit{Answer} 
+hinterlegt sind.
+
+\vspace{0.2cm}
+\textbf{Answer} \\
+\textit{Answer}-Objekte beinhalten den Antworttext und einen Eintrag, ob die Antwort korrekt ist (\textit{isCorrect}). 
+Unabhängig vom Fragetypen werden alle richtigen und falschen Antworten auf eine Frage gespeichert. Bei Multiple-Choice-Fragen 
+müssen alle richtigen und keine falschen Antworten angegeben werden, um als korrekt gewertet zu werden. Für Freitext-Fragen 
+werden nur richtige Antworten angelegt. Die eingegebene Antwort muss hierbei einer der Enträge gleichen, um korrekt gewertet
+zu werden.
+
+\vspace{0.2cm}
+\textbf{QuestionPool und QuestionPoolEntry} \\
+Der individuelle Fragenpool der Nutzer:innen wird von einem \textit{Questionpool}-Objekt repräsentiert. Die Entität 
+\textit{QuestionPoolEntry} verbindet eine Frage mit einem Pool und speichert den individuellen Fortschritt des Nutzers/der Nutzerin. 
+Dazu zählen unter anderem:
+
+\begin{itemize}
+  \item \textit{correctCount}: Anzahl der aufeinanderfolgend korrekt geantworten Male für diese Frage
+  \item \textit{lastAnsweredCorrectly}: ob die Frage zuletzt richtig beantwortet wurde
+  \item \textit{answeredAt}: Zeitpunkt, zu dem die Frage zuletzt beantwortet wurde
+\end{itemize}
+
+Diese Tabelle ermöglicht die Umsetzung der Wiederholungslogik im Übungsmodus, indem Fragen je nach Bearbeitungsstatus 
+und Lernerfolg wiederholt oder vorübergehend gesperrt werden.
+
+\vspace{0.2cm}
+\textbf{User} \\
+Die Entität \textit{User} enthält die grundlegenden Informationen über die Lernenden. Sie ist mit den \textit{QuestionPool}-Objekten 
+verbunden, um den individuellen Lernfortschritt zu speichern, sowie mit \textit{Question} und \textit{Solution}, um erstellte Fragen und 
+Lösungswege nachzuhalten.
+
+\vspace{0.2cm}
+\textbf{Funktionale Zusammenhänge} \\
+In \autoref{fig:datamodel} sind die Beziehungen zwischen diesen Entitäten dargestellt. Zusammen ermöglichen sie:
+
+\begin{itemize}
+  \item Die flexible Auswahl von Fragen aus einem Pool für eine Übungssitzung
+  \item Das Tracking des individuellen Lernfortschritts pro Frage
+  \item Die Umsetzung von Wiederholungs- und Sperrlogiken im Übungsmodus
+\end{itemize}
+
+Diese Struktur ermöglicht, dass im Übungsmodus flexibel auf die Bedürfnisse der Nutzer:innen eingangen werden kann, während
+gleichzeitig eine saubere Trennung zwischen Fragen, Fragenpools der Nutzer:innen und  individuellen Fortschritten besteht.
+
+
+% ========================
+% 3.6.1.2 Lösungswege
+% ========================
+\subsubsection{Zentrale Entitäten für Lösungswege}
+Für die Darstellung von Lösungswegen im Übungsmodus sind vor allem die Entitäten \textit{Solution}, \textit{SolutionStep} und 
+\textit{SolutionVote} relevant. Durch diese können Nutzer:innen nicht nur die richtige Lösung sehen, sondern auch die einzelnen Schritte 
+nachvollziehen und Feedback von anderen Nutzer:innen erhalten. Zudem können individuelle Lösungswege hochgeladen werden, um 
+sich und anderen Nutzer:innen in der Zukunft zu unterstützen.
+
+\vspace{0.2cm}
+\textbf{Solution} \\
+Die Entität \textit{Solution} repräsentiert einen Lösungsweg zu einer Frage. Jede Lösung gehört zu genau einer Frage (\textit{Question}) 
+und einem erstellenden Nutzer (\textit{User}) und stellt sich aus mehreren \textit{SolutionStep}-Objekten zusammen
+
+\vspace{0.2cm}
+\textbf{SolutionStep} \\
+\textit{SolutionStep}-Objekte enthalten die einzelnen Schritte einer Lösung. Jeder Schritt besitzt einen Titel zur Zusammenfassung und 
+einen Text zur Erklärung und Veranschaulichung des nächsten Schritts. Durch die Schritt-für-Schritt-Darstellung kann der/die Nutzer:in 
+den Lösungsweg nachvollziehen und gezielt lernen.
+
+\vspace{0.2cm}
+\textbf{SolutionVote} \\
+Diese Entität ermöglicht es anderen Nutzer:innen, eine Lösung positiv oder negativ zu bewerten (\textit{isUpVote}). So werden Lösungswege 
+hochwertige Lösungswege mit mehr positiven Bewertungen hervorgehoben und die Community kann gegenseitig Feedback geben. 
+
+\vspace{0.2cm}
+\textbf{Funktionale Zusammenhänge} \\
+
+\begin{itemize}
+  \item Jede Frage kann mehrere von Nutzer:innen erstellte Lösungen besitzen.
+  \item Jede Lösung besteht aus mehreren Schritten.
+  \item Nutzer:innen können Lösungswege bewerten, wodurch die Qualität sichtbar wird.
+  \item Die Anzeige der Lösungen erfolgt im Übungsmodus direkt nach der Beantwortung, wodurch der Lernprozess unterstützt wird.
+\end{itemize}
+
+
+
+% ========================
+% 3.6.1.3 Prüfungsmodus
+% ========================
+\subsubsection{Datenmodell für Prüfungssimulationen}
+Für die Umsetzung des Prüfungsmodus sind relevante Entitäten vor allem \textit{Exam} und \textit{ExamQuestion}. Durch diese sind die
+Verwaltung von Prüfungen, die Speicherung der Antworten und die nachträgliche Auswertung möglich.
+
+\vspace{0.2cm}
+\textbf{Exam} \\
+Die Entität \textit{Exam} stellt eine einzelne Prüfung dar. Sie enthält Informationen über das Zeitlimit, den Beginnzeitpunkt, den 
+Endzeitpunkt sowie dem Gesamtergebnis. Über die Beziehung zu \textit{User} ist klar, welcher Nutzer/welche Nutzerin diese Prüfung
+abgelegt hat. Jede Prüfung kann mehrere Fragen enthalten, die über die Entität \textit{ExamQuestion} abgebildet werden.
+
+\vspace{0.2cm}
+\textbf{ExamQuestion} \\
+\textit{ExamQuestion} speichert die gegebene Antworten auf die einzelne Frage innerhalb einer Prüfung und ist mit dem dementsprechendem
+Fragenobjekt verknüpft. Sie speichert nicht nur die ausgewählte Antwort, sondern auch ob diese Frage korrekt beantwortet wurde. So
+können alle Fragen einer Prüfung individuell ausgewertet werden und im Reviewmodus angezeigt werden.
+
+\vspace{0.2cm}
+\textbf{Funktionale Zusammenhänge} \\
+Durch die Beziehung zwischen \textit{Exam} und \textit{ExamQuestion} wird folgendes ermöglicht:
+
+\begin{itemize}
+  \item Speicherung von Prüfungen für einzelne Nutzer:innen
+  \item Zuordnung der ausgewählten Antworten zu den jeweiligen Fragen
+  \item Berechnung des Gesamtergebnisses und der prozentual korrekt beantworteten Fragen
+  \item Nachträgliche Ansicht der Prüfung im Reviewmodus, inklusive der Anzeige von korrekt und falsch beantworteten Fragen
+\end{itemize}
+
+Diese Struktur macht eine realistische Simulation einer Prüfungssituation möglich. Die Nutzer:innen bearbeiten Fragen unter Zeitdruck, 
+ihre Antworten werden erfasst und persisitiert und eine nachträgliche Auswertung ist jederzeit möglich.
+
+
+
+% ========================
+% 3.6.2 Überblick über Komponenten
+% ========================
 \subsection{Überblick über Komponenten}
 \textit{Question Runner - wird fast überall benutzt}
 

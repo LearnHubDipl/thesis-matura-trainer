@@ -1,3 +1,9 @@
+% ==================
+% Use Case: Fortschritt einsehen & analysieren
+% ==================
+
+\setauthor{\secondauthor}
+
 \section{Use Case: Fortschritt einsehen \& analysieren}
 \setauthor{\secondauthor}
 
@@ -8,11 +14,22 @@ Mit übersichtlichen Diagrammen und Statistiken hat der User immer einen klaren
 Filteroptionen ermöglichen es auch nach verschiedenen Themenpools zu filtern damit Schüler gezielt erkennen  
 in welchen Themenpools sie noch mehr Übung bräuchten.
 
+\textit{Statistiken Ansicht}
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+      \includegraphics[width=0.7\textwidth]{statistik.png}
+    }
+    \caption{Allgemeine Statistikübersicht der Anwendung}
+    \label{fig:statistik}
+\end{figure}
+
 Neben der Darstellung des Lernfortschritts mit Diagrammen sind Statistiken auch zur Motivation gut geeignet, ein sichtbarer Fortschritt motiviert für zukünftiges Lernen. 
 Ein positives Lernerlebnis kann Nutzer auch für weitere Lernziele anspornen bzw. ihnen helfen regelmäßiger zu üben um ihre Leistung zu verbessern.
 
 Aufgebaut sind die Statistiken und Diagramme auf den Ergebnissen und Daten aus dem Übungsmodus oder wenn der User eine Frage explizit übt.
-Die Auswahl der gestellten Fragen erfolgt über ein recherchiertes und ausgewähltes Lernsystem, um den Wissenstand langfristig im Kopf zu behalten
+Die Auswahl der gestellten Fragen erfolgt über ein recherchiertes und ausgewähltes Lernsystem, um den Wissenstand langfristig im Kopf zu behalten.
 
 
 \subsection{Lernstrategien und Fehleranalyse}
@@ -27,7 +44,38 @@ bzw. fallen zur gänze raus. Durch diese Anpassungen wird effizienter gelernt un
 Darüber hinaus unterstützt diese Funktion das selbstreflektierende Lernen. Die Nutzer:innen können nachvollziehen und selbst Muster erkennen, bei welchen Inhalten oder Fragen sie des öfteren 
 mal Schwierigkeiten haben. Dadurch können die User selbst sehen wo sie Probelme haben und besser ihre Personaliserten Fragenpools auswählen, diese können sie anschließend üben.
 
+Wie in \autoref{fig:statistik} gezeigt, gibt es unter der Hauptstatistik noch zwei Widgets. Die Streak-Anzeige und der Prüfungsdurschnitt.
+Bei der Streak-Anzeige wird jedesmal wenn der User die Anwendung benutzt ein Tag hinzugefügt, wenn er die App an einem Tag nicht nutzt wird die Streak zurückgesetzt.
+Dafür wird das Datum des letzten Logins mit dem aktuellen Datum verglichen, wenn mehr als 24 Stunden seit dem letzten Login vergangen sind wird die Streak zurückgesetzt.
+ So kann der/die Nutzer:in motiviert werden die App regelmäßig zu verwenden. Der Prüfungsdurchschnitt zeigt den Durchschnitt aller abgelegten Prüfungen an, dieser wird durch das Addieren aller erreichten Prozente geteilt durch die Anzahl der Prüfungen berechnet.
 
+
+
+\textbf{Prüfungsverlauf}
+
+
+
+Auf der Prüfungsverlaufansicht, wie in \autoref{fig:pruefungsverlauf} zu sehen ist, werden alle abgelegten Prüfungen des Nutzers angezeigt.
+Dafür werden alle Prüfungen aus dem Backend geholt und in einer Liste dargestellt. Jede Prüfung zeigt auf ersten Blick das Datum, die erreichten Prozente, das Fach und die Dauer an.Wenn man diese jedoch aufklappt kann der/die Nutzer:in jede Frage 
+zur jeweiligen Prüfung sehen, dort werden ebenfalls weitere Details aufgelistet. Welche Antworten man zuvor gegben hat und ob diese korrekt war, wie in \autoref{fig:pruefungsverlaufdetail} gezeigt.
+
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+      \includegraphics[width=0.7\textwidth]{prüfungsverlauf2.png}
+    }
+    \caption{Prüfungsverlaufansicht}
+    \label{fig:pruefungsverlauf}
+
+    \vspace{0.5cm}
+
+    \fbox{
+      \includegraphics[width=0.7\textwidth]{prüfungsverlauf1.png}
+    }
+    \caption{Prüfungsverlaufansicht Detail}
+    \label{fig:pruefungsverlaufdetail}
+\end{figure}
 
 
 \subsection{Spaced Repetition nach Leitner}
@@ -45,7 +93,16 @@ Die Grundlage für die Lernplattform bildet das Leitner-System in kombination mi
         Die Anzeige im Frontend dient dazu den 
 \end{enumerate}
 
-In Abbildung 4 Homecomponente bzw. die Umsetzung der Lernstrategien 
+\begin{figure}[H]
+    \centering
+    \fbox{
+      \includegraphics[width=0.7\textwidth]{Fortschritt.png}
+    }
+    \caption{Anzeige der Startseite}
+    \label{fig:FortschrittUsecase}
+\end{figure}
+
+In \autoref{fig:FortschrittUseCase}, die dieHomecomponente zeigt bzw. die Umsetzung der Lernstrategien 
 sieht man die verschiedenen "Level". Die Level sind nach dem Leitner-System aufgebaut, von denen es in diesem Fall vier gibt: Startlevel, Basislevel, Trainigslevel und Highscorelevel.
 
 Jede Frage wird durch QuestionPoolEntry abgebildet, diese speichert alle relevante Daten für die Fehleranalyse oder das Wiederholen.
@@ -77,3 +134,14 @@ Die einzelnen Level im Leitner-System werden als Progressbars visualisiert und m
 \subsection{Lernstatistiken und Visualisierung}
 \setauthor{\secondauthor}
 \textit{Erhebung und grafische Darstellung der Daten zur Nutzerleistung. Bibliotheken und Darstellungskonzepte.}
+
+\textbf{Visualisierung durch Chart.js}
+
+Die technische Umsetzung der Diagramme und Statistiken im Frontend erfolgt durch die Bibliothek Chart.js.
+Durch das Einbinden über die Bibliothek ng2-charts in Angular, können verschiedene Diagrammtypen einfach erstellt werden. 
+Die meisten Diagramme in der Lernplattform sind Dounutdiagramme. In den Statistiken werden die Daten aus dem Backend abgefragt und in die Diagramme übergeben.
+Mittels correctCount werden die Fragen in verschiedene Kategorien eingeteilt, wie oft eine Frage richtig beantwortet wurde. Durch Dtos werden die Daten vom Backend richtig formatiert und im Frontend weiterverarbeitet.
+Die Unterteilung erfolgt in die Kategorien: nie beantwortet, einmal richtig, zweimal richtig und dreimal oder öfter richtig beantwortet. Die Daten werden dann dem Dounutdiagramme übergeben, die Prozente werden für die akurate Anzeige berechnet und mit Farben visualisiert.
+
+Wie in \autoref{fig:statistik} zu sehen ist, befindet sich in der Mitte des Diagramms die Gesamtanzahl der Fragen, die der User bisher noch nicht beantwortet hat.
+Dies war jedoch keine Standardfunktion von Chart.js, sondern wurde individuell implementiert. Hierfür wurde ein Plugin erstellt, das einen Text im Zentrum des Diagramms rendert.

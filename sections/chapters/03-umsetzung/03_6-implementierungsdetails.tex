@@ -244,3 +244,48 @@ modulare Aufbau eine einfache Erweiterbarkeit für weitere Modi, ohne bestehende
 \subsection{Custom Css-Klassen und eingebundene Bibliotheken}
 \setauthor{\secondauthor}
 \textit{Css Klassen, welche öfter benutzt werden - Bibliotheken, wie Statistik dingens}
+
+\setauthor{\secondauthor}
+
+\textbf{Visualisierung von Statistiken mit Chart.js}
+
+Um den Lernfortschritt der Nutzer:innen übersichtlich und ansprechend darzustellen, wird im Frontend Chart.js verwendet.
+Grundsätzlich liefert die Bibliothek eine Vielzahl an Diagrammtypen, die individuell angepasst und befüllt werden können. 
+Zusätzlich ist Chart.js einen weit verbreitete Open-Source Bibliothek , die gut in das Angular Frontend intigrierbar ist. 
+In der Lernplattform werden hauptsächlich Dounut- und Balkendiagramme verwendet, um verschiedene Aspekte der Lernkurve aufzuzeigen(siehe \autoref{fig:statistik}).
+
+\textit{Dounutdiagramm von Chart.js}
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+      \includegraphics[width=0.7\textwidth]{chartjs.png}
+    }
+    \caption{Beispielhafte Implementierung von Chart.js}
+    \label{fig:chartjs}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Datenaktualisierung}:  
+        Sobald neue Daten eintreffen, muss das Diagramm aktualisiert werden. Dies geschieht durch die Methode update(), damit wird das Diagramm neu gerendert ohne das die gesamte Seite neu laden muss.
+    \item \textbf{Anpassung des Designs}:
+        Chart.js bietet umfangreiche Möglichkeiten zur Anpassung des Designs der Diagramme. Farben, Schriftarten und andere Stilelemente können so angepasst werden, dass sie zum Gesamtdesign der Anwendung passen.
+    \item \textbf{benutzerdefinierte Plugins}
+        Für spezielle Anforderungen können benutzerdefinierte Plugins erstellt werden, um zusätzliche Funktionalitäten zu implementieren, die nicht standardmäßig in Chart.js enthalten sind.
+   \end{itemize}
+
+\textbf{Css-Klassen}
+
+Die Anwendung verwendet wiederverwendbare CSS-Klassen, um ein konsistentes Design und Layout zu gewährleisten.
+Diese Klassen sind in einer geteilten CSS-Datei definiert und können in verschiedenen Komponenten der Anwendung verwendet werden.
+Das vereinfacht die zusammenarbeit im Team und sorgt für ein einheitliches Erscheinungsbild der Anwendung, ebenfalls wird der Wartungsaufwand und die Redundanz im Code reduziert.
+Beispiele für häufig verwendete CSS-Klassen sind: 
+
+\begin{itemize}
+    \item \textbf{.widget-wrapper}: 
+    Definiert den Grundcontainer für den Widget-Style der Anwendung und sorgt für ein einheitliches Layout.
+    \item \textbf{.header }:
+    Fügt, falls benötigt, einen Header-Bereich mit der primären Farbe hinzu.
+    \item \textbf{button.submit-btn}:
+    Stellt einen standartisierten Button-Still für Interaktionen bereit, wie Beispielsweise bei dem Übungsaufgaben.
+\end{itemize}

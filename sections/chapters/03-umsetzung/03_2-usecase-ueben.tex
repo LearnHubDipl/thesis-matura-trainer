@@ -31,6 +31,51 @@ auf Tests, Schularbeiten oder die Matura.
 \setauthor{\secondauthor}
 \textit{Auswahl eigener Fragen, Erstellung von individuellen Pools, Backend- und Frontend-Umsetzung.}
 
+Die Verwaltung von Fragenpools ist eine zentrale Funktion der Lernplattform, die es
+Nutzer:innen ermöglicht, ihre Lerninhalte individuell zu gestalten und gezielt zu üben. Hier spielt die 
+"Fragen browsen" View, wie in \autoref{fig:fragen-browsen} gezeigt, eine wichtige Rolle, da diese den Nutzer:innen erlaubt, ihre individuellen selektierten Fragen gesammelt zu verwalten, und somit 
+genügend Raum für gezieltes lernen bietet. 
+
+\vspace{1cm}
+\textbf{User-Interface der Fragenpool-Verwaltung}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{fragenBrowsen.png}
+    \caption{Ansicht der Verwaltung des Fragenpools}
+    \label{fig:fragen-browsen}
+\end{figure}
+
+Das Interface der Fragenpool-Verwaltung ist so gestaltet, dass Nutzer:innen schnell und intuitiv
+auf ihre gespeicherten Fragen zugreifen können. Die Ansicht ist in 2 Bereiche unterteilt - auf der linken Seite 
+befindet sich eine Seitenleiste die als Navigation zwischen den Fragen dient, während der Hauptbereich die passenden Fragen zum gewählten Thema anzeigt.
+Auf dem Hauptbereich kann man ebenfalls zwischen "ist bereits in Fragenpool" und alle auswählen, dadurch haben die Nutzer:innen den optimalen Überblick.
+Die Fragen können jederzeit hinzugefügt oder entfernt werden, indem man entsprchende Buttons wie "alle auswählen"
+oder den Stern neben der Frage verwendet.
+Jede Frage wird in einer kompakten Kartenansicht dargestellt, die wesentliche Informationen wie die Fragestellung, dazugehörende Bilder und die Möglichkeit genau diese Fragen direkt zu üben enthält.
+
+\vspace{1cm}
+\textbf{Datenfluss in der Fragenpool-Verwaltung} 
+
+Der Zentrale Teil der Fragenpool-Verwaltung ist die Interaktion mit dem Backend, um die Fragen zu speichern, abzurufen und in Fächern und Themen zu filtern.
+
+\textbf{Navigation} 
+
+Sobald der/die Nutzer:in die Fragenpool-Verwaltung öffnet, sendet das Frontend eine Anfrage an das Backend, um den Gesamtkatalog der verfügbaren Fächer und Themen abzurufen. 
+Diese Fächer und Themen werden in der Seitenleiste angezeigt, sodass der/die Nutzer:in schnell zwischen verschiedenen Themen, 
+die dann parallel in der Hauptansicht gezeigt werden, wechseln kann. 
+
+
+\textbf{Fragen abrufen/Anzeige in Hauptansicht}
+
+Beim Laden der Fragenpool-Verwaltung sendet das Frontend eine Anfrage an das Backend, um die Liste der Fragen abzurufen, die der/die Nutzer:in zuvor in seinen/ihren Fragenpool aufgenommen hat. 
+Diese Fragen werden dann in ein lokales Array gespeichert und dient somit als Referenz für die Anzeige der bereits ausgewählten Fragen. Die Fragen die schon im Fragenpool sind, werden visuell mittels ausgefüllten Sternsymbol hervorgehoben (siehe \autoref{fig:fragen-browsen}).
+Zusätzlich kann der/die Nutzer:in zwischen zwei Modi wählen.
+- Der Browse-Modus zeigt alle verfügbaren Fragen im gesamten Katalog an
+- Der Pool-Modus zeigt nur die Fragen die bereits im eigenen Fragenpool enthalten sind.
+Das Backend antwortet mit einer strukturierten Liste von Frageobjekten, die alle notwendigen Informationen für die Anzeige im Frontend enthalten.
+
+
 
 % =============
 % 3.2.2 Fragenhandling und Fragetypen
@@ -306,3 +351,4 @@ diesen gelangt man zurück zur vorherigen Ansicht, also der Fortschrittsübersic
 \label{chap:solutions}
 \setauthor{\secondauthor}
 \textit{Einsehen von Lösungswegen, Feedbackmechanismen}
+

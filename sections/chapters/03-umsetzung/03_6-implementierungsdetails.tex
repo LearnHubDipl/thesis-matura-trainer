@@ -162,7 +162,85 @@ ihre Antworten werden erfasst und persisitiert und eine nachträgliche Auswertun
 % 3.6.2 Überblick über Komponenten
 % ========================
 \subsection{Überblick über Komponenten}
-\textit{Question Runner - wird fast überall benutzt}
+\setauthor{\firstauthor}
 
+
+% ========================
+% 3.6.2.1 Backend
+% ========================
+\subsubsection{Backend / API}
+Das auf Quarkus basierende Backend stellt über REST-Endpunkte die zentrale Schnittstelle für das Frontend bereit. Dabei werden alle Daten
+über JSON-Format übertragen, wobei klassische HTTP-Methoden wie \textit{GET} und \textit{POST} verwendet werden.
+
+Die Kernaufgaben des Backends umfassen:
+
+\begin{itemize}
+  \item \textbf{Fragenmanagement:} \\
+  Laden von Fragen, Abrufen von Antwortoptionen und Speichern der Nutzerantworten. Die Logik zur Bewertung der Antworten wird durch Services 
+  wie \textit{AnswerService} umgesetzt. 
+
+  \item \textbf{Prüfungslogik:} \\
+  Erstellung und Verwaltung von Prüfungen über den \textit{ExamService}. Dieser Service wählt Fragen aus den individuellen Fragenpools aus, 
+  setzt Zeitlimits und berechnet den Endpunktestand. Auch Funktionen wie das Kopieren bereits abgeschlossener Prüfungen werden hier ermöglicht.
+
+  \item \textbf{Fortschritts- und Statistikfunktionen:} \\
+  Der \textit{StatsService} liefert alle Daten für die Fortschritts- und Statistikübersichten im Frontend. Dazu gehören globale Statistiken, 
+  Fortschritte in einzelnen Themenbereichen sowie die Umsetzung der Sperrlogik für Übungsfragen, um Wiederholungen strukturiert zu steuern.
+
+  \item \textbf{Kommunikation mit dem Frontend:} \\
+  Das Backend stellt alle relevanten Daten für den \textit{Question Runner}, die Fortschrittsübersicht und die Ergebnisanzeige der Prüfungen 
+  bereit. Eingehende Antworten werden validiert, ausgewertet und in der Datenbank persistiert.
+
+  \item \textbf{Datenzugriff:} \\
+  Services greifen auf die Daten über dedizierte Repository-Klassen (wie zum Beispiel \textit{QuestionRepository} oder \textit{ExamRepository}) 
+  zu. Das führt zu einer klaren Trennung zwischen Geschäftslogik und Datenzugriff.
+\end{itemize}
+
+Das Backend ist unter anderem für besondere Funktionen, wie die Wiederholungslogik für Übungsfragen, die Sicherstellung der Prüfungskonsistenz 
+sowie die Kopie von abgeschlossenen Prüfungen, verantwortlich. Dzadurch bleibt die Trennung zwischen Übungs- und Prüfungsmodus sauber erhalten
+und im Frontend kann die Darstellung vollständig im Fokus stehen.
+
+\begin{figure}[H]
+  \centering
+  \fbox{
+    \includegraphics[width=0.9\textwidth]{component-diagramme-backend.png}
+  }
+  \caption{Komponentendiagramm des Backends}
+\end{figure}
+
+
+% ========================
+% 3.6.2.2 Frontend
+% ========================
+\subsubsection{Frontend-Komponenten}
+Das Frontend der Anwendung ist sowohl für die Darstellung der Inhalte als auch für die Interaktion der Nutzer:innen mit dem Übungs- und 
+Prüfungsmodus verantwortlich. Dabei ist eine klare Struktur und Wiederverwendung zentraler Komponenten Grundlage für die Gewährleistung 
+von konsistenten Nutzererlebnissen über alle Modi hinweg.
+
+Eine zentrale Rolle nimmt dafür der \textbf{Question Runner} ein. Diese Komponente wird sowohl im Übungs-, Prüfungs- als auch im Reviewmodus
+verwendet und ist für die Darstellung einzelner Fragen, der zugehörigen Antwortmöglichkeiten sowie der Navigation zwischen Fragen 
+verantwortlich. Je nachdem, welcher Modus aktiv ist, verändert sich dabei das Verhalten der Komponente, in Bezug auf Feedback, 
+Darstellung des Zeitlimits oder Bearbeitbarkeit von Antworten, während die grundlegende Oberfläche unverändert bleibt.
+
+\begin{figure}[H]
+  \centering
+  \fbox{
+    \includegraphics[width=0.7\textwidth]{component-diagramme-frontend.png}
+  }
+  \caption{Komponentendiagramm des Frontends}
+\end{figure}
+
+In die jeweiligen Modi kann über eigene Views eingestiegen werden, wie etwa die Fortschrittsübersicht im Übungsmodus oder die Prüfungskonfiguration
+im Prüfungsmodus. Diese Komponenten sind vor allem für die Auswahl von Themenbereichen und den Start eines Durchlaufs zuständig und übergeben
+lediglich die notwendigen Parameter an den Question Runner.
+
+Diese Aufteilung gewährleistet eine klare Trennung zwischen Darstellungslogik und fachlicher Logik. Zur gleichen Zeit ermöglicht dieser 
+modulare Aufbau eine einfache Erweiterbarkeit für weitere Modi, ohne bestehende Komponenten grundlegend anpassen zu müssen.
+
+
+% ========================
+% 3.6.3 Custom Css-Klassen und eingebundene Bibliotheken
+% ========================
 \subsection{Custom Css-Klassen und eingebundene Bibliotheken}
+\setauthor{\secondauthor}
 \textit{Css Klassen, welche öfter benutzt werden - Bibliotheken, wie Statistik dingens}

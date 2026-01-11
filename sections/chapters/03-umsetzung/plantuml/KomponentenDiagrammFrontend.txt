@@ -1,0 +1,25 @@
+@startuml
+title Frontend-Komponentenübersicht
+
+package "Frontend" {
+  component "Fortschrittsübersicht\n(Übungsstart)" as ProgressView
+  component "Prüfungskonfiguration" as ExamConfig
+  component "Statistik-Ansicht" as ReviewView
+  component "Question Runner\n(Zentrale UI-Komponente)" as QuestionRunner
+}
+
+package "Backend" {
+  component "REST API" as API
+}
+
+' =====================
+' Relationen
+' =====================
+
+ProgressView --> QuestionRunner : startet Übungsmodus
+ExamConfig   --> QuestionRunner : startet Prüfungsmodus
+ReviewView   --> QuestionRunner : Reviewmodus
+
+QuestionRunner --> API : Fragen laden\nAntworten speichern\nAuswertung abrufen
+
+@enduml

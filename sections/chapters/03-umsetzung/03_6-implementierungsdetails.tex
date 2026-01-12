@@ -241,51 +241,91 @@ modulare Aufbau eine einfache Erweiterbarkeit für weitere Modi, ohne bestehende
 % ========================
 % 3.6.3 Custom Css-Klassen und eingebundene Bibliotheken
 % ========================
-\subsection{Custom Css-Klassen und eingebundene Bibliotheken}
-\setauthor{\secondauthor}
-\textit{Css Klassen, welche öfter benutzt werden - Bibliotheken, wie Statistik dingens}
-
+\subsection{Custom CSS-Klassen und eingebundene Bibliotheken}
 \setauthor{\secondauthor}
 
-\textbf{Visualisierung von Statistiken mit Chart.js}
+Die Implementierung der Lernplattform erfordert sowohl die Integration externer Bibliotheken zur Datenvisualisierung als auch die Entwicklung wiederverwendbarer CSS-Komponenten. Diese Kombination gewährleistet eine effiziente Entwicklung bei gleichzeitig konsistentem Erscheinungsbild der Anwendung.
 
-Um den Lernfortschritt der Nutzer:innen übersichtlich und ansprechend darzustellen, wird im Frontend Chart.js verwendet.
-Grundsätzlich liefert die Bibliothek eine Vielzahl an Diagrammtypen, die individuell angepasst und befüllt werden können. 
-Zusätzlich ist Chart.js einen weit verbreitete Open-Source Bibliothek , die gut in das Angular Frontend intigrierbar ist. 
-In der Lernplattform werden hauptsächlich Dounut- und Balkendiagramme verwendet, um verschiedene Aspekte der Lernkurve aufzuzeigen(siehe \autoref{fig:statistik}).
+\setauthor{\secondauthor}
 
-\textit{Dounutdiagramm von Chart.js}
+\subsubsection{Visualisierung von Statistiken mit Chart.js}
+
+Um den Lernfortschritt der Nutzer:innen übersichtlich und ansprechend darzustellen, wird im Frontend die JavaScript-Bibliothek Chart.js verwendet. Diese Open-Source-Lösung hat sich als Industriestandard für webbasierte Datenvisualisierungen etabliert und bietet eine Vielzahl an Diagrammtypen, die individuell angepasst und mit dynamischen Daten befüllt werden können.
+
+Die Wahl von Chart.js begründet sich durch mehrere technische und praktische Vorteile: Die Bibliothek ist weit verbreitet, gut dokumentiert und lässt sich nahtlos in das Angular-Framework integrieren. Zudem bietet sie eine reaktive API, die eine einfache Aktualisierung von Diagrammen bei Datenänderungen ermöglicht. In der entwickelten Lernplattform werden hauptsächlich Donut- und Balkendiagramme verwendet, um verschiedene Aspekte der Lernkurve aufzuzeigen (siehe \autoref{fig:statistik}).
+
+\textbf{Implementierung von Donutdiagrammen}
+
+Donutdiagramme eignen sich besonders zur Darstellung prozentualer Verteilungen, beispielsweise des Bearbeitungsstatus von Lernkarten oder der Verteilung von Fachgebieten im Lernfortschritt. Die ringförmige Darstellung mit zentralem Freiraum ermöglicht zusätzlich die Platzierung von Gesamtstatistiken oder Schlüsselkennzahlen im Zentrum des Diagramms.
 
 \begin{figure}[H]
     \centering
     \fbox{
       \includegraphics[width=0.7\textwidth]{chartjs.png}
     }
-    \caption{Beispielhafte Implementierung von Chart.js}
+    \caption{Beispielhafte Implementierung von Chart.js zur Visualisierung des Lernfortschritts}
     \label{fig:chartjs}
 \end{figure}
 
+\textbf{Technische Aspekte der Chart.js-Integration}
+
 \begin{itemize}
     \item \textbf{Datenaktualisierung}:  
-        Sobald neue Daten eintreffen, muss das Diagramm aktualisiert werden. Dies geschieht durch die Methode update(), damit wird das Diagramm neu gerendert ohne das die gesamte Seite neu laden muss.
+        Die dynamische Natur der Lernplattform erfordert häufige Aktualisierungen der Diagramme, wenn neue Lerndaten generiert werden. Chart.js stellt hierfür die Methode \texttt{update()} bereit, welche eine effiziente Neuberechnung und Neudarstellung des Diagramms ermöglicht, ohne dass die gesamte Seite neu geladen werden muss. Dies verbessert die User Experience erheblich, da Übergänge flüssig animiert werden und der Anwendungszustand erhalten bleibt.
+        
+        Bei der Implementierung wird darauf geachtet, dass nur die tatsächlich geänderten Datenpunkte aktualisiert werden, was die Performance bei größeren Datensätzen optimiert. Die Bibliothek übernimmt dabei automatisch die Interpolation zwischen alten und neuen Werten und erzeugt so eine visuell ansprechende Übergangsanimation.
+        
     \item \textbf{Anpassung des Designs}:
-        Chart.js bietet umfangreiche Möglichkeiten zur Anpassung des Designs der Diagramme. Farben, Schriftarten und andere Stilelemente können so angepasst werden, dass sie zum Gesamtdesign der Anwendung passen.
-    \item \textbf{benutzerdefinierte Plugins}
-        Für spezielle Anforderungen können benutzerdefinierte Plugins erstellt werden, um zusätzliche Funktionalitäten zu implementieren, die nicht standardmäßig in Chart.js enthalten sind.
-   \end{itemize}
+        Chart.js bietet umfangreiche Möglichkeiten zur Anpassung des visuellen Designs der Diagramme. Farben, Schriftarten, Abstände und andere Stilelemente können so konfiguriert werden, dass sie zum Gesamtdesign der Anwendung passen und ein kohärentes Erscheinungsbild gewährleisten. 
+        
+        In der Lernplattform werden die Farben der Diagramme an das definierte Farbschema der Anwendung angepasst, wobei unterschiedliche Lernstatus durch verschiedene Farbtöne repräsentiert werden. Beispielsweise werden erfolgreich absolvierte Lerneinheiten in Grüntönen, noch zu bearbeitende Inhalte in neutralen Grautönen und fehlerhafte Versuche in Rottönen dargestellt. Diese konsistente Farbkodierung unterstützt die intuitive Erfassung des Lernstatus.
+        
+    \item \textbf{Benutzerdefinierte Plugins}:
+        Für spezielle Anforderungen, die über die Standardfunktionalität von Chart.js hinausgehen, können benutzerdefinierte Plugins entwickelt werden. Diese ermöglichen die Implementierung zusätzlicher Funktionalitäten, wie beispielsweise:
+        \begin{itemize}
+            \item Anzeige von benutzerdefinierten Tooltips mit erweiterten Informationen beim Hovern über Datenpunkte
+            \item Integration von Schwellwertlinien zur Markierung von Lernzielen oder Mindestanforderungen
+            \item Implementierung von Exportfunktionen zur Speicherung von Diagrammen als Bilddateien
+            \item Hinzufügen von interaktiven Legenden mit erweiterten Filterfunktionen
+        \end{itemize}
+        Die Plugin-Architektur von Chart.js ist so konzipiert, dass eigene Erweiterungen nahtlos in den Rendering-Prozess integriert werden können, ohne die Kernfunktionalität der Bibliothek zu beeinträchtigen.
+\end{itemize}
 
-\textbf{Css-Klassen}
+\subsubsection{Wiederverwendbare CSS-Klassen}
 
-Die Anwendung verwendet wiederverwendbare CSS-Klassen, um ein konsistentes Design und Layout zu gewährleisten.
-Diese Klassen sind in einer geteilten CSS-Datei definiert und können in verschiedenen Komponenten der Anwendung verwendet werden.
-Das vereinfacht die zusammenarbeit im Team und sorgt für ein einheitliches Erscheinungsbild der Anwendung, ebenfalls wird der Wartungsaufwand und die Redundanz im Code reduziert.
-Beispiele für häufig verwendete CSS-Klassen sind: 
+Die Anwendung nutzt ein System wiederverwendbarer CSS-Klassen, um ein konsistentes Design und Layout über alle Komponenten hinweg zu gewährleisten. Diese Klassen sind in einer zentralen, geteilten CSS-Datei definiert und können komponentenübergreifend verwendet werden. Dieser Ansatz folgt dem DRY-Prinzip (Don't Repeat Yourself) und bringt mehrere Vorteile mit sich:
+
+\begin{itemize}
+    \item \textbf{Konsistenz}: Ein einheitliches Erscheinungsbild der Anwendung wird durch die Verwendung derselben Stilklassen in verschiedenen Komponenten sichergestellt.
+    \item \textbf{Wartbarkeit}: Änderungen am Design müssen nur an einer zentralen Stelle vorgenommen werden und wirken sich automatisch auf alle verwendenden Komponenten aus.
+    \item \textbf{Teamarbeit}: Die gemeinsame CSS-Datei vereinfacht die Zusammenarbeit im Team, da alle Entwickler:innen auf denselben Stil-Definitionen aufbauen.
+    \item \textbf{Reduzierung von Redundanz}: Durch die Wiederverwendung werden doppelte Code-Definitionen vermieden, was die Dateigröße reduziert und die Ladezeit der Anwendung optimiert.
+\end{itemize}
+
+\textbf{Beispiele häufig verwendeter CSS-Klassen}
+
+Die folgenden Klassen bilden das Grundgerüst des visuellen Designs der Lernplattform:
 
 \begin{itemize}
     \item \textbf{.widget-wrapper}: 
-    Definiert den Grundcontainer für den Widget-Style der Anwendung und sorgt für ein einheitliches Layout.
-    \item \textbf{.header }:
-    Fügt, falls benötigt, einen Header-Bereich mit der primären Farbe hinzu.
+    Diese Klasse definiert den Grundcontainer für die Widget-Darstellung der Anwendung. Widgets sind modulare UI-Komponenten, die Informationen kompakt und übersichtlich präsentieren, wie beispielsweise Statistikkarten, Fortschrittsanzeigen oder Lernziel-Übersichten. 
+    
+    Die \texttt{.widget-wrapper}-Klasse sorgt für ein einheitliches Layout aller Widgets durch standardisierte Abstände, Padding-Werte, Border-Radius und Schatten-Effekte. Dies gewährleistet, dass verschiedene Widget-Typen visuell harmonieren und als zusammengehörige Elemente wahrgenommen werden. Zusätzlich implementiert die Klasse responsive Breakpoints, sodass Widgets auf verschiedenen Bildschirmgrößen optimal dargestellt werden.
+    
+    \item \textbf{.header}:
+    Die Header-Klasse fügt, wo benötigt, einen visuell hervorgehobenen Kopfbereich hinzu, der mit der primären Farbe des Anwendungsdesigns gestaltet ist. Diese Klasse wird typischerweise für Überschriften von Widgets, Sektionen oder modalen Dialogen verwendet.
+    
+    Die primäre Designfarbe schafft dabei eine klare visuelle Hierarchie, sodass Nutzer:innen wichtige Bereiche der Anwendung schnell erkennen können. Neben der Hintergrundfarbe legt die Klasse auch Textfarbe, Schriftgröße, Schriftgewicht und vertikale Abstände fest, damit alle Header-Elemente einheitlich dargestellt werden.
+    
     \item \textbf{button.submit-btn}:
-    Stellt einen standartisierten Button-Still für Interaktionen bereit, wie Beispielsweise bei dem Übungsaufgaben.
+    Diese Klasse stellt einen standardisierten Button-Stil für Interaktionen bereit und kommt vor allem bei Übungsaufgaben, Formular-Submissions und anderen Bestätigungsaktionen zum Einsatz. 
+    
+    Der \texttt{.submit-btn} zeigt visuelles Feedback für unterschiedliche Zustände: normale Darstellung, Hover-Effekt, aktiver Zustand beim Klicken und deaktivierter Zustand. Nutzer:innen können dadurch schnell erkennen, welche Schaltflächen primäre Aktionen auslösen. Übergänge und Animationen sorgen dafür, dass Interaktionen flüssiger wirken.
+    
+    Die Button-Klasse berücksichtigt auch Accessibility-Aspekte wie ausreichende Größe für Touch-Bedienung, gute Farbkontraste und sichtbare Fokus-Indikatoren bei Tastatur-Navigation.
 \end{itemize}
+
+\textbf{CSS-Architektur und Best Practices}
+
+Die CSS-Klassen sind modular strukturiert und unterscheiden zwischen globalen Basisklassen, komponentenspezifischen Stilen und Utility-Klassen. So lassen sich einzelne Komponenten flexibel anpassen, ohne dass globale Stile beeinflusst werden. Außerdem treten dadurch weniger Spezifität-Konflikte auf, was die Wartbarkeit des Codes verbessert.
+

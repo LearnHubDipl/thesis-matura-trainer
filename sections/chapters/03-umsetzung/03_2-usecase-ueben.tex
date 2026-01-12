@@ -22,22 +22,19 @@ Durch diese wiederholbare und flexible Übungsumgebung eignet sich die Anwendung
 für den schnellen Gebrauch als Wissenscheck als auch für die langfristige Vorbereitung
 auf Tests, Schularbeiten oder die Matura.
 
-
 % =============
 % 3.2.1 Verwaltung von Fragenpools
 % =============
 \subsection{Verwaltung von Fragenpools}
 \label{chap:fragenpools}
 \setauthor{\secondauthor}
-\textit{Auswahl eigener Fragen, Erstellung von individuellen Pools, Backend- und Frontend-Umsetzung.}
 
 Die Verwaltung von Fragenpools ist eine zentrale Funktion der Lernplattform, die es
 Nutzer:innen ermöglicht, ihre Lerninhalte individuell zu gestalten und gezielt zu üben. Hier spielt die 
-"Fragen browsen" View, wie in \autoref{fig:fragen-browsen} gezeigt, eine wichtige Rolle, da diese den Nutzer:innen erlaubt, ihre individuellen selektierten Fragen gesammelt zu verwalten, und somit 
-genügend Raum für gezieltes lernen bietet. 
+"Fragen browsen"-Ansicht, wie in \autoref{fig:fragen-browsen} gezeigt, eine wichtige Rolle, da diese den Nutzer:innen erlaubt, ihre individuell selektierten Fragen gesammelt zu verwalten, und somit 
+genügend Raum für gezieltes Lernen bietet. 
 
-\vspace{1cm}
-\textbf{User-Interface der Fragenpool-Verwaltung}
+\subsubsection{User-Interface der Fragenpool-Verwaltung}
 
 \begin{figure}[H]
     \centering
@@ -47,34 +44,77 @@ genügend Raum für gezieltes lernen bietet.
 \end{figure}
 
 Das Interface der Fragenpool-Verwaltung ist so gestaltet, dass Nutzer:innen schnell und intuitiv
-auf ihre gespeicherten Fragen zugreifen können. Die Ansicht ist in 2 Bereiche unterteilt - auf der linken Seite 
-befindet sich eine Seitenleiste die als Navigation zwischen den Fragen dient, während der Hauptbereich die passenden Fragen zum gewählten Thema anzeigt.
-Auf dem Hauptbereich kann man ebenfalls zwischen "ist bereits in Fragenpool" und alle auswählen, dadurch haben die Nutzer:innen den optimalen Überblick.
-Die Fragen können jederzeit hinzugefügt oder entfernt werden, indem man entsprchende Buttons wie "alle auswählen"
-oder den Stern neben der Frage verwendet.
-Jede Frage wird in einer kompakten Kartenansicht dargestellt, die wesentliche Informationen wie die Fragestellung, dazugehörende Bilder und die Möglichkeit genau diese Fragen direkt zu üben enthält.
+auf ihre gespeicherten Fragen zugreifen können. Die Ansicht ist in zwei Bereiche unterteilt: Auf der linken Seite 
+befindet sich eine Seitenleiste, die als Navigation zwischen den Fragen dient, während der Hauptbereich die passenden Fragen zum gewählten Thema anzeigt.
 
-\vspace{1cm}
-\textbf{Datenfluss in der Fragenpool-Verwaltung} 
+Im Hauptbereich kann zwischen "ist bereits in Fragenpool" und "alle" gewählt werden, wodurch die Nutzer:innen den optimalen Überblick behalten.
+Die Fragen können jederzeit hinzugefügt oder entfernt werden, indem entsprechende Buttons wie "alle auswählen"
+oder das Sternsymbol neben der einzelnen Frage verwendet werden.
 
-Der Zentrale Teil der Fragenpool-Verwaltung ist die Interaktion mit dem Backend, um die Fragen zu speichern, abzurufen und in Fächern und Themen zu filtern.
+Jede Frage wird in einer kompakten Kartenansicht dargestellt, die wesentliche Informationen wie die Fragestellung, dazugehörige Bilder und die Möglichkeit enthält, genau diese Frage direkt zu üben.
 
-\textbf{Navigation} 
+\subsubsection{Datenfluss in der Fragenpool-Verwaltung}
+
+Der zentrale Teil der Fragenpool-Verwaltung ist die Interaktion mit dem Backend, um Fragen zu speichern, abzurufen und nach Fächern und Themen zu filtern.
+
+\textbf{Navigation und Themenkatalog}
 
 Sobald der/die Nutzer:in die Fragenpool-Verwaltung öffnet, sendet das Frontend eine Anfrage an das Backend, um den Gesamtkatalog der verfügbaren Fächer und Themen abzurufen. 
-Diese Fächer und Themen werden in der Seitenleiste angezeigt, sodass der/die Nutzer:in schnell zwischen verschiedenen Themen, 
-die dann parallel in der Hauptansicht gezeigt werden, wechseln kann. 
+Diese Fächer und Themen werden in der Seitenleiste angezeigt, sodass der/die Nutzer:in schnell zwischen verschiedenen Themen wechseln kann, 
+die dann parallel in der Hauptansicht dargestellt werden.
 
+Die Struktur der Daten ist hierarchisch aufgebaut: Ein Subject (Fach) enthält mehrere TopicPools (Themenpools), die wiederum verschiedene Questions (Fragen) beinhalten. Diese Hierarchie wird im Frontend in verschachtelten Dropdowns dargestellt, wobei der Zustand jedes Dropdowns (geöffnet/geschlossen) in einem Objekt gespeichert wird, das die jeweiligen IDs als Schlüssel verwendet.
 
-\textbf{Fragen abrufen/Anzeige in Hauptansicht}
+\textbf{Fragen abrufen und Anzeige in der Hauptansicht}
 
 Beim Laden der Fragenpool-Verwaltung sendet das Frontend eine Anfrage an das Backend, um die Liste der Fragen abzurufen, die der/die Nutzer:in zuvor in seinen/ihren Fragenpool aufgenommen hat. 
-Diese Fragen werden dann in ein lokales Array gespeichert und dient somit als Referenz für die Anzeige der bereits ausgewählten Fragen. Die Fragen die schon im Fragenpool sind, werden visuell mittels ausgefüllten Sternsymbol hervorgehoben (siehe \autoref{fig:fragen-browsen}).
-Zusätzlich kann der/die Nutzer:in zwischen zwei Modi wählen.
-- Der Browse-Modus zeigt alle verfügbaren Fragen im gesamten Katalog an
-- Der Pool-Modus zeigt nur die Fragen die bereits im eigenen Fragenpool enthalten sind.
-Das Backend antwortet mit einer strukturierten Liste von Frageobjekten, die alle notwendigen Informationen für die Anzeige im Frontend enthalten.
+Diese Fragen werden in einem lokalen Array gespeichert und dienen somit als Referenz für die Anzeige der bereits ausgewählten Fragen. Die Fragen, die schon im Fragenpool sind, werden visuell mittels ausgefülltem Sternsymbol hervorgehoben (siehe \autoref{fig:fragen-browsen}).
 
+Zusätzlich kann der/die Nutzer:in zwischen zwei Modi wählen:
+\begin{itemize}
+    \item \textbf{Browse-Modus}: Zeigt alle verfügbaren Fragen im gesamten Katalog an.
+    \item \textbf{Pool-Modus}: Zeigt nur die Fragen, die bereits im eigenen Fragenpool enthalten sind.
+\end{itemize}
+
+Das Backend antwortet mit einer strukturierten Liste von Frageobjekten, die alle notwendigen Informationen für die Anzeige im Frontend enthalten. Die Komponente verwendet eine berechnete Getter-Methode, die abhängig vom aktuellen Modus entweder die direkten Fragen (Browse-Modus) oder die aus den QuestionPoolEntry-Objekten extrahierten Fragen (Pool-Modus) zurückgibt. Diese Architektur ermöglicht es, dieselbe Komponente für beide Ansichten wiederzuverwenden.
+
+\textbf{Hinzufügen und Entfernen von Fragen}
+
+Wenn der/die Nutzer:in eine Frage zu seinem/ihrem persönlichen Pool hinzufügen möchte, wird durch das Klicken auf das Sternsymbol oder den "Alle auswählen"-Button eine Anfrage an das Backend gesendet. Das Backend speichert die Zuordnung zwischen Nutzer:in und Frage in der Datenbank und bestätigt die erfolgreiche Operation.
+
+Die Implementierung dieser Funktionalität folgt dem Prinzip des Optimistic UI Updates: Sobald der/die Nutzer:in auf das Sternsymbol klickt, wird die Anzeige sofort aktualisiert, ohne auf die Antwort des Backends zu warten. Die Frage-ID wird unmittelbar zum Array der ausgewählten Fragen hinzugefügt, wodurch das Sternsymbol seinen Zustand ändert. Parallel dazu läuft die Backend-Anfrage im Hintergrund. Diese Implementierung sorgt für eine flüssige Benutzererfahrung, da keine Ladezeiten wahrgenommen werden.
+
+Umgekehrt kann eine Frage durch erneutes Klicken auf das Sternsymbol aus dem Pool entfernt werden. Auch hier erfolgt eine sofortige Aktualisierung der UI, während die Backend-Anfrage asynchron verarbeitet wird. Das Backend löscht die entsprechende Zuordnung aus der Datenbank. Die Änderungen werden sofort im Frontend reflektiert, sodass die Nutzer:innen unmittelbares visuelles Feedback erhalten.
+
+Für die Mehrfachauswahl existiert ein spezieller Auswahlmodus, der über einen Button aktiviert werden kann. In diesem Modus ändert sich das Verhalten der Fragenkarten: Statt die Details einer Frage anzuzeigen, werden Fragen zur Auswahlliste hinzugefügt oder entfernt. Dies ermöglicht es, mehrere Fragen gleichzeitig auszuwählen und sie dann mit einer einzigen Backend-Anfrage zum Pool hinzuzufügen (Batch-Operation). Diese Funktionalität ist besonders nützlich, wenn Nutzer:innen ihren Pool initial mit vielen Fragen befüllen möchten.
+
+\textbf{Filterung und Suche}
+
+Die Fragenpool-Verwaltung unterstützt verschiedene Filteroptionen, um die Übersichtlichkeit bei großen Fragenkatalogen zu gewährleisten:
+\begin{itemize}
+    \item \textbf{Filterung nach Fach}: Über die Seitenleiste können Nutzer:innen gezielt Fragen eines bestimmten Faches anzeigen lassen.
+    \item \textbf{Filterung nach Thema}: Innerhalb eines Faches kann weiter nach spezifischen Themengebieten gefiltert werden.
+    \item \textbf{Pool-Status}: Die Ansicht kann auf bereits ausgewählte Fragen beschränkt oder auf alle verfügbaren Fragen erweitert werden.
+\end{itemize}
+
+Die Filterung nach Pool-Status erfolgt clientseitig ohne erneute Backend-Anfragen. Dafür wird eine Kopie aller geladenen Fragen in einem separaten Array gespeichert. Beim Aktivieren des Filters werden nur jene Fragen angezeigt, deren IDs im Array der ausgewählten Fragen enthalten sind. Beim Deaktivieren wird die vollständige Liste wiederhergestellt. Diese Implementierung minimiert die Netzwerklast und ermöglicht sofortige Filteränderungen ohne Wartezeit.
+
+Diese Filtermöglichkeiten erleichtern es den Nutzer:innen, gezielt die Fragen zu finden und zu üben, die für ihre aktuelle Lernphase relevant sind.
+
+\subsubsection{Technische Umsetzung}
+
+\textbf{Frontend-Architektur}
+
+Die zentrale Ansicht für den Fragenpool wird von der QuestionBrowsingViewComponent gesteuert. Sie hält den aktuellen Zustand der Ansicht und greift über Services auf das Backend zu. Diese Services kümmern sich um die Kommunikation mit dem Server und liefern sauber strukturierte Daten zurück.
+
+Der QuestionPoolService übernimmt dabei die wichtigsten Aufgaben rund um den Fragenpool: Er lädt alle Fragen eines Nutzers, zeigt Fragen zu bestimmten Themen an, fügt neue Fragen hinzu, entfernt bestehende und aktualisiert die Statistik.
+
+\textbf{Backend-Architektur}
+
+Wenn Fragen zum Fragenpool hinzugefügt werden, lädt das Backend zuerst den bestehenden Pool des Nutzers. Anschließend wird geprüft, ob eine Frage bereits vorhanden ist, um doppelte Einträge zu vermeiden. Nur neue Fragen werden dem Pool hinzugefügt.
+Die Verbindung zwischen Fragenpool und Frage erfolgt über ein eigenes Objekt, das zusätzliche Informationen speichert. Dazu gehört, wie oft eine Frage richtig beantwortet wurde und ob sie zuletzt korrekt gelöst wurde. Diese Daten sind später wichtig für Statistiken und ein angepasstes Lernverhalten.
+Alle Änderungen an der Datenbank laufen abgesichert ab: Entweder wird alles korrekt gespeichert oder bei einem Fehler vollständig zurückgesetzt. So bleiben die Daten immer konsistent.
+Die Struktur der Fächer und Themen ist klar hierarchisch aufgebaut: Ein Fach enthält mehrere Themenpools, und jeder Themenpool besteht aus mehreren Fragen. Diese Struktur wird direkt in der Benutzeroberfläche dargestellt und erleichtert die Navigation.
 
 
 % =============

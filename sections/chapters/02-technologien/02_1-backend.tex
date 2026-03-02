@@ -51,8 +51,6 @@ Folgende Punkte wurden dabei kritisch untersucht:
 \subsubsection{Spring Boot – Die Evolution des Java-Enterprise-Standards}
 \setauthor{\firstauthor}
 
-% TODO Hier fehlt mir noch das Spring Framework an sich und die Entwicklungszeit aus Sicht der Entwickler und generell nochmal anschauen ob die Kriterien, auf die evaluiert wird, nun beschrieben wurden.
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.45\textwidth]{Springboot-logo.png}
@@ -60,7 +58,7 @@ Folgende Punkte wurden dabei kritisch untersucht:
 \end{figure}
 
 \textbf{Historischer Kontext} \\
-Spring Boot wurde 2014 veröffentlicht und hatte als Ziel, die massive Komplexität der damaligen Java-Enterprise-Entwicklung (J2EE/Jakarta EE) zu lösen. Zuvor verbrachten Entwickler einen erheblichen Teil ihrer Zeit mit der Konfiguration von XML-Dateien, wobei man hunderte Zeilen XML-Code schreiben musste, um einfache Datenbankverbindungen zu realisieren. Das wurde schnell zu einer redundanten Arbeit und bekannt als  \textit{,,Configuration-Hell''}, da man Fehler oft unglaublich schwer finden und ausbessern konnte. Mit Spring Boot mussten die Entwickler:innen nicht mehr wissen, wie ein Webserver startet, sie mussten ihn nur noch benutzen. \cite{MediumEvolutionOfSpringBoot}
+Spring Boot wurde 2014 veröffentlicht und hatte als Ziel, die massive Komplexität der damaligen Java-Enterprise-Entwicklung (J2EE/Jakarta EE) zu lösen. Zuvor verbrachten Entwickler einen erheblichen Teil ihrer Zeit mit der Konfiguration von XML-Dateien, wobei man hunderte Zeilen XML-Code schreiben musste, um einfache Datenbankverbindungen zu realisieren. Das wurde schnell zu einer redundanten Arbeit und bekannt als  \textit{,,Configuration-Hell''}, da man Fehler oft unglaublich schwer finden und ausbessern konnte. Mit Spring Boot mussten die Entwickler:innen nicht mehr wissen, wie ein Webserver startet, sie mussten ihn nur noch benutzen. Es basiert dabei auf dem bewährten Spring Framework und nutzt dessen \textit{Inversion of Control} Container, um die Abhängigkeiten der Anwendung zu verwalten. \cite{MediumEvolutionOfSpringBoot} \cite{InnoQAnnotations}
 
 \vspace{0.7cm}
 \textbf{Technologischer Durchbruch: Convention over Configuration} \\
@@ -69,7 +67,7 @@ Entscheidend für den technologischen Durchbruch war das Prinzip ,,Convention ov
 Das führte dazu, dass Unternehmen wie Netflix, Uber oder Zalando Spring Boot als Basis für ihre Microservice-Architekturen wählten. 
 
 \vspace{0.7cm}
-\textbf{Probleme aus heutiger Sicht} \\
+\textbf{Ineffizienz in modernen Container-Umgebungen} \cite{MediumQuarkusVsSpringBoot} \\
 Obwohl Spring Boot die Entwicklung um ein Vielfaches beschleunigt hat, kommt es in modernen, containerisierten und ressourcenbeschränkten Umgebungen zu einer messbaren Ineffizienz. Das Kernproblem liegt in der hohen Dynamik des Startvorgangs. Während moderne Cloud-Native-Ansätze versuchen, so viel Wissen und Entscheidungen wie möglich in die Kompilierzeit zu verlagern, trifft Spring Boot fast alle architektonischen Entscheidungen erst zur Laufzeit.
 
 Sobald der \texttt{main}-Befehl ausgeführt wird, startet das Framework eine Kette von ressourcenintensiven Operationen:
@@ -84,9 +82,34 @@ Sobald der \texttt{main}-Befehl ausgeführt wird, startet das Framework eine Ket
 	Um essentielle Funktionen wie das Transaktionsmanagement zu ermöglichen, erzeugt Spring Boot zur Laufzeit mittels Reflection künstliche Stellvertreter-Klassen, auch \textit{Proxies} genannt. Das ist nicht nur CPU-intensiv, sondern belegt auch im Arbeitsspeicher permanent Platz. Dies erklärt auch den hohen Memory-Footprint, der bereits im Leerlauf der Anwendung vorhanden ist. (ca. 250-400 MB).
 \end{enumerate}
 
+
+\vspace{0.7cm}
+\textbf{Datenverwaltung und Entwicklerproduktivität im Projektkontext} \\
+Für den Erfolg der Lernplattform ist allerdings nicht nur die rein technische Laufzeitperformance ausschlaggebend, sondern auch die Effizienz während der Implementierungsphase. Spring Boot ist Teil des Spring-Ökosystems, und dieses bietet mit \textit{Spring Data JPA} eine der ausgereiftesten Abstraktionen für den Datenbankzugriff. Komplexe Relationen lassen sich durch dieses Object-Relational-Mapping sehr stabil modellieren. Dies stellt einen wesentlichen Vorteil für die Datenintegrität dar, da die Geschäftslogik schon durch die strikte Typisierung von Java geschützt wird, bevor sie überhaupt die Persistenzschicht errreicht.
+
+Trotz dieser Erleichterungen erfolgt bei der praktischen Einrichtung der Infrastruktur ein deutlicher administrativer Aufwand. Dabei folgt Spring Boot einem sehr statischen Konfigurationsansatz über die zentrale Datei \texttt{application.properties}. Um das in einem konkreten Beispiel zu veranschaulichen: Das Framework kann zwar automatisch Objekte mit Tabellen verknüpfen, es kann allerdings nicht die benötigte Infrastruktur wie einen MySQL-Container selbständig verwalten. Daher muss jedes Teammitglied eine passende Datenbankumgebung starten und die Verbindungsparameter exakt denen in der Konfigurationsdatei angleichen.
+
+Natürlich lässt sich der manuelle Setup-Aufwand durch den Einsatz von \textit{Docker-Compose} standardisieren, indem die benötigte Datenbank-Infrastruktur in einer separaten Konfigurationsdatei definiert wird. Während der Entwicklung jedoch müssen die Zugangsdaten und Ports in der \texttt{docker-compose.yml} stets manuell mit jenen in \texttt{application.properties} synchronisiert werden. 
+
+Durch diese Redundanz zwischen Infrastruktur-Definition und Applikations-Konfiguration entsteht eine potenzielle Fehlerquelle. Da zwei Teams gleichzeitig am Code arbeiten, führen Änderungen an der Datenbankstruktur oder den Verbindungsparametern häufig zu ,,Connection-Refused''-Fehlern bei anderen Teammitgliedern, wenn bei diesen die lokale Umgebung nicht exakt synchronisiert wurde. Spring Boot bietet dafür keine native Integration, die den Lebenszyklus der Docker-Container während der Entwicklung steuert oder auf Strukturänderung im Code reagiert. \cite{InnoQAnnotations}
+
+\vspace{0.7cm}
+\textbf{Database Seeding via \texttt{import.sql}} \cite{BaeldungMultipleImports} \\
+Ein wesentliches Kriterium für das Entwickeln eines Backends im Zusammenhang mit einer Datenbank ist das \textit{Database Seeding}, also das automatisierte Befüllen der Datenbank mit Stammdaten wie Nutzerdaten und Themenbereiche. Spring Boot bietet hierfür primär den Mechanismus der \texttt{import.sql}. Beim Anwendungsstart liest das Framework diese Datei automatisch ein und führt deren SQL-Statements direkt gegen die Datenbank aus, sofern die Property \texttt{ddl-auto} auf \texttt{create} oder \texttt{create-drop} gesetzt ist. 
+
+In der praktischen Umsetzung für die Lernplattform offenbaren sich jedoch deutliche konzeptionelle Schwächen:
+\begin{itemize}
+	\item \textbf{Mangelnde Refactoring-Sicherheit:} Es besteht keine Kopplung zum Java-Quellcode, wodurch eine Umbenennung eines Attributs im Code nicht zu einem Compiler-Fehler im SQL-Skript führt. Der Fehler tritt also erst zur Laufzeit auf, was die Fehlersuche erschweren kann.
+	\item \textbf{Eingeschränkte Ausdrucksstärke:} Komplexe Anforderungen, wie das korrekte Hashen von Test-Passwörtern, sind über das SQL-Skript nicht möglich.
+	\item \textbf{Kopplung an den Schema-Lebenszyklus:} Die \texttt{import.sql} ist strikt an das Neuerstellen der Tabellen gebunden. Das bedeutet, dass bei jeder Änderung an den Testdaten die gesamte Datenbankstruktur gelöscht und neu aufgebaut werden muss. In Kombination mit den bereits beschriebenen langen Startzeiten von Spring Boot führt dies zu einem noch trägeeren Entwicklungszyklus, da kein inkrementelles Update der Daten möglich ist.
+\end{itemize}
+
+
+\vspace{0.7cm}
+\textbf{Fazit} \\
 Insgesamt zeigt sich also, dass die Flexibilität von Spring Boot durch einen hohen Preis erkauft wird. Das Framework benötigt einen signifikanten Teil des verfügbaren Arbeitsspeichers und der CPU-Zyklen für die eigene Verwaltung. Auf der oft begrenzten Infrastruktur einer Schule oder in kleinen Cloud-Instanzen wird dieser Overhead zum Problem, da Ressourcen für die Framework-Logik statt für die eigentliche Business-Logik der Lernplattform reserviert werden, wobei es auf solchen Container-Umgebungen wichtig ist, wirklich nur so viele Ressourcen zu verwenden, wie es auch notwendig ist.
 
-Aufgrund dieses Preises für Flexibilität und des tatsächlichen Ressourcenberbrauchs müssen Alternativen evaluiert werden, die entweder ein schlankeres Laufzeitmodell verfolgen oder die Analyseprozesse komplett anders organisieren.
+Aufgrund dieses Preises für Flexibilität und des tatsächlichen Ressourcenverbrauchs müssen Alternativen evaluiert werden, die entweder ein schlankeres Laufzeitmodell verfolgen oder die Analyseprozesse komplett anders organisieren.
 
 
 

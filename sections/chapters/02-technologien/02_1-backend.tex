@@ -117,7 +117,7 @@ Aufgrund dieses Preises für Flexibilität und des tatsächlichen Ressourcenverb
 % 2.1.1.Node js
 % ==================
 
-\subsubsection{Node.js}
+\subsubsection{Node.js - Das ereignisgesteuerte Gegenmodell}
 \setauthor{\firstauthor}
 
 \begin{figure}[H]
@@ -126,95 +126,55 @@ Aufgrund dieses Preises für Flexibilität und des tatsächlichen Ressourcenverb
     \caption{Logo von Node.js}
 \end{figure}
 
-Node.js ermöglicht die Entwicklung von Webanwendungen und APIs in JavaScript auf der Serverseite. Durch sein ereignisgesteuertes Modell 
-eignet es sich besonders für Anwendungen mit vielen gleichzeitigen Verbindungen. Deshalb ist Node.js auch besonders populär für 
-Web-APIs, Microservices und Echtzeitanwendungen wie Chat-Systeme.
-\cite{NodeJS}
+\textbf{Historischer Kontext} \\
+Node.js wurde schon im Jahr 2009 von Ryan Dahl vorgestellt und gilt als Wendepunkt in der Server-Programmierung. Zu dieser Zeit dominierten Frameworks wie das Spring Framework oder der Apache HTTP Server den Markt. Diese verwendeten das klassische ,,Thread-per-Request''-Modell. Das heißt für jeden Besucher, der eine Webseite aufrief, wurde ein eigener Thread im Arbeitsspeicher reserviert. Bei einer geringen Nutzerzahl funktionierte dieses Modell auch reibungslos, wenn man aber dann tausende gleichzeitige Verbindungen laufen hatte, verbrauchten diese Systeme den Großteil ihres Arbeitsspeichers nur für die Verwaltung der Threads, anstatt die eigentliche Logik auszuführen. \cite{Esono5FaktenNodeJs}
 
-Somit lässt sich Node.js gut mit den Java-basierten Frameworks vergleichen, da es ebenfalls in modernen Webanwendungen und Microservices 
-Verwendung findet, aber auf einer ganz anderen Laufzeitumgebung basiert.
-
+Dabei erkannte Dahl, dass das Problem nicht bei der CPU lag, sondern bei dem Warten auf Ein- und Ausgabeprozesse wie Datenbankabfragen oder das Lesen von Dateien. Deshalb ersetzte er das blockierende Modell mit einer ereignisgesteuerten Architektur, welche er mit der extrem schnellen V8-JavaScript-Engine von Google Chrome kombinierte. Anstatt also auf eine Antwort der Datenbank zu warten und dabei einen Thread blockieren zu müssen, verwendet Node.js eine \textit{Event-Loop}. Durch diese Architektur war es plötzlich möglich, tausende Verbindungen zu verarbeiten, und dabei nur einen Bruchteil des Arbeitsspeichers zu verwenden, den eine vergleichbare Java-Anwendung benötigt hatte. Das machte JavaScript, das zuvor fast nur im Browser für Animationen genutzt wurde, zu einer wettbewerbsfähigen Technologie für hochperformante Backends. \cite{NodeJsEventLoop}
 
 \vspace{0.7cm}
-\textbf{Architekturprinzip: Event-driven, Non-blocking I/O}
+\textbf{Risiken des Single Threaded Ansatzes} \\
+Die enorme Effizienz von Node.js beruht auf der Annahme, dass der Server hauptsächlich mit ,,I/O-bound-tasks'', also mit dem Warten auf Lese- und Schreibvorgänge, beschäftigt ist. Da aber die gesamte Anwendung in einem einzigen Thread agiert, ergibt sich im Gegenzug ein Risiko bei rechenintensiven Aufgaben.
 
-Das Ziel von Node.js ist es, viele gleichzeitige Anfragen effizient verarbeiten zu können. Dazu verwendet es ein ereignisgesteuertes, 
-nicht-blockierendes I/O-Modell, bei dem nicht für jede Anfrage ein eigener Thread gestartet werden muss.
+Anders als bei Spring Boot, bei welchem rechenintensive Operationen einfach auf einen freien Thread verlagert werden, würde bei Node.js die gesamte Event-Loop einfrieren. Diesen Zustand nennt man ,,Starvation'' und bei diesem kann der Server keine weiteren Anfragen mehr verarbeiten. Einfachste Funktionen, wie zum Beispiel der Login, blieben in diesem Fall unbeantwortet, bis die CPU-intensive Aufgabe abgeschlossen wurde. \cite{NodeJsBlockingTheEventLoop}
 
-Dieses Prinzip führt zu folgenden Vorteilen:
+Obwohl Node.js oft als rein ,,single-threaded'' bezeichnet wird, agiert im Hintergrund eigentlich die C++ Bibliothek \textit{libuv}, welche die zeitintensiven I/O-Operationen in einen internen Worker-Pool auslagert. Das ändert allerdings nichts am fundamentalen Risiko für die Lernplattform: Da der eigentliche JavaScript-Code trotzdem strikt auf einem einzigen Haupt-Thread läuft, können komplexe Berechnungen innerhalb der Business-Logik nicht automatisch auf diesen Worker-Pool verteilt werden. Dafür benötigt es den expliziten Einsatz von \textit{Worker-Threads} durch die Entwickler:innen, ohne welchen eine hohe CPU-Last im JavaScript-Code zu einer Blockade der Event-Loop führt, da \textit{libuv} nur systemnahe Aufgaben, aber keine benutzerdefinierten Rechenoperationen automatisch parallelisiert. \cite{NodeJsSingleThreadedAndMultiThreaded} \cite{NodeJsDontBlockEventLoop}
 
-\begin{itemize}
-    \item Hohe Skalierbarkeit bei I/O-lastigen Anwendungen
-    \item Effiziente Nutzung von Ressourcen durch Single-Threaded-Event-Loop
-    \item Gut geeignet für Echtzeit- und REST-API-Server
-\end{itemize}
-
+Für die Lernplattform heißt das, dass eine strikte Trennung zwischen leichtgewichtigen API-Abfragen und schweren Hintergrundprozessen vorherrschen muss. Das wäre zum Beispiel durch Worker-Threads oder durch Microservices möglich, stellt aber auch einen zusätzlichen Architekturaufwand dar. Es ist also notwendig, diesen Aufwand gegen die Vorteile der schnellen Startzeiten gegenüber Spring Boot abzuwägen.
 
 \vspace{0.7cm}
-\textbf{Unterstützte Technologien und Laufzeitkomponenten}
+\textbf{Datenverwaltung und Infrastruktur-Steuerung} \\
+Bei der Datenhaltung ist die Philosophie von Node.js in seiner Modularität deutlich erkennbar \cite{NodeJsAbout}. Während Java-Ökosysteme durch den JPA-Standard eine formalisierte und herstellerunabhängige Schicht erzwingen, ist der Datenbankzugriff in Node.js geprägt von spezialisierten Bibliotheken und vor allem für JSON-basierte Datenbanken entwickelt. Im Gegensatz dazu gibt es zwar moderne ORMs wie \textit{Prisma} \cite{Prisma} oder \textit{TypeORM} \cite{TypeORM}, jedoch fehlt diesen die jahrzehntelange Entwicklung und die daraus resultierende Reife und tiefe Integration, die Spring Boot durch die \textit{Auto-Configuration} bietet.
 
-Node.js kann mit verschiedensten Bibliotheken und Frameworks kombiniert werden, was es zu einer besonders vielseitigen Laufzeitumgebung macht.
-Beispiele für kombinierbare Bibliotheken und Frameworks umfassen:
-
-\begin{itemize}
-    \item \textbf{Express.js} – beliebtes Web-Framework für REST-APIs
-    \item \textbf{Socket.io} – Echtzeitanwendungen / Websockets
-    \item \textbf{JWT / Passport.js} – Authentifizierung und Sicherheitsfunktionen
-\end{itemize}
-
-Durch diese Technologien ist es möglich, schnell performante REST-APIs, Echtzeitfunktionen und sichere Authentifizierungslösungen zu 
-implementieren, was Node.js für die Lernplattform grundsätzlich geeignet macht.
-
+Das bedeutet für die Lernplattform konkret, dass Node.js eine exzellente Anbindung an JSON-basierte Datenbanken, wie zum Beispiel MongoDB, ermöglicht, was für unstrukturierte Lernmaterialien durchaus vorteilhaft sein kann. Auf der anderen Seite erfordert die Nutzung von relationalen SQL-Systemen allerdings eine wesentlich stärkere Absicherung, da Node.js keine native Integration für komplexe Enterprise-Transaktionsmuster bietet.
 
 \vspace{0.7cm}
-\textbf{Entwicklungsunterstützung und Produktivität}
+\textbf{Automatisierung und Entwicklungszyklus} \\
+Für die Effizienz im täglichen Entwicklungsprozesses ist vor allem der Grad der Automatisierung, den die gewählte Technologie bietet, ausschlaggebend. Dabei verfolgt Node.js allerdings einen sehr minimalistischen Ansatz. Während Spring Boot durch seine \textit{Auto-Configuration} versucht, so viele Entscheidungen über die Infrastuktur als möglich vorab zu treffen, liegt bei Node.js die Verantwortung fast vollständig bei den Entwickler:innen.
 
-Neben der effizienten Verarbeitung von gleichzeitigen Anfragen unterstützt Node.js auch einen effizienten Entwicklungszyklus.
-Der integrierte Package-Manager \textbf{npm} vereinfacht die Installation und Verwaltung von Bibliotheken, während Hot-Reload-Tools wie 
-\textit{nodemon} eine schnelle Änderung am Code ermöglichen. Moderne Entwicklungsumegebungen lassen sich problemlos integrieren, wodurch 
-Entwickler:innen direkt produktiv arbeiten können.
+Das zeigt sich besonders in der Infrastruktur-Steuerung, wobei keine Mechanismen in Node.js eingebaut sind, um externe Abhängigkeiten, wie Datenbank-Container oder Mock-Services, zu koordinieren. Bei der parallelen Entwicklung von zwei verschiedenen Teams bedeutet das, dass die Synchronisation der lokalen Entwicklungsumgebungen manuell über externe Werkzeuge wie \textit{Docker-Compose} erfolgen muss. Somit erfordert jede Änderung am Datenmodell oder an den Verbindungsparametern eine explizite Kommunikation zwischen den beiden Entwicklungsteams, da das Framework strukturelle Ungleichheiten erst zur Laufzeit bemerkt.
 
+Ein wesentlicher Vorteil aber zeigt sich in einem erheblichen Gewinn an Agilität durch die Art und Weise, wie Node.js auf Code-Änderungen reagiert. Einer der größten Vorteile in der Verwendung dieses Frameworks ist die Schnelligkeit des Feedback-Zyklus. Durch den nativ eingebauten Watch-Modus entfallen die zeitintensiven Startzeiten, die bei Spring Boot durch das Neu-Kompilieren und Scannen des Classpaths entstehen und oft mehrere Sekunden in Anspruch nehmen. Änderungen am Quellcode werden nahezu in Echtzeit in der laufenden Anwendung reflektiert und es ist kein Neustart erforderlich. \cite{NodeJsHotReload}
+
+Dadurch können also in der Lernplattform iterative Anpassungen an der REST-API wesentlich schneller getestet werden und somit steigt die Effizienz des Entwicklungsprozesses durchaus. Diese Geschwindigkeit kommt allerdings trotzdem mit dem Nachteil, dass Node.js keine native, annotationsbasierte Validierung von Datenmodellen mitbringt. Deshalb müssen Entwickler:innen die repetitive Prüfungslogik manuell implementieren, was das Risiko für Inkonsistenzen in der Geschäftslogik erhöht.
 
 \vspace{0.7cm}
-\textbf{Eignung für die im Projekt entwickelte Lernplattform}
+\textbf{Flexibilität beim Database Seeding} \\
+Im Database Seeding zeigt sich ein deutlicher funktionaler Unterschied. Während Spring Boot primär auf SQL-Dateien zum Importieren von Testdaten setzt, die unflexibel gegenüber Änderungen am Datenmodell sind und keine logischen Operationen erlauben, erfolgt das Befüllen der Datenbank in Node.js in der Regel programmatisch. Das hat den Vorteil, dass beispielsweise Passwörter für Test-User direkt während des Seedings gehasht werden können, was im statischen SQL-Ansatz nicht möglich ist. Außerdem nutzen diese Skripte das selbe Datenmodell wie die Anwendung selbst, wodurch strukturelle Fehler in den Testdaten schon während der Entwicklung und nicht erst zur Laufzeit auffallen. \cite{NodeJsDataBaseSeeding}
 
-\begin{table}[H]
-\centering
-\begin{tabular}{p{0.47\textwidth} p{0.47\textwidth}}
-\textbf{Vorteile für die Lernplattform} &
-\textbf{Einschränkungen} \\
-\hline
+\vspace{0.7cm}
+\textbf{Konfigurationsmanagement und Umgebungsvariablen} \\
+Bei der Konfiguration bietet Node.js kein direktes Äquivalent zur zentral verankerten \texttt{application.properties}-Datei von Spring Boot. Stattdessen setzt das Node.js-Ökosystem meist auf Umgebungsvariablen, die häufig über \texttt{.env}-Dateien verwaltet werden. \cite{NodeJsConfigurationManagement}
 
-Sehr populär, viele Bibliotheken und Community &
-Nicht JVM-basiert, keine direkte Wiederverwendung von Java-Code \\
+Dieser Ansatz birgt allerdings wesentliche Nachteile im Vergleich zur strukturierten in Java für die Wartbarkeit. Während Spring Boot durch \textit{Configuration Properties} die Werte aus der Einstellungsdatei direkt in typsichere Java-Objekte umwandelt und diese beim Start validiert, werden Umgebungsvariablen in Node.js als einfache Strings eingelesen. Dabei ist Spring Boot ,,Fail-Fast'', das heißt es stoppt sofort bei Fehlern, und Node.js ist oftmals ,,Lazy'', das heißt, dass Fehler erst auftreten, wenn der Code-Pfad erreicht wird. Dadurch werden Konfigurationsfehler, wie es zum Beispiel ein fehlender API-Schlüssel oder ein falsch formatierter Port wären, erst spät zur Laufzeit bemerkt und nicht schon beim Start der App abgefangen. Weiters fehlt Node.js ein eingebautes System für Profile wie \texttt{dev} oder \texttt{prod}. Somit müssen die Teams manuell sicherstellen, dass für jede Umgebung die passende \texttt{.env}-Datei geladen wird, was bei der parallelen Arbeit von zwei Teams die Fehleranfälligkeit bei der Bereitstellung der Teilprojekte erhöht.
 
-Effiziente Verarbeitung von REST-Anfragen &  
-Single-Threaded kann CPU-intensive Tasks verlangsamen \\
+\vspace{0.7cm}
+\textbf{Fazit} \\
+Node.js ist also ein hochperformantes Backend-Framework, allerdings nur spezifische Anwendungsfälle vollständig geeignet. Durch seine ereignisgesteuerte Architektur und die effiziente \textit{Event-Loop} löst es das Ressourcen-Problem von klassischen Java-Anwendungen und bietet zugleich eine Agilität im Entwicklungsprozess, die sich durch nahezu sofortige Feedback-Zyklen auszeichnet. Vor allem beim Database-Seeding übertrifft Node.js durch die Flexibilität von programmatischen Skripten die statischen Ansätze von Spring Boot deutlich.
 
-Einfach zu lernen und schnelle Entwicklungszyklen &
-Keine standardisierte Enterprise-Struktur, mehr Designentscheidungen nötig \\
+Dennoch ergeben sich für die Entwicklung der geplanten Lernplattform kritische Nachteile. Die Single-Threaded-Architektur stellt ein wesentliches Risiko für die zukünftige Erweiterbarkeit dar, da rechenintensive Operationen die gesamte Anwendung blockieren könnten. Ein schwerwiegenderes Problem ergibt sich allerdings im Mangel an Standardisierung und nativer Typsicherheit innerhalb des Ökosystems. Da zwei Entwicklerteams an diesem Projekt arbeiten, würde die manuelle Verwaltung von Infrastruktur, Validierung und Konfiguration ein erhöhtes Fehlerrisiko bei der Integration bedeuten.
 
-Gute Unterstützung für Echtzeitanwendungen &
-Geringere Typensicherheit (JavaScript vs. Java)
-\end{tabular}
-\caption{Zusammenfassung der Bewertung von Node.js für die Lernplattform}
-\end{table}
+Somit stehen sich zwei Extreme gegenüber: Auf der einen Seite das robuste, aber ressourcenintensive Spring Boot und auf der anderen Seite das leichtgewichtige, aber architektonisch weniger gefestigte Node.js. Im Zuge dieser Analyse wird also ein weiteres Framework betrachtet. Im bestenfall bringt es die Stabilität, Typsicherheit und die bewährten Standards des Java-Ökosystems, aber auch die Effizienz und moderne Entwickler-Experience von Node.js zusammen. Dieses Anforderungsprofil führt zu \textbf{Quarkus}, einem Framework, das explizit als ,,Supersonic Subatomic Java'' entwickelt wurde, um diese Lücke zu schließen.
 
-
-\vspace{0.5cm}
-\textbf{Kriterienbewertung Node.js}
-
-Die nachfolgende stichpunktartige Übersicht fasst die Bewertung von Node.js anhand der definierten 
-Vergleichskriterien zusammen:
-
-\begin{itemize}
-    \item \textbf{Performance und Ressourcenverbrauch:} sehr gut bei I/O-lastigen Anwendungen, eingeschränkt bei CPU-intensiven Tasks
-    \item \textbf{Entwicklungsproduktivität:} sehr gut (npm, Hot-Reload, schnelle Serverstarts)
-    \item \textbf{Integration mit Datenbanken:} gut (MongoDB, SQL-Datenbanken über Bibliotheken)
-    \item \textbf{Unterstützung für REST-APIs:} sehr gut (Express.js, Fastify)
-    \item \textbf{Community- und Unternehmenssupport:} sehr gut (große Community, viele Tutorials)
-    \item \textbf{Skalierbarkeit und Wartbarkeit:} in Ordnung (gut für Microservices, Typensicherheit allerdings eingeschränkt)
-\end{itemize}
 
 
 % ==================

@@ -19,11 +19,8 @@ Dabei muss das Backend folgende projektspezifische Kernaufgaben erfüllen:
 Die technologische Wahl ist aufgrund dieser zentralen Rolle also entscheidend für die Performance und Wartbarkeit des Gesamtsystems. Im folgenden Vergleich werden daher die infrage kommenden Frameworks gegenübergestellt.
 
 
-% ==================
-% 2.1.1 
-% ==================
-
-\subsection{Analyse technischer Anforderungen}
+\vspace{1cm}
+\textbf{Analyse technischer Anforderungen}
 \setauthor{\firstauthor}
 
 Die Auswahl des Backend-Frameworks ist eine kritische Entscheidung, die Auswirkungen auf die gesamte Lebensdauer der Software hat. Dabei geht es nicht nur um die Syntax, sondern vor allem darum, wie die Anwendung mit der Infrastruktur (Datenbanken, Container) interagiert und wie sie konfiguriert wird.
@@ -48,7 +45,7 @@ Folgende Punkte wurden dabei kritisch untersucht:
 % ==================
 % 2.1.1.Springboot
 % ==================
-\subsubsection{Spring Boot – Die Evolution des Java-Enterprise-Standards}
+\subsection{Spring Boot – Die Evolution des Java-Enterprise-Standards}
 \setauthor{\firstauthor}
 
 \begin{figure}[H]
@@ -117,7 +114,7 @@ Aufgrund dieses Preises für Flexibilität und des tatsächlichen Ressourcenverb
 % 2.1.1.Node js
 % ==================
 
-\subsubsection{Node.js - Das ereignisgesteuerte Gegenmodell}
+\subsection{Node.js - Das ereignisgesteuerte Gegenmodell}
 \setauthor{\firstauthor}
 
 \begin{figure}[H]
@@ -181,7 +178,7 @@ Somit stehen sich zwei Extreme gegenüber: Auf der einen Seite das robuste, aber
 % 2.1.1.Quarkus
 % ==================
 
-\subsubsection{Quarkus}
+\subsection{Quarkus}
 \setauthor{\firstauthor}
 
 \begin{figure}[H]
@@ -190,168 +187,110 @@ Somit stehen sich zwei Extreme gegenüber: Auf der einen Seite das robuste, aber
 	\caption{Logo von Quarkus}
 \end{figure}
 
-Quarkus ist ein vergleichsweise modernes, Java-basiertes Framework, das speziell für den Einsatz in Cloud- und 
-Containerumgebungen entwickelt wurde. Anders als bei klassischen Java-Frameworks wie Spring Boot oder Jakarta EE
-fokussiert sich Quarkus stark auf eine geringe Startzeit, niedrigen Speicherverbrauch sowohl auf der Festplatte, 
-als auch im Arbeitsspeicher und die effiziente Ausführung in Mircoservice-Architekturen und serverlosen 
-Umgebungen.
 
-Die Basis von Quarkus bildet eine Kombination aus Jakarta EE, Eclipse MicroProfile und eine Reihe aus optimierten 
-Bibliotheken. Ein zentrales Ziel von Quarkus besteht darin, die JVM-basierte Backend-Entwicklung an moderne 
-Cloud-Infrastrukturen anzupassen, dabei aber nicht auf etablierte Java-Standards verzichten zu müssen. 
-\cite{QuarkusIO}
+\textbf{Historischer Kontext: Die Java-Krise in der Ära der Containerisierung} \\
+Um die Entstehung von Quarkus im Jahr 2019 zu verstehen, muss man zuerst die Geschichte von Java in Server-Umgebungen und den mit den Jahren zum Problem gewordenen Standards kennen. Über Jahrzehnte war Java die unangefochtene erste Wahl für Unternehmenssoftware. Frameworks wie Spring Boot in 2014 perfektionierten die Entwicklung von großen Microservices, die auf leistungsstarken Servern mit gigantischen Arbeitsspeicherkapazitäten liefen. Dabei war Java darauf optimiert, einmal zu starten und über mehrere Wochen hinweg durch den Just-In-Time Compiler \cite{JustInTimeCompiler} im laufenden Betrieb immer mehr an Schnelligkeit zu gewinnen.
+
+Mit der Zeit verschob sich der Standard allerdings immer mehr in Richtung Containerisierung und damit kam der Aufstieg von Docker-Containern und Kubernetes. So änderten sich die Anforderungen fundamental: In modernen Cloud-Umgebungen werden Anwendungen nicht mehr monatelang betrieben, sondern wenn nötig im Bruchteil einer Sekunde hochgefahren und bei Nichtgebrauch sofort wieder abgeschaltet, um Kosten zu sparen. In dieser neuen Welt, in der Minimalverbrauch von Ressourcen eine entscheidende Anforderung wurde, verlor Java zunehmend seinen bisherigen Monopolstatus.
+
+Für viele Expert:innen war dies ein Signal, dass Java nun seinem Ende zuneigte, wenn es um moderne Cloud-Anwendungen geht. Während also Entwicklerteams massenhaft zu Node.js oder Go wechselten, startete aber ein Team bei Red Hat ein ehrgeiziges Projekt mit dem Ziel, Java nicht durch eine neue Sprache zu ersetzen, sondern fundamental so umzubauen, dass es ,,Cloud-Native'' wird.
+
+Im März 2019 wurde Quarkus als Open-Source-Projekt veröffentlicht. Dabei leitet sich der Name aus der Physik ab, wobei ein Quark der kleinste Baustein der Materie ist und ,,us'' für die Community steht. Mit dem Slogan ,,Supersonic Subatomic Java'' war es ihnen also wichtig, einen extrem geringen Speicherverbrauch zu erzielen, der es erlaubt, viel mehr Container auf der selben Hardware zu betreiben als zuvor möglich war, sowie die Startzeiten auf einen wettbewerbsfähigen Stand für moderne Cloud-Architekturen zu reduzieren. \cite{QuarkusIO}
 
 
 \vspace{0.7cm}
-\textbf{Architekturprinzip: Build-Time-Augmentation}
+\textbf{Die technische Revolution: Build-Time Augmentation} \\
+Einer der entscheidensten Faktoren für die Schnelligkeit von Quarkus liegt in der Verschiebung des ,,Bootstrapping''-Prozesses. Wie bereits bei Spring Boot analysiert, verbringen klassische Frameworks beim Start viel Zeit damit, eine Art ,,Bestandsaufnahme'' zu machen. Dabei durchsuchen sie tausende Dateien nach Annotationen, bauen komplexe Abhängigkeitsbäume auf und generieren dynamisch Proxies im Arbeitsspeicher. Dieser Prozess findet bei jedem erneuten Starten statt, egal ob auf der Entwickler-Umgebung oder auf dem Cloud-Server.
 
-Eine der zentralen technischen Besonderheiten von Quarkus liegt in der sogenannten \textit{Build-Time-Augmentation}. 
-Während klassiche Frameworks viele Konfigurationen und Initalisierungsschritte erst zur Laufzeit durchführen, 
-werden diese bei Quarkus weitgehend bereits während des Build-Prozesses ausgeführt.
-\cite{QuarkusAugmentation}
+Im Gegensatz dazu nutzt Quarkus einen Ansatz, den man als \textit{,,Shift-Left''} der Infrastruktur-Logik bezeichnet. Das Framework verlagert also die Intelligenz von der Runtime in die Build-Time. Während also bei Spring Boot beim Start alle Parameter aufs Neue analysiert werden müssen, passiert dies bei Quarkus nur einmal, und zwar beim Kompilieren.\cite{ProsAndConsSpringVsQuarkus}
 
-Dadurch ergeben sich:
+In der Tiefe passiert dabei folgendes:
 \begin{itemize}
-	\item deutlich reduzierte Startzeiten
-	\item geringere Anforderungen an die CPU und den Speicher
-	\item weniger Reflection-Overhead
-	\item bessere Eignung für Container-Deployments
+	\item \textbf{Vorausblickendes Metadaten-Parsing:} \\ 
+	Anstatt zur Laufzeit mühsam nach Annotationen wie \texttt{@Inject} oder \texttt{@Path} zu suchen, erledigt Quarkus dies einmalig während des Kompilierens. Die Ergebnisse werden in einem effizienten Format gespeichert, das beim Start direkt gelesen werden kann.
+	\item \textbf{Vorbereitung der Reflection:} \\ 
+	Reflection, also das dynamische Untersuchen von Klassen zur Laufzeit, ist in Java extrem mächtig, aber auch extrem langsam und speicherintensiv. Quarkus minimiert den Einsatz von Reflection also, indem es den notwendigen Code für die Verknüpfung von Komponenten bereits während des Build-Vorgangs direkt in den Bytecode schreibt.
+	\item \textbf{Pre-Booting der Framework-Logik:} \\ 
+	Viele Framework-Komponenten wie beispielsweise Hibernate werden von Quarkus schon während des Baus „vor-initialisiert“. Alle Entscheidungen, die nicht von Laufzeit-Informationen wie Passwörtern abhängen, sind beim Start der Applikation bereits getroffen.
+	\item \textbf{Dead-Code Elimination:} \\ 
+	Quarkus führt beim Bauen eine vollständige Analyse durch. Dadurch kann es präzise bestimmen, welche Teile der eingebunden Bibliotheken niemals aufgerufen werden. Dieser ,,Dead-Code'' wird entfernt, was  die resultierende Datei verkleinert und Speicherbedarf reduziert.
 \end{itemize}
 
-Insbesondere bei Microservices oder bei horizontal skalierenden Anwendungen stellt dies einen großen Vorteil dar.
+Das Ergebnis dieser ,,Augmentation'' ist eine Anwendung, die vor dem Start schon fast alle Entscheidungen getroffen hat und somit lediglich den bereits vorbereiteten Plan ausführen muss. Dadurch wurden Startzeiten von unter zwei Sekunden auf der Standard-JVM möglich. \cite{QuarkusAugmentation}
 
 
 \vspace{0.7cm}
-\textbf{Unterstützte Technologien und Laufzeitkomponenten}
+\textbf{Kritische Betrachtung des Build-Time-Ansatzes} \\
+Aus dieser radikalen Verschiebung der Prozesse entsteht allerdings folglich auch ein klassischer technologischer Kompromiss. Da Quarkus den Großteil der Analysearbeit, die normalerweise erst beim Starten der Applikation anfällt, in den Kompilierungsablauf vorzieht, erhöht sich die Build-Zeit auch spürbar. Die Anwendung ist im Betrieb zwar ,,subatomar'' und schnell, jedoch müssen Entwickler:innen beim finalen Bau des Projekts beispielsweise in einer CI/CD-Pipeline mit längeren Wartezeiten als bei Spring Boot oder Node.js rechnen.
 
-Quarkus stellt eine breite Palette an Erweiterungen (Extensions) bereit. \cite{QuarkusExtensions} Für typische Web-
-und Datenbankanwendungen besonders relevant sind:
+Da Quarkus außerdem beim Bauen bereits den gesamten Code-Pfad kennen muss, um ihn optimieren zu können, ist zum Beispiel das Nachladen von Modulen zur Laufzeit stark eingeschränkt. Außerdem ist das Ökosystem trotz rasantem Wachstum nicht so umfangreich wie das von Spring Boot. Deshalb kann auch nicht jede beliebige Java-Bibliothek ohne Weiteres effizient genutzt werden, sondern braucht eine spezielle \textit{Quarkus-Extension} \cite{QuarkusExtensions}, die diese für den Build-Time-Prozess vorbereitet. \cite{ProsAndConsSpringVsQuarkus}
+
+Für die Entwicklung der Lernplattform bedeutet dieser technologische Kompromiss, dass die Priorität bewusst auf die Stabilität und Effizienz der Laufzeitumgebung gelegt wird. Da das interaktive Lernsystem auf schnelle Antwortzeiten angewiesen ist, um ein flüssiges Lernerlebnis zu gewährleisten, ist die investierte Zeit beim Kompilieren ein vorteilhafter Tausch. Die Einschränkungen bei der dynamischen Modulnachladung sind im Zuge dieser Diplomarbeit vernachlässigbar, da die Architektur der Lernplattform auf einem fest definierten Datenmodell basiert, das von der statischen Analyse von Quarkus profitiert.
+
+
+\vspace{0.7cm}
+\textbf{Infrastruktur-Automatisierung durch Dev Services} \\
+Ein entscheidender Vorteil von Quarkus für die Zusammenarbeit im Team ist die Einführung der sogenannten \textit{Dev Services}. In der vorherigen Analyse von Node.js und Spring Boot wurde die manuelle Koordination von Datenbank-Infrastruktur als potenzielle Fehlerquelle identifiziert, da Zugangsdaten und Container-Zustände zwischen den Teams manuell synchronisiert werden müssen.
+
+Dieses Problem löst Quarkus durch eine tiefe Integration von \textit{Testcontainers}. Wenn das Framework während der Entwicklung feststellt, dass  eine Datenbank-Erweiterung vorhanden, aber keine Verbindung konfiguriert ist, so startet es automatisch den entsprechenden Docker-Container im Hintergrund. Dabei übernimmt Quarkus die vollständige Konfiguration der Verbindungsparameter. Das bedeutet für die zwei Teams der Diplomarbeit eine ,,Zero-Configuration''-Umgebung, also eine Umgebung, in der jedes Teammitglied das Backend ohne vorheriges manuelles Aufsetzen der Datenbank und Abgleichen der Passwörter starten kann. Dies eliminiert die bei Node.js kritisierten ,,Connection-Refused''-Fehler und sorgt dafür, dass beide Teilprojekte stets auf einer identischen und automatisierten Infrastruktur arbeiten. \cite{QuarkusDevServices}
+
+
+\vspace{0.7cm}
+\textbf{Datenbankanbindung und automatisierte Datenverwaltung} \\
+Quarkus setzt bei der Handhabung mit Daten auf \textit{Hibernate ORM} mit der möglichen Erweiterung von \textit{Panache}. Während klassische Java-Frameworks oft sehr umfangreichen Code für einfache Datenbankoperationen benötigen, reduziert Panache diesen Aufwand erheblich. \cite{JavaPersistence}
 
 \begin{itemize}
-	\item \textbf{RESTEasy Classic Jackson}\\ für performante REST-Schnittstellen
-	\item \textbf{Hibernate ORM mit Panache}\\ für vereinfachte Datenbankzugriffe und Entity-Verwaltung
-	\item \textbf{Quarkus Security \& JWT-Authentifizierung}\\ für Zugriffsschutz und Rollenverwaltung
+	\item \textbf{Aktive Validierung und Konsistenz:} \\
+	Anders als bei Node.js, wo Datenbankänderungen oft erst zur Laufzeit zu Fehlern führen, ist in Quarkus eine strikte Typsicherheit gegeben. Ändert ein Team das Datenmodell, so prüft Quarkus bereits beim Kompilieren, ob die Datenbankstruktur noch zum Java-Code passt. Dies verringert Inkonsistenzen zwischen den Teilprojekten.
+	
+	\item \textbf{Automatisiertes Database Seeding:} \\
+	Für die Lernplattform ist wichtig, dass nach dem Start sofort Testdaten zur Verfügung stehen. Quarkus untersützt dies auf zwei Ebenen:
+	
+	\begin{enumerate}
+		\item \textbf{SQL-basiert:} Durch eine einfache \texttt{import.sql}-Datei werden beim Start automatisch Tabellen befüllt.
+		\item \textbf{Programmatisch:} Quarkus ermöglicht es, Seeding-Logik direkt in Java zu schreiben. So können beispielsweise verschlüsselte Passwörter für Test-User oder komplexe Lerninhalte dynamisch beim ersten Start generiert werden.
+	\end{enumerate}
 \end{itemize}
 
-Diese Erweiterungen machen Quarkus besonders flexibel und eignen sich deshalb auch besonders für Anwendungen, die 
-immer erweiterbar bleiben sollen und modular aufgebaut sind.
+Die zuvor beschriebenen Dev Services gemeinsam mit dieser automatisierten Datenverwaltung schaffen eine ,,Ready-to-Code''-Umgebung, bei der Entwickler:innen lediglich den Entwicklungsmodus starten und innerhalb von Sekunden eine laufende Datenbank inklusive aller benötigten Testdaten erhält, ohne eine einzige Zeile SQL manuell ausführen zu müssen.
 
 
 \vspace{0.7cm}
-\textbf{Entwicklungsunterstützung und Produktivität}
+\textbf{Effizienz im Entwicklungszyklus: Live Coding und Hot Reload} \\
+Einer der zentralen Kritikpunkte an klassischen Java-Frameworks wie Spring Boot war in der Vergangenheit der langsame Feedback-Zyklus. Nach fast jeder Code-Änderung musste die Anwendung manuell neu gestartet werden, wodurch häufig Wartezeiten von zehn bis zwanzig Sekunden entstanden. 
 
-Für die Entwicklungsumgebung bietet Quarkus einen eingebauten Dev-Modus, der automatisches Neuladen von Klassen und
-Konfigurationen ermöglicht. Änderungen am Quellcode werden ohne manelles Neustarten der Anwendung übernommen.
+Quarkus eliminiert diesen Nachteil von Java durch ein hocheffizientes Live Code-System. Wird eine Datei im Quellcode verändert und die Änderung gespeichert, so erkennt Quarkus dies und tauscht nur die betroffenen Klassen im laufenden Betrieb aus. Bei vielen Node.js Konfigurationen wird hierfür der gesamte Server-Prozess neu gestartet. Bei Quarkus allerdings bleibt die JVM stabil, es wird nur die geänderte Geschäftslogik neu in den Speicher geladen. \cite{QuarkusLiveReload}
 
-Das führt zu verkürzten Entwicklungszyklen, da nicht nach jeder kleinen Änderung auf das erneute Starten der 
-Anwendung gewartet werden muss. Gleichzeitig erhalten Entwickler unmittelbares Feedback und die Zeit für die 
-Entwicklung kann effizienter genutzt werden. Der Dev-Modus unterstützt außerdem integrierte Test- und Debug Werkzeuge.
+Dieser Vorgang geschieht in der Regel in weniger als einer Sekunde. Das bedeutet für die Entwicklung der Lernplattform, dass Änderungen an der REST-Schnittstelle oder der Validierungslogik sofort getestet werden können, ohne dabei den Arbeitsfluss zu unterbrechen.
 
 
 \vspace{0.7cm}
-\textbf{Eignung für die im Projekt entwickelte Lernplattform}
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{p{0.47\textwidth} p{0.47\textwidth}}
-		\textbf{Vorteile für die Lernplattform} &
-		\textbf{Einschränkungen} \\ \hline
-		
-		Kurze Startzeiten und geringer Ressourcenverbrauch &
-		Kleinere Community im Vergleich zu etablierten Frameworks \\
-		
-		Effiziente Verarbeitung von REST-Anfragen &
-		Weniger verfügbare Praxisbeispiele und Dokumentationen \\
-		
-		Gute Eignung für Container- und Cloud-Umgebungen &
-		Teilweise höherer Einarbeitungsaufwand \\
-		
-		Modularer und erweiterbarer Systemaufbau &
-		Native-Builds erfordern projektspezifische Prüfung \\
-		
-	\end{tabular}
-	\caption{Zusammenfassung der Bewertung von Quarkus für die Lernplattform}
-\end{table}
-
-
-\vspace{0.5cm}
-\textbf{Kriterienbewertung Quarkus}
-
-Die nachfolgende stichpunktartige Übersicht fasst die Bewertung von Quarkus anhand der definierten 
-Vergleichskriterien zusammen:
-
+\textbf{Zentrale Konfiguration und Sicherheitsaspekte} \
+Ein weiterer Faktor, der im Zuge der Analyse behandelt wird, ist die Verwaltung von Umgebungsvariablen und sensitiven Daten. Dabei nutzt Quarkus ähnlich wie Spring Boot eine zentrale Datei namen \texttt{application.properties}, die aber eine Besonderheit aufweist: das native Profil-Management. \cite{DevModeDifferences}
 
 \begin{itemize}
-	\item \textbf{Performance und Ressourcenverbrauch:} sehr gut (geringe Startzeiten, niedriger Speicherverbrauch)
-	\item \textbf{Entwicklungsproduktivität:} gut (Dev-Modus verkürzt Entwicklungszyklen)
-	\item \textbf{Integration mit Datenbanken:} gut (Hibernate ORM mit Panache)
-	\item \textbf{Unterstützung für REST-APIs:} sehr gut (RESTEasy Classic Jackson)
-	\item \textbf{Community- und Unternehmenssupport:} in Ordnung (kleinere Community, weniger Praxisbeispiele)
-	\item \textbf{Skalierbarkeit und Wartbarkeit:} sehr gut (modular, gut für Container- und Cloud-Deployments)
+	\item \textbf{Trennung von Umgebungen:} \\
+	Anders als bei Node.js, wo man für unterschiedliche Umgebungen verschiedene Dateien nutzt, erlaubt Quarkus die Definition von Profilen innerhalb einer Datei mit Präfixen (\texttt{\%dev.db.url} oder \texttt{\%prod.db.url}). Dadurch wird also niemals versehentlich die Konfiguration für die lokale Entwicklung die Live-Datenbank mit den echten Materialdaten überschreibt.
+	
+	\item \textbf{Typsichere Konfiguration:}  \\
+	Bei Node.js werden Konfigurationen meist als einfache Zeichenketten eingelesen. Da hingegen bietet Quarkus typsichere Konfigurationsobjekte und bricht den Startvorgang sofort mit klaren Fehlermeldungen ab, sollte ein wichtiger Parameter fehlen oder im falschen Format stehen. Somit fährt die Lernplattform nie in einem instabilen Zustand hoch.
+	
+	\item \textbf{Sicherheit und Credentials:} 
+	Für den Umgang mit Passwörtern und API-Keys unterstützt Quarkus die Einbindung von externen Quellen wie Umgebungsvariablen oder Key-Vaults. Das bedeutet, dass sensible Daten nicht im Quellcode stehen müssen, sondern sicher beim Start der Container-Umgebung injiziert werden können.
 \end{itemize}
 
+Dadurch ergiebt sich ein robustes Konfigurationsmodell, das besonderns bei der Arbeit in zwei Teams die Fehleranfälligkeit senkt, da die Konfigurationsstruktur durch das Java-Backend fest vorgegeben und validiert wird.
 
 
+\subsection{Fazit und finale Technologieentscheidung} 
+Die Analyse verdeutlicht, dass die Wahl des Backend-Frameworks ein Abwägen zwischen Reife, Agilität und Ressourceneffizienz darstellt.
 
-% ==================
-% 2.1.2
-% ==================
+\begin{itemize}
+	\item \textbf{Spring Boot} weist zwar eine besondere technologische Reife auf, scheidet aber trotzdem aufgrund des hohen Overheads und der fehlenden nativen Infrastruktur-Automatisierung aus, da dies die parallele Arbeit der beiden Teams unnötig erschweren würde.
+	
+	\item \textbf{Node.js} löst zwar das Problem des langsamen Feedback-Zyklus in Spring Boot, birgt jedoch durch die fehlende Striktheit der Standardisierung und nativer Typsicherheit ein zu hohes Risiko für die Datenkonsistenz zwischen den Teilprojekten.
+	
+	\item \textbf{Quarkus} erweist sich als die optimale Lösung für die Lernplattform. Es vereint die Typsicherheit und Robustheit des Java-Ökosystems mit einer modernen Entwickler-Experience. Die administrativen Hürden, die bei den anderen Frameworks als kritisch identifiziert wurden, werden durch Features wie \textit{Dev Services} und den \textit{Hot Reload} eliminiert.
+\end{itemize}
 
-\subsection{Auswahl der Backend-Technologie für die Lernplattform}
-\setauthor{\firstauthor}
-
-Nach der Analyse der drei betrachteten Backend-Technologien \textbf{Quarkus, Spring Boot} und \textbf{Node.js} fällt die Wahl auf Quarkus.
-Im folgenden Abschnitt wird diese Entscheidung sowohl durch technische Kriterien, als auch durch praktische Erwägungen begründet.
-
-
-\vspace{0.7cm}
-\textbf{Technische Eignung}
-
-Quarkus überzeugt vor allem durch seine sehr kurzen Startzeiten, den geringen Ressourcenverbrauch und die schnelle und effiziente Verarbeitung 
-von REST-Anfragen. \cite{QuarkusIO, QuarkusAugmentation} Besonders für Microservices oder containerisierte Deployments ist die Build-Time-Augmentation 
-ein klarer Vorteil. Die Flexibilität, die Quarkus durch die integrierte Unterstützung gängiger Technologien wie Hibernate ORM oder RESTEasy bietet, 
-sorgt für eine modulare, erweiterbare und zukunftssichere Systemarchitektur, die den Anforderungen einer Lernplattform mehr als nur entspricht.
-
-Im Vergleich dazu kann man von Spring Boot zwar eine hohe Entwicklungsproduktivität und umfangreiche Standardkomponenten erwarten, es ist 
-allerdings ressourcenintensiver, startet langsamer und erfordert für containerisiertes Deployment teilweise mehr Anpassungen. Node.js ist zwar 
-sehr gut für I/O-lastige Anwendungen und Echtzeitanwendungen geeignet und flexibel einsetzbar, jedoch zeigt die Analyse, dass Quarkus im Sinne der
-Datenbankzugriffe, Sicherheit und REST-Schnittstellen besser zu den Anforderungen der Lernplattform passt. \cite{SpringBoot,NodeJS} 
-
-
-\vspace{0.7cm}
-\textbf{Praktische Erwägungen}
-
-Ein ausschlaggebender Faktor bei der Wahl des Frameworks war auch die bisherige Erfahrung des Entwicklerteams. Quarkus wurde bereits im Unterricht behandelt 
-und hat sich in vergangen Projekten als zuverlässig erwiesen. Dadurch konnte auf vorhandenes Wissen zurückgegriffen werden, was den Einstieg erleichtert
-und die Entwicklungsgeschwindigkeit fördert. Spring Boot wurde bisher nicht im Unterricht behandelt und hätte daher eine längere Einarbeitunszeit erfordert.
-Node.js wurde im Unterricht in Ansätzen behandelt, allerdings nicht in einem Umfang, der für die komplexe Backend-Entwicklung der Lernplattform ausreichend wäre.
-
-
-\vspace{0.7cm}
-\textbf{Abwägung der Backend-Frameworks}
-
-Die nachfolgende Tabelle fasst die Bewertung von Quarkus, Spring Boot und Node.js anhand der zuvor definierten Vergleichskriterien zusammen. Sie verdeutlicht, 
-in welchen Bereichen Quarkus die beste Übereinstimmung mit den Anforderungen der Lernplattform bietet.
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{p{0.25\textwidth} p{0.20\textwidth} p{0.20\textwidth} p{0.20\textwidth}}
-    \textbf{Kriterium} & \textbf{Quarkus} & \textbf{Spring Boot} & \textbf{Node.js} \\
-    \hline
-    Performance und Ressourcenverbrauch & sehr gut & schlecht & gut \\
-    Entwicklungs-produktivität & gut & sehr gut & sehr gut \\
-    Integration mit Datenbanken & gut & sehr gut & gut \\
-    Unterstützung für REST-APIs & sehr gut & sehr gut & sehr gut \\
-    Community- und Unternehmenssupport & in Ordnung & sehr gut & sehr gut \\
-    Skalierbarkeit und Wartbarkeit & sehr gut & gut & in Ordnung \\
-    \end{tabular}
-    \caption{Vergleich von Quarkus, Spring Boot und Node.js (kompakt)}
-\end{table}
-
-
-\vspace{0.7cm}
-\textbf{Fazit}
-
-Auf Basis der technischen Analyse und der praktischen Erfahrung des Teams wurde Quarkus als Backend-Framework für die Lernplattform ausgewählt. Durch diese 
-Entscheidung ist sichergestellt, dass die Plattform sowohl performant als auch erweiterbar bleibt und das Entwicklerteam effizient arbeiten kann. Spring Boot
-und Node.js bleiben zwar interessante Alternativen, werden aber nicht gleichermaßen den spezifischen Anforderungen des Projekts gerecht.
+Somit ist die Entscheidung nicht nur aufgrund einer performanten Laufzeitumgebung auf Quarkus gefallen, sondern war strategisch für eine effiziente und fehlerresistente Zusammenarbeit im Team.

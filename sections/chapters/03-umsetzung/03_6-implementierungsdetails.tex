@@ -48,7 +48,7 @@ hinterlegt sind.
 \textit{Answer}-Objekte beinhalten den Antworttext und einen Eintrag, ob die Antwort korrekt ist (\textit{isCorrect}). 
 Unabhängig vom Fragetypen werden alle richtigen und falschen Antworten auf eine Frage gespeichert. Bei Multiple-Choice-Fragen 
 müssen alle richtigen und keine falschen Antworten angegeben werden, um als korrekt gewertet zu werden. Für Freitext-Fragen 
-werden nur richtige Antworten angelegt. Die eingegebene Antwort muss hierbei einer der Enträge gleichen, um korrekt gewertet
+werden nur richtige Antworten angelegt. Die eingegebene Antwort muss hierbei einer der Einträge gleichen, um korrekt gewertet
 zu werden.
 
 \vspace{0.2cm}
@@ -70,7 +70,7 @@ und Lernerfolg wiederholt oder vorübergehend gesperrt werden.
 \textbf{User} \\
 Die Entität \textit{User} enthält die grundlegenden Informationen über die Lernenden. Sie ist mit den \textit{QuestionPool}-Objekten 
 verbunden, um den individuellen Lernfortschritt zu speichern, sowie mit \textit{Question} und \textit{Solution}, um erstellte Fragen und 
-Lösungswege nachzuhalten.
+Lösungswege zu verwalten.
 
 \vspace{0.2cm}
 \textbf{Funktionale Zusammenhänge} \\
@@ -197,13 +197,13 @@ Die Kernaufgaben des Backends umfassen:
 \end{itemize}
 
 Das Backend ist unter anderem für besondere Funktionen, wie die Wiederholungslogik für Übungsfragen, die Sicherstellung der Prüfungskonsistenz 
-sowie die Kopie von abgeschlossenen Prüfungen, verantwortlich. Dzadurch bleibt die Trennung zwischen Übungs- und Prüfungsmodus sauber erhalten
+sowie die Kopie von abgeschlossenen Prüfungen, verantwortlich. Dadurch bleibt die Trennung zwischen Übungs- und Prüfungsmodus sauber erhalten
 und im Frontend kann die Darstellung vollständig im Fokus stehen.
 
 \begin{figure}[H]
   \centering
   \fbox{
-    \includegraphics[width=0.9\textwidth]{component-diagramme-backend.png}
+    \includegraphics[width=0.7\textwidth]{component-diagramme-backend.png}
   }
   \caption{Komponentendiagramm des Backends}
 \end{figure}

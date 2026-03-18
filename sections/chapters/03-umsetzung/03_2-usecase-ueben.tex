@@ -10,12 +10,11 @@ Lernen mit direktem Feedback. Nutzer:innen soll es ermöglicht werden, ein Funda
 ihr Wissen festigen zu können. 
 
 Funktionen umfassen das Auswählen von bestimmten Themen, das Zusammenstellen 
-von einem eigenen Fragenpool und das Erstellen und Einsehen von Lösungswegen für die 
-jeweiligen Aufgaben. Nutzer:innen können hierbei also genau die Themen lernen, die ihnen
+von einem eigenen Fragenpool und das Beantworten von Fragen ohne Stress. Nutzer:innen können hierbei also genau die Themen lernen, die ihnen
 Probleme bereiten, und das durch eigene Fragen oder Fragen anderer Nutzer:innen. 
 
 Die Plattform unterstützt dabei verschiedene Fragetypen, um das Lernerlebnis flexibler zu 
-gestalten. Um nicht einfach nur ein Ergebnis von "richtig" und "falsch" zu liefern, 
+gestalten. Um nicht einfach nur ein Ergebnis von ,,richti'' und,,falsch'' zu liefern, 
 können Nutzer:innen auch Lösungswege einsehen, um das Verständnis nachhaltig zu fördern.
 
 Durch diese wiederholbare und flexible Übungsumgebung eignet sich die Anwendung sowohl
@@ -31,23 +30,21 @@ auf Tests, Schularbeiten oder die Matura.
 
 Die Verwaltung von Fragenpools ist eine zentrale Funktion der Lernplattform, die es
 Nutzer:innen ermöglicht, ihre Lerninhalte individuell zu gestalten und gezielt zu üben. Hier spielt die 
-"Fragen browsen"-Ansicht, wie in \autoref{fig:fragen-browsen} gezeigt, eine wichtige Rolle, da diese den Nutzer:innen erlaubt, ihre individuell selektierten Fragen gesammelt zu verwalten, und somit 
+,,Fragen browsen''-Ansicht, wie in \autoref{fig:fragen-browsen} gezeigt, eine wichtige Rolle, da diese den Nutzer:innen erlaubt, ihre individuell selektierten Fragen gesammelt zu verwalten, und somit 
 genügend Raum für gezieltes Lernen bietet. 
-
-\subsubsection{User-Interface der Fragenpool-Verwaltung}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{fragenBrowsen.png}
+    \includegraphics[width=0.9\textwidth]{fragenBrowsen.png}
     \caption{Ansicht der Verwaltung des Fragenpools}
     \label{fig:fragen-browsen}
 \end{figure}
 
 Das Interface der Fragenpool-Verwaltung ist so gestaltet, dass Nutzer:innen schnell und intuitiv
-auf ihre gespeicherten Fragen zugreifen können. Die Ansicht ist in zwei Bereiche unterteilt: Auf der linken Seite 
+auf ihre gespeicherten Fragen zugreifen können. Die Ansicht ist in zwei Bereiche unterteilt: Links
 befindet sich eine Seitenleiste, die als Navigation zwischen den Fragen dient, während der Hauptbereich die passenden Fragen zum gewählten Thema anzeigt.
 
-Im Hauptbereich kann zwischen "ist bereits in Fragenpool" und "alle" gewählt werden, wodurch die Nutzer:innen den optimalen Überblick behalten.
+Im Hauptbereich kann zwischen ,,bereits in Fragenpool" und "alle" gewählt werden, wobei gefiltert wird, welche Fragen angezeigt werden sollen. 
 Die Fragen können jederzeit hinzugefügt oder entfernt werden, indem entsprechende Buttons wie "alle auswählen"
 oder das Sternsymbol neben der einzelnen Frage verwendet werden.
 
@@ -124,78 +121,35 @@ Die Struktur der Fächer und Themen ist klar hierarchisch aufgebaut: Ein Fach en
 \setauthor{\firstauthor}
 
 Wie in \autoref{fig:question-runner-example} dargestellt befindet sich der/die Nutzer:in nun beim
-Question-Runner, also der zentralen Ansicht, bei der Fragen beantwortet und ausgewertet werden können.
-Diese Komponente ist das Herzstück des Übungs-, Prüfungs- und Reviewmodus, da hier das gesamte Fragenhandling 
-stattfindet.
+Question-Runner, also der zentralen Ansicht, bei der Fragen beantwortet und ausgewertet werden können. Diese Komponente ist eine dynamische Ansicht, da sie je nach gewähltem Modus (Üben, Prüfen oder Review) verschiedene Steuerungselemente bereitstellt. 
 
-Dabei gibt es drei verschiedene Modi, in der sich der Question-Runner befinden kann:
-\begin{itemize}
-    \item \textbf{Übungsmodus} (\ref{chap:uebung}): 
-        Nutzer:in erhält direkt Feedback zu den Antworten, ohne Zeitdruck.
-    \item \textbf{Prüfungsmodus} (\ref{chap:pruefung}): 
-        Prüfung wird unter Zeitlimit simuliert, Feedback erfolgt erst nach Abschluss, um eine realitätsnahe 
-        Prüfungsumgebung zu simulieren.
-    \item \textbf{Reviewmodus} (\ref{chap:review}): 
-        Bereits abgeschlossene Tests können erneut eingesehen werden, 
-        Antworten und Lösungswege sind sichtbar, jedoch sind Änderungen nicht möglich.
-\end{itemize}
 
 \vspace{1cm}
-\textbf{User-Interface des Question Runners}
+\textbf{Benutzeroberfläche des Question Runners}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{question-runner-mc.png}
-    \caption{Beispielhafte Ansicht einer Frage im Question Runner}
-    \label{fig:question-runner-example}
+	\centering
+	\includegraphics[width=0.8\textwidth]{question-runner-mc.png}
+	\caption{Beispielhafte Ansicht einer Frage im Question Runner}
+	\label{fig:question-runner-example}
 \end{figure}
 
-Der Question Runner zeigt zunächst, aus welchem Fach und welchem Themenpool die Frage stammt,
-die der/die Nutzer:in gerade bearbeitet. Direkt darunter wird die Frage als Überschrmcift angezeigt, rechts daneben 
-ggf. das zugehörige Bild.
-
-Unter der Frage befinden sich die Antwortfelder, abhängig vom Fragetyp: Multiple-Choice-Fragen als Auswahlfelder 
-(\autoref{fig:question-runner-mc}), Freitextfragen als Eingabefeld (\autoref{fig:question-runner-freetext}). 
-Ganz unten befinden sich die Aktionsbuttons: 
-im Übungsmodus der \textbf{„Prüfen“-Button}, in den anderen Modi allgemeine Navigationsbuttons (\textbf{Weiter}/\textbf{Zurück}).
-
-\vspace{1cm}
-\textbf{Datenfluss im Question Runner} 
-
-Im Übungsmodus ruft der Question Runner zunächst die angegebene Frage anhand ihrer eindeutigen ID ab, 
-falls der/die Nutzer:in eine konkrete Frage auswählen möchte, wie bei der Verwaltung von
-Fragenpools (\ref{chap:fragenpools}) beschrieben.
-
-Wurde keine einzelne Frage ausgewählt, werden zunächst die Filterkriterien für Themen und Fragetypen geprüft. 
-Anschließend werden die passenden Fragen aus dem Fragenpool des/der Nutzers/Nutzerin abgerufen und dem Question 
-Runner übergeben. Auf diese Weise wird sichergestellt, dass sowohl gezieltes Üben einzelner Fragen als 
-auch das Bearbeiten thematisch gefilterter Mengen möglich ist.
-
-Der Question Runner erhält von anderen Komponenten im Frontend eine \textbf{Liste von Frage-IDs} oder alternativ eine einzelne ID, 
-die der/die Nutzer:in bearbeiten möchte. Diese IDs repräsentieren die Fragen, die im Anschluss nacheinander 
-abgerufen und angezeigt werden. Die Auswahl der IDs erfolgt zuvor in der Themen- oder Fragenpool-Ansicht 
-und wird hier nicht weiter gefiltert.
-
-Das Backend liefert das vollständige Frageobjekt zurück, das alle für die Anzeige im Question Runner erforderlichen 
-Informationen enthält (siehe Abschnitt „User-Interface des Question Runners“).
-
-Nachdem der/die Nutzer:in eine Antwort eingibt, hängt das Verhalten vom Modus ab:
-
+Die Ansicht ist hierarchisch aufgebaut, um für eine schnelle Orientierung zu sorgen:
 \begin{itemize}
-    \item \textbf{Übungsmodus}: 
-        Die Antwort wird direkt ans Backend gesendet und dort ausgewertet. Das Ergebnis wird sofort zurückgesendet und
-        im Question Runner angezeigt. Danach ruft der Question Runner automatisch die nächste ID auf.
-    \item \textbf{Prüfungsmodus}: 
-        Antworten werden gesammelt und erst nach Abschluss der Prüfung ans Backend gesendet. Feedback erfolgt danach.
-    \item \textbf{Reviewmodus}: 
-        Nur Anzeige von Antworten und Lösungswegen. Der/Die Nutzer:in kann hier also keine Antworten eingeben.
+	\item \textbf{Informationsbereich:} \\
+	Am oberen Rand wird das aktuelle Fach sowie der spezifische Themenpool angezeigt.
+	\item \textbf{Inhaltsbereich:} \\
+	Die Fragestellung wird auffällig als Überschrift präsentiert und bei Bedarf auf der rechten Seite durch eine illustrative Grafik ergänzt.
+	\item \textbf{Interaktionsbereich:} \\
+	Wie nachfolgend beschrieben erscheinen hier je nach Fragetyp Auswahlfelder (Multiple-Choice) oder ein Texteingabefeld (Freitext).
+	\item \textbf{Aktionsleiste:} \\
+	Im unteren Bereich befinden sich die Navigationselemente. Im Übungsmodus ist dies primär der Button „Prüfen“ zur sofortigen Auswertung, während in der Prüfungssimulation (Kapitel \ref{chap:pruefung}) Navigationsbuttons zum Vor- und Zurückblättern dominieren.
 \end{itemize}
 
 \vspace{1cm}
 \textbf{Unterstützung verschiedener Fragetypen}
 
-Neben der Unterscheidung der Modi werden im Question Runner die verschiedenen Fragetypen berücksichtigt. Aktuell 
-werden zwei Haupttypen unterstützt:
+Neben der Unterscheidung der Modi werden im Question Runner die verschiedenen Fragetypen berücksichtigt. Aktuell werden zwei Haupttypen unterstützt:
 
 \begin{itemize}
     \item \textbf{Multiple-Choice-Fragen:} 
@@ -207,11 +161,7 @@ werden zwei Haupttypen unterstützt:
         
     \item \textbf{Freitext-Fragen:} 
         Nutzer:innen geben ihre Antwort in ein Texteingabefeld ein. 
-        Dieser Fragetyp eignet sich für offene Aufgabenstellungen, bei denen die Antwort nicht auf eine vorgegebene Auswahl 
-        beschränkt ist. 
-        Im Backend wird die Eingabe des/der Nutzer:in mit einer Menge möglicher korrekter Antworten abgeglichen. 
-        Entspricht die Eingabe einer dieser Antwortmöglichkeiten, wird die Antwort als korrekt bewertet, andernfalls als falsch. 
-        Im Frontend steht ein ausreichend großes Eingabefeld bereit, um längere Antworten komfortabel einzugeben 
+        Dieser Fragetyp eignet sich für offene Aufgabenstellungen, bei denen die Antwort nicht auf eine vorgegebene Auswahl beschränkt ist. Für die Eingabe wird ein größeres Eingabefeld bereitgestellt, um längere Antworten komfortabel angeben zu können. Die Eingabe wird mit einer Menge an korrekten Antworten abgeglichen. Entspricht die Eingabe einer dieser Antwortmöglichkeiten, wird die Antwort als korrekt bewertet, andernfalls als falsch. 
         (siehe \autoref{fig:question-runner-freetext}).
 \end{itemize}
 
@@ -300,17 +250,7 @@ ist.
 \textbf{Bearbeitung der Fragen und direktes Feedback}
 
 Beim Start in den Übungsdurchlauf gelangt der/die Nutzer:in in den Question Runner, in dem die Fragen nacheinander 
-bearbeitet werden. In der Kopfzeile wird angezeigt, aus welchem Fach und Themenbereich die aktuelle Frage stammt. 
-Darunter befindet sich die eigentliche Aufgabenstellung, gemeinsam mit den dazugehörigen Antwortfeldern 
-(siehe \autoref{fig:question-runner-practice})
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{question-runner-mc.png}
-    \caption{Ansicht des Questionrunners nach dem Starten des Übungsdurchlaufs}
-    \label{fig:question-runner-practice}
-\end{figure}
-
+bearbeitet werden. 
 In diesem Modus liegt der Fokus auf dem Erlernen der ausgewählten Inhalte. Es ist dabei also wichtig, dass es keine 
 Elemente gibt, die möglicherweise Stress oder Ablenkung verursachen, wie sie in klassischen Prüfungssituationen häufig auftreten. 
 Deshalb ist diese Ansicht auch besonders schlicht und simpel gehalten. Der:Die Nutzer:in steht hier nicht unter Zeitdruck
@@ -376,7 +316,7 @@ Das explizite Abbrechen des Übungsdurchlaufs ist nicht vorgesehen, verlässt de
 Bearbeitung dennoch, geht der aktuelle Bearbeitungsstand verloren, die bereits beantworteten Fragen bleiben aber gespeichert.
 Deshalb kehrt der/die Nutzer:in beim erneuten Aufrufen des Übungsmodus also auch automatisch zur zueletzt offenen Frage zurück.
 
-Sind für den ausgewählten Themenbereich vorübergehend keine weiteren Fragen mehr verfügbar, weil alle Fragen entweder gesperrt,
+Sind für den ausgewählten Themenbereich vorübergehend keine weiteren Fragen mehr verfügbar, weil alle Fragen entweder
 ausgelernt oder zur Wiederholung gesperrt sind, so wird der \textit{"Prüfen}-Button zum \textit{"Abschließen"}-Button. Durch
 diesen gelangt man zurück zur vorherigen Ansicht, also der Fortschrittsübersicht.
 

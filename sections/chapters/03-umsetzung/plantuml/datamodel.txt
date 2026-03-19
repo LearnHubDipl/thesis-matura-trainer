@@ -1,0 +1,87 @@
+@startuml
+left to right direction
+skinparam monochrome true
+skinparam shadowing false
+skinparam packageStyle rectangle
+
+' Ankerpunkte zum Content-Team
+entity User #F5F5F5 {
+  * id : Long
+}
+
+entity Question #F5F5F5 {
+  * id : Long
+}
+
+' --- Lernfortschritt ---
+package "Lernfortschritt & Status" {
+  entity QuestionPool {
+    * id : Long
+  }
+
+  entity QuestionPoolEntry {
+    * id : Long
+    --
+    correctCount : Integer
+    lastAnsweredCorrectly : Boolean
+    answeredAt : DateTime
+  }
+
+  entity StreakTracking {
+    * id : Long
+    --
+    streak : Integer
+  }
+}
+
+' --- Prüfungslogik ---
+package "Prüfungsmodul" {
+  entity Exam {
+    * id : Long
+    --
+    score : Float
+    timeLimit : Integer
+  }
+
+  entity ExamQuestion {
+    * id : Long
+    --
+    selectedAnswer : String
+    isCorrect : Boolean
+  }
+}
+
+' --- Support ---
+package "Lösungswege" {
+  entity Solution {
+    * id : Long
+  }
+  entity SolutionStep {
+    * id : Long
+    --
+    text : String
+  }
+}
+
+' =====================
+' Relationen (Präzise Logik)
+' =====================
+
+' User Anker
+User ||--|| QuestionPool
+User ||--|| StreakTracking
+User ||--o{ Exam
+User ||--o{ Solution
+
+' Die Hierarchie des Lernens
+QuestionPool ||--o{ QuestionPoolEntry
+QuestionPoolEntry }o--|| Question
+
+' Prüfung basiert auf dem Pool-Eintrag (Deine Korrektur!)
+Exam ||--o{ ExamQuestion
+ExamQuestion }o--|| QuestionPoolEntry
+
+' Lösungen (direkt an der Frage für alle User sichtbar)
+Question ||--o{ Solution
+Solution ||--o{ SolutionStep
+@enduml

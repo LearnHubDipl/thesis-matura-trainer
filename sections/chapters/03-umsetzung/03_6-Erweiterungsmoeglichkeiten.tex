@@ -1,0 +1,44 @@
+% ========================
+% 3.6 Zukunftsaussichten
+% ========================
+\section{Zukunftsaussichten und Erweiterungsmöglichkeiten}
+ \setauthor{\firstauthor}
+
+Im Rahmen dieser Arbeit wurde eine Plattform entwickelt, die ein funktionales Fundament für die digitale Prüfungsvorbereitung darstellt. Darauf basierend lassen sich verschiedene Richtungen für zukünftige Erweiterungen identifizieren, mit welchen die Lerneffizienz weiter gesteigert werden kann.
+
+
+\subsection{KI-gestützte Inhaltsgenerierung und Feedback}
+
+Ein wesentliches Potenzial lässt sich in der Integration von Künstlicher Intelligenz erkennen, um einige Schritte des Lernzyklus zu automatisieren. Dabei ist einer der zentralen Schritte die Automatisierung der Fragenerstellung. Aktuelle Technologien wie \textit{Google NotebookLM} \cite{GoogleNotebookLM} zeigen bereits, wie KI-Modelle auf spezifische Quellen wie individuelle Mitschriften spezialisiert werden können, um daraus kontextbezogene Lerninhalte zu generieren, ohne dabei auf externes, potenziell ungesichertes Wissen zurückgreifen zu müssen.
+
+Für LearnHub würde dies zwei wesentliche Vorteile bieten:
+
+\subsubsection{Automatisierte Fragengenerierung}
+Durch die Implementierung eines sogenannten \textit{Retrieval-Augmented Generation (RAG)} \cite{RAG} Workflows wäre es möglich, den Prozess des Fragenerstellens massiv zu beschleunigen. Dabei würden Nutzer:innen ihre Mitschriften als PDF-Dokumente wie gehabt hochladen, während die integrierte KI-Schnittstelle diese Dokumente analysieren und daraus automatisiert Fragen erstellen würde.
+
+\begin{itemize}
+	\item \textbf{Multiple-Choice-Extraktion:} \\
+	Die KI erkennt aus dem Textabschnitt nicht nur die korrekte Antwort, sondern auch falsche Antwortmöglichkeiten, die durchaus plausibel sind.
+	\item \textbf{Kontextbezogene Erklärungen:} \\
+	Zu jeder generierten Frage könnte automatisch ein \textit{SolutionStep} erstellt werden, der direkt auf die entsprechende Stelle im Quelldokument verweist.
+\end{itemize}
+
+Dadurch fällt die Hürde aus, dass Nutzer:innen manuell Frage nach Frage in das System einpflegen müssen. Sie müssten lediglich überprüfen, ob die KI mit den Antwortmöglichkeiten keine Fehler gemacht hat und gegebenfalls anpassen. Dennoch wäre der Zeitaufwand verglichen zum Manuellen Erstellen jeder Frage durch eine KI-Integration in die Lernplattform deutlich verkürzt.
+
+
+\subsubsection{Intelligente Freitext-Bewertung und Feedback}
+Eine der größten Hürden bei der digitalen Lernplattform ist die Korrektur von Freitextantworten, die über einen einfachen String-Abgleich hinausgeht. Durch die Einbindung von \textit{Large Language Models} könnte Learnhub die Freitextantworten nicht einfach nur auf exakte Übereinstimmung, sondern auf ihre inhaltliche Korrektheit prüfen. 
+
+\begin{itemize}
+	\item \textbf{Semantische Analyse:} \\
+	Die KI gleicht die Eingabe der Nutzer:innen mit der Musterlösung ab und erkennt korrekte Lösungen auch bei abweichender Formulierung.
+	\item \textbf{Personalisiertes Feedback:} \\
+	Statt einer binären ,,Richtig/Falsch''-Wertung könnte das System könnte detailliertes Feedback geben, welche die fehlenden Aspekte einer Antwort  beschreiben.
+\end{itemize}
+
+Auf diese Weise würde sich \textbf{Learnhub} von einer rein reaktiven Abfrageplattform zu einer aktiven, KI-gestützen Lernbegleitung entwickeln, mit welchem der administrative Aufwand für Inhaltserstellung minimiert und die Qualität des Feedbacks maximiert wird.
+
+
+\subsection{Mobile Applikation (Cross-Platform)}
+
+Eine Entwicklung einer nativen App für iOS und Android wäre der nächste logische Schritt, um dem Lernverhalten heutiger Schüler:innen gerecht zu werden. Eine native App würde zusätzliche Funktionen wie Push-Benachrichtigungen etwa zur Erinnerung für ,,Lern-Streaks'' oder Fähigkeit, offline Fragen zu beantworten, ermöglichen. Vor allem das Lernen in kürzeren Zeitfenstern wie zum Beispiel während des Pendelns würde dies deutlich fördern.

@@ -1,11 +1,11 @@
 % ========================
-% 3.6 Implementierungsdetails
+% 3.5 Implementierungsdetails
 % ========================
 \section{Implementierungsdetails}
 
 
 % ========================
-% 3.6.1 Datenmodell
+% 3.5.1 Datenmodell
 % ========================
 \subsection{Datenmodell}
 \setauthor{\firstauthor}
@@ -17,7 +17,7 @@ Fragen, Themenbereichen, Übungsfortschritt und Prüfungssimulation.
 \begin{figure}[H]
   \centering
   \fbox{
-    \includegraphics[width=0.85\textwidth]{datamodel.png}
+    \includegraphics[width=\textwidth]{datamodel.png}
   }
   \caption{Datenbankmodell der Anwendung}
   \label{fig:datamodel}
@@ -30,7 +30,7 @@ näher betrachtet, die für die Umsetzung der Übungs- und Prüfungsfunktionen r
 
 
 % ========================
-% 3.6.1.1 Übungsmodus
+% 3.5.1.1 Übungsmodus
 % ========================
 \subsubsection{Zentrale Entitäten für den Übungsmodus}
 Für den Übungsmodus sind insbesondere die Entitäten \textit{Question}, \textit{Answer}, \textit{QuestionPool}, 
@@ -87,7 +87,7 @@ gleichzeitig eine saubere Trennung zwischen Fragen, Fragenpools der Nutzer:innen
 
 
 % ========================
-% 3.6.1.2 Lösungswege
+% 3.5.1.2 Lösungswege
 % ========================
 \subsubsection{Zentrale Entitäten für Lösungswege}
 Für die Darstellung von Lösungswegen im Übungsmodus sind vor allem die Entitäten \textit{Solution}, \textit{SolutionStep} und 
@@ -124,7 +124,7 @@ hochwertige Lösungswege mit mehr positiven Bewertungen hervorgehoben und die Co
 
 
 % ========================
-% 3.6.1.3 Prüfungsmodus
+% 3.5.1.3 Prüfungsmodus
 % ========================
 \subsubsection{Datenmodell für Prüfungssimulationen}
 Für die Umsetzung des Prüfungsmodus sind relevante Entitäten vor allem \textit{Exam} und \textit{ExamQuestion}. Durch diese sind die
@@ -139,7 +139,7 @@ abgelegt hat. Jede Prüfung kann mehrere Fragen enthalten, die über die Entitä
 \vspace{0.2cm}
 \textbf{ExamQuestion} \\
 \textit{ExamQuestion} speichert die gegebene Antworten auf die einzelne Frage innerhalb einer Prüfung und ist mit dem dementsprechendem
-Fragenobjekt verknüpft. Sie speichert nicht nur die ausgewählte Antwort, sondern auch ob diese Frage korrekt beantwortet wurde. So
+Fragenpoolobjekt verknüpft. Sie speichert nicht nur die ausgewählte Antwort, sondern auch ob diese Frage korrekt beantwortet wurde. So
 können alle Fragen einer Prüfung individuell ausgewertet werden und im Reviewmodus angezeigt werden.
 
 \vspace{0.2cm}
@@ -159,14 +159,14 @@ ihre Antworten werden erfasst und persisitiert und eine nachträgliche Auswertun
 
 
 % ========================
-% 3.6.2 Überblick über Komponenten
+% 3.5.2 Überblick über Komponenten
 % ========================
 \subsection{Überblick über Komponenten}
 \setauthor{\firstauthor}
 
 
 % ========================
-% 3.6.2.1 Backend
+% 3.5.2.1 Backend
 % ========================
 \subsubsection{Backend / API}
 Das auf Quarkus basierende Backend stellt über REST-Endpunkte die zentrale Schnittstelle für das Frontend bereit. Dabei werden alle Daten
@@ -210,7 +210,7 @@ und im Frontend kann die Darstellung vollständig im Fokus stehen.
 
 
 % ========================
-% 3.6.2.2 Frontend
+% 3.5.2.2 Frontend
 % ========================
 \subsubsection{Frontend-Komponenten}
 Das Frontend der Anwendung ist sowohl für die Darstellung der Inhalte als auch für die Interaktion der Nutzer:innen mit dem Übungs- und 
@@ -239,7 +239,7 @@ modulare Aufbau eine einfache Erweiterbarkeit für weitere Modi, ohne bestehende
 
 
 % ========================
-% 3.6.3 Custom Css-Klassen und eingebundene Bibliotheken
+% 3.5.3 Custom Css-Klassen und eingebundene Bibliotheken
 % ========================
 \subsection{Custom CSS-Klassen und eingebundene Bibliotheken}
 \setauthor{\secondauthor}

@@ -14,7 +14,7 @@ von einem eigenen Fragenpool und das Beantworten von Fragen ohne Stress. Nutzer:
 Probleme bereiten, und das durch eigene Fragen oder Fragen anderer Nutzer:innen. 
 
 Die Plattform unterstützt dabei verschiedene Fragetypen, um das Lernerlebnis flexibler zu 
-gestalten. Um nicht einfach nur ein Ergebnis von ,,richti'' und,,falsch'' zu liefern, 
+gestalten. Um nicht einfach nur ein Ergebnis von ,,richtig'' und,,falsch'' zu liefern, 
 können Nutzer:innen auch Lösungswege einsehen, um das Verständnis nachhaltig zu fördern.
 
 Durch diese wiederholbare und flexible Übungsumgebung eignet sich die Anwendung sowohl
@@ -44,7 +44,7 @@ Das Interface der Fragenpool-Verwaltung ist so gestaltet, dass Nutzer:innen schn
 auf ihre gespeicherten Fragen zugreifen können. Die Ansicht ist in zwei Bereiche unterteilt: Links
 befindet sich eine Seitenleiste, die als Navigation zwischen den Fragen dient, während der Hauptbereich die passenden Fragen zum gewählten Thema anzeigt.
 
-Im Hauptbereich kann zwischen ,,bereits in Fragenpool" und "alle" gewählt werden, wobei gefiltert wird, welche Fragen angezeigt werden sollen. 
+Im Hauptbereich kann zwischen ,,bereits in Fragenpool" und ,,alle" gewählt werden, wobei gefiltert wird, welche Fragen angezeigt werden sollen. 
 Die Fragen können jederzeit hinzugefügt oder entfernt werden, indem entsprechende Buttons wie "alle auswählen"
 oder das Sternsymbol neben der einzelnen Frage verwendet werden.
 
@@ -114,15 +114,51 @@ Alle Änderungen an der Datenbank laufen abgesichert ab: Entweder wird alles kor
 Die Struktur der Fächer und Themen ist klar hierarchisch aufgebaut: Ein Fach enthält mehrere Themenpools, und jeder Themenpool besteht aus mehreren Fragen. Diese Struktur wird direkt in der Benutzeroberfläche dargestellt und erleichtert die Navigation.
 
 
+
+% =============
+% 3.2.3 Übungsmodus mit direktem Feedback
+% =============
+\subsection{Übungsmodus mit direktem Feedback}
+\label{chap:uebung}
+\setauthor{\firstauthor}
+
+Beim Aufruf des Übungsmodus landet der User zunächst auf einer Übersichtsseite, auf der eine Zusammenfassung
+des aktuellen Lernstands zu finden ist und die einen Einstieg in den nächsten Übungsdurchlauf ermöglicht. 
+Diese Ansicht dient dazu, einen schnellen Überblick darüber zu geben, wie gut einzelne Fragen bereits 
+beherrscht werden und welche Bereiche noch wiederholt werden sollten.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{progress-view.png}
+	\caption{Fortschrittsübersicht des Übungsmodus}
+	\label{fig:progress-screen}
+\end{figure}
+
+Rechts neben der Statusübersicht können die Themenbereiche gewählt werden, auf die sich sowohl die Fortschrittsübersicht als auch 
+die nächste Übungssitzung beschränken soll. So kann sich der Übungsmodus auf bestimmte Fächer oder Themenbereiche eingrenzen 
+lassen. Wird aber bei dieser Auswahl \textit{,,Alle Fragen''} angegeben, so wird der Übungsmodus auch auf alle 
+Themenbereiche im eigenen Fragenpool ausgeweitet.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{progress-view-topicpool-selection.png}
+	\caption{Auswahl der Themenbereiche für den nächsten Übungsdurchlauf}
+	\label{fig:progress-screen-topicpool-selection}
+\end{figure}
+
+Nachdem die gewünschten Themenbereiche ausgewählt wurden, kann der Übungsdurchlauf über den "Üben"-Button direkt unter der 
+Auswahl der Themenbereiche gestartet werden. Das System wechselt automatisch in den Question Runner und lädt die nächste
+passende Frage aus den ausgewählten Themenbereichen, je nachdem bei welchem Fragenstatus aktuell am meisten Übungsbedarf 
+besteht. Auf diese Weise kann die Übungssitzung direkt an dem Punkt starten, an dem es zu diesem Zeitpunkt am wichtigsten
+ist.
+
 % =============
 % 3.2.2 Fragenhandling und Fragetypen
 % =============
-\subsection{Fragenhandling und Fragetypen}
+\subsubsection{Bearbeiten der Fragen im Question Runner}
 \setauthor{\firstauthor}
 
-Wie in \autoref{fig:question-runner-example} dargestellt befindet sich der/die Nutzer:in nun beim
-Question-Runner, also der zentralen Ansicht, bei der Fragen beantwortet und ausgewertet werden können. Diese Komponente ist eine dynamische Ansicht, da sie je nach gewähltem Modus (Üben, Prüfen oder Review) verschiedene Steuerungselemente bereitstellt. 
-
+Beim Start in den Übungsmodus gelangt der/die Nutzer:in, wie in \autoref{fig:question-runner-example} dargestellt, in den Question-Runner, also der zentralen Ansicht, bei der Fragen beantwortet und ausgewertet werden können. Diese Komponente ist eine dynamische Ansicht, da sie je nach gewähltem Modus (Üben, Prüfen oder Review) verschiedene Steuerungselemente bereitstellt. 
 
 \vspace{1cm}
 \textbf{Benutzeroberfläche des Question Runners}
@@ -152,36 +188,36 @@ Die Ansicht ist hierarchisch aufgebaut, um für eine schnelle Orientierung zu so
 Neben der Unterscheidung der Modi werden im Question Runner die verschiedenen Fragetypen berücksichtigt. Aktuell werden zwei Haupttypen unterstützt:
 
 \begin{itemize}
-    \item \textbf{Multiple-Choice-Fragen:} 
-        Nutzer:innen wählen eine oder mehrere richtige Antworten aus einer Liste vorgegebener Auswahlmöglichkeiten aus. 
-        Multiple-Choice-Fragen sind besonders geeignet, um Faktenwissen abzufragen oder schnelle Wissenskontrollen durchzuführen. 
-        Das System wertet die Antwort automatisch aus und kann im Übungsmodus direkt Feedback geben. 
-        Die Darstellung erfolgt als übersichtliche Auswahlfelder, die klar zwischen ausgewählt und nicht ausgewählt unterscheiden.
-        (siehe \autoref{fig:question-runner-mc})
-        
-    \item \textbf{Freitext-Fragen:} 
-        Nutzer:innen geben ihre Antwort in ein Texteingabefeld ein. 
-        Dieser Fragetyp eignet sich für offene Aufgabenstellungen, bei denen die Antwort nicht auf eine vorgegebene Auswahl beschränkt ist. Für die Eingabe wird ein größeres Eingabefeld bereitgestellt, um längere Antworten komfortabel angeben zu können. Die Eingabe wird mit einer Menge an korrekten Antworten abgeglichen. Entspricht die Eingabe einer dieser Antwortmöglichkeiten, wird die Antwort als korrekt bewertet, andernfalls als falsch. 
-        (siehe \autoref{fig:question-runner-freetext}).
+	\item \textbf{Multiple-Choice-Fragen:} 
+	Nutzer:innen wählen eine oder mehrere richtige Antworten aus einer Liste vorgegebener Auswahlmöglichkeiten aus. 
+	Multiple-Choice-Fragen sind besonders geeignet, um Faktenwissen abzufragen oder schnelle Wissenskontrollen durchzuführen. 
+	Das System wertet die Antwort automatisch aus und kann im Übungsmodus direkt Feedback geben. 
+	Die Darstellung erfolgt als übersichtliche Auswahlfelder, die klar zwischen ausgewählt und nicht ausgewählt unterscheiden.
+	(siehe \autoref{fig:question-runner-mc})
+	
+	\item \textbf{Freitext-Fragen:} 
+	Nutzer:innen geben ihre Antwort in ein Texteingabefeld ein. 
+	Dieser Fragetyp eignet sich für offene Aufgabenstellungen, bei denen die Antwort nicht auf eine vorgegebene Auswahl beschränkt ist. Für die Eingabe wird ein größeres Eingabefeld bereitgestellt, um längere Antworten komfortabel angeben zu können. Die Eingabe wird mit einer Menge an korrekten Antworten abgeglichen. Entspricht die Eingabe einer dieser Antwortmöglichkeiten, wird die Antwort als korrekt bewertet, andernfalls als falsch. 
+	(siehe \autoref{fig:question-runner-freetext}).
 \end{itemize}
 
 \begin{figure}[H]
-    \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{question-runner-mc.png}
-        \caption{Multiple-Choice-Frage}
-        \label{fig:question-runner-mc}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{question-runner-freetext.png}
-        \caption{Freitext-Frage}
-        \label{fig:question-runner-freetext}
-    \end{subfigure}
-    \caption{Question-Runner: Beispiele für verschiedene Fragetypen}
-    \label{fig:question-runner}
+	\centering
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{question-runner-mc.png}
+		\caption{Multiple-Choice-Frage}
+		\label{fig:question-runner-mc}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{question-runner-freetext.png}
+		\caption{Freitext-Frage}
+		\label{fig:question-runner-freetext}
+	\end{subfigure}
+	\caption{Question-Runner: Beispiele für verschiedene Fragetypen}
+	\label{fig:question-runner}
 \end{figure}
 
 Durch diese Gestaltung unterstützt der Question Runner den/die Nutzer:in auf effektive Weise beim 
@@ -191,72 +227,10 @@ klare Trennung der Modi tragen dazu bei, dass sich der/die Nutzer:in jederzeit a
 konzentrieren kann, ohne von technischen Details abgelenkt zu werden.
 
 
-% =============
-% 3.2.3 Übungsmodus mit direktem Feedback
-% =============
-\subsection{Übungsmodus mit direktem Feedback}
-\label{chap:uebung}
-\setauthor{\firstauthor}
 
-Beim Aufruf des Übungsmodus landet der User zunächst auf einer Übersichtsseite, auf der eine Zusammenfassung
-des aktuellen Lernstands zu finden ist und die einen Einstieg in den nächsten Übungsdurchlauf ermöglicht. 
-Diese Ansicht dient dazu, einen schnellen Überblick darüber zu geben, wie gut einzelne Fragen bereits 
-beherrscht werden und welche Bereiche noch wiederholt werden sollten.
+\subsubsection{Direktes Feedback im Übungsmodus}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{progress-view.png}
-    \caption{Fortschrittsübersicht des Übungsmodus}
-    \label{fig:progress-screen}
-\end{figure}
-
-
-Auf dieser Übersichtsseite werden alle Fragen der ausgewählten Themenbereiche nach ihrem bisherigen Bearbeitungsstatus 
-gruppiert. Dazu zählen unter anderem:
-
-\begin{itemize}
-    \item (gelb) Fragen, die noch nie beantwortet wurden \\ (rot) Fragen, die zuletzt falsch beantwortet wurden
-    \item (hellgrün) Fragen, die bereits 1× korrekt beantwortet wurden \\ zum Wiederholen gesperrt oder nicht gesperrt
-    \item (grün) Fragen, die bereits 2× korrekt beantwortet wurden \\ zum Wiederholen gesperrt oder nicht gesperrt
-    \item (dunkelgrün) Fragen, die ausreichend häufig richtig beantwortet wurden
-\end{itemize}
-
-Diese Einteilung hilft dem:der Nutzer:in dabei, den eigenen Lernfortschritt einzuschätzen und gezielt zu entscheiden, 
-welche Fragen noch verstärktere Wiederholung benötigen. Gleichzeitig hebt sie hervor, welche Inhalte sicher beherrscht werden 
-und daher im Übungsmodus seltener erscheinen. Diese Übersicht macht außerdem sichtbar, welche Fragen noch nicht wiederholt
-werden sollten, da sie erst vor kurzer Zeit geübt wurden. Das sind jene Fragen, die als \textit{"fürs Wiederholen gesperrt"} 
-markiert werden.
-
-Rechts neben der Statusübersicht kann der Themenbereich gewählt werden, auf den sich sowohl die Fortschrittsübersicht als auch 
-die nächste Übungssitzung beschränken soll. So kann sich der Übungsmodus auf bestimmte Fächer oder Themenbereiche eingrenzen 
-lassen. Wird aber bei dieser Auswahl \textit{"Alle Fragen"} angegeben, so wird der Übungsmodus auch auf alle 
-Themenbereiche im eigenen Fragenpool ausgeweitet.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{progress-view-topicpool-selection.png}
-    \caption{Auswahl des Themenbereichs für den nächsten Übungsdurchlauf}
-    \label{fig:progress-screen-topicpool-selection}
-\end{figure}
-
-Nachdem der gewünschte Themenbereich ausgewählt wurde, kann der Übungsdurchlauf über den "Üben"-Button direkt unter der 
-Auswahl des Themenbereichs gestartet werden. Das System wechselt automatisch in den Question Runner und lädt die nächste
-passende Frage aus dem ausgewählten Themenbereich, je nachdem bei welchem Fragenstatus aktuell am meisten Übungsbedarf 
-besteht. Auf diese Weise kann die Übungssitzung direkt an dem Punkt starten, an dem es zu diesem Zeitpunkt am wichtigsten
-ist.
-
-
-\vspace{1cm}
-\textbf{Bearbeitung der Fragen und direktes Feedback}
-
-Beim Start in den Übungsdurchlauf gelangt der/die Nutzer:in in den Question Runner, in dem die Fragen nacheinander 
-bearbeitet werden. 
-In diesem Modus liegt der Fokus auf dem Erlernen der ausgewählten Inhalte. Es ist dabei also wichtig, dass es keine 
-Elemente gibt, die möglicherweise Stress oder Ablenkung verursachen, wie sie in klassischen Prüfungssituationen häufig auftreten. 
-Deshalb ist diese Ansicht auch besonders schlicht und simpel gehalten. Der:Die Nutzer:in steht hier nicht unter Zeitdruck
-und kann die Frage in Ruhe lesen, überdenken und schließlich beantworten. Erst nachdem eine Antwort ausgewählt 
-beziehungsweise eingegeben wurde, kann diese über den \textit{"Prüfen"}-Button bestätigt werden. Anschließend wird die 
-Antwort ausgewertet und das Ergebnis unmittelbar im Question Runner angezeigt.
+Im Übungsmodus liegt das Stressfreie Lernen im Fokus. Der/Die Nutzer:in steht hier also nicht unter Zeitdruck und kann die Frage in Ruhe lesen, überdenken und schließlich beantworten. Erst nachdem eine Antwort ausgewählt beziehungseise eingegeben wurde, kann diese über den \textit{,,Prüfen''}-Button bestätigt werden. Anschließend wird die Antwort ausgewertet und das Ergebnis unmittelbar im Question Runner angezeigt.
 
 Das direkte Feedback ist so gestaltet, dass es den Lernprozess aktiv unterstützt. Nach der Auswertung wird die Frage deshalb
 visuell markiert und Antworten werden entsprechend farbig markiert. Korrekte Antworten werden mit einem positiven Grünton, 
@@ -265,20 +239,20 @@ und ein möglicher Lösungsweg (siehe Kapitel \ref{chap:solutions}) angezeigt. S
 Missverständnisse direkt geklärt werden.
 
 \begin{figure}[H]
-    \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{question-answered-correctly.png}
-        \caption{Korrekt beantwortete Frage}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{question-answered-incorrectly.png}
-        \caption{Falsch beantwortete Frage}
-    \end{subfigure}
-    \caption{Question-Runner: Richtig und Falsch beantwortete Frage}
-    \label{fig:question-answer-in-correctly}
+	\centering
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{question-answered-correctly.png}
+		\caption{Korrekt beantwortete Frage}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{question-answered-incorrectly.png}
+		\caption{Falsch beantwortete Frage}
+	\end{subfigure}
+	\caption{Question-Runner: Richtig und Falsch beantwortete Frage}
+	\label{fig:question-answer-in-correctly}
 \end{figure}
 
 Durch diese Form der Rückmeldung wird das Gelernte mit der jeweils bearbeiteten Frage verknüpft. So bleibt der Lernprozess
@@ -287,14 +261,13 @@ dass auch falsch beantwortete Fragen nicht nur negativ und als Fehler wahrgenomm
 Bestandteil des Lernprozesses genutzt werden.
 
 Nachdem die Auswertung erfolgt ist, wechselt der \textit{"Prüfen"}-Button zum \textit{"Nächste Frage"}-Button. Dieser 
-Button bringt den/die Nutzer:in direkt zur nächsten passenden Frage des ausgewählten Themenbereichs, wobei die Auswahl der 
+Button bringt den/die Nutzer:in direkt zur nächsten passenden Frage der ausgewählten Themenbereiche, wobei die Auswahl der 
 nächsten Frage der in Kapitel \ref{chap:lernstrategien} beschriebenen Lernstrategie folgt. Der Übungsmodus führt die Nutzer:innen 
 somit schrittweise durch die Inhalte, die für den weiteren Lernfortschritt am relevantesten sind. Dabei muss der/die Nutzer:in nicht 
 selbstständig die nächste Frage auswählen, sondern kann sich einfach vom System leiten lassen.
 
 
-\vspace{0.5cm}
-\textbf{Wiederholungslogik und erneute Präsentation von Fragen}
+\subsubsection{Wiederholungslogik und erneute Präsentation von Fragen}
 
 Nach der Bearbeitung einer Frage wird deren Ergebnis gespeichert. Richtig beantwortete Fragen gelten zunächst als 
 \textit{zum Wiederholen gesperrt} und sind erst nach einer definierten Wartezeit wieder im Übungsmodus vorzufinden. So wird
@@ -309,8 +282,7 @@ den Übungsmodus entfernt. Sie erscheint also nicht mehr im Übungsmodus, da dav
 ausreichend gefestigt ist.
 
 
-\vspace{0.5cm}
-\textbf{Verhalten bei Sitzungsfortsetzung und Abschluss des Übungsdurchlaufs}
+\subsubsection{Verhalten bei Sitzungsfortsetzung und Abschluss des Übungsdurchlaufs}
 
 Das explizite Abbrechen des Übungsdurchlaufs ist nicht vorgesehen, verlässt der/die Nutzer:in den Question Runner während der 
 Bearbeitung dennoch, geht der aktuelle Bearbeitungsstand verloren, die bereits beantworteten Fragen bleiben aber gespeichert.
@@ -321,9 +293,9 @@ ausgelernt oder zur Wiederholung gesperrt sind, so wird der \textit{"Prüfen}-Bu
 diesen gelangt man zurück zur vorherigen Ansicht, also der Fortschrittsübersicht.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{check-button-to-end.png}
-    \caption{"Prüfen"-Button wurde zum "Abschließen"-Button}
+	\centering
+	\includegraphics[width=0.8\textwidth]{check-button-to-end.png}
+	\caption{"Prüfen"-Button wurde zum "Abschließen"-Button}
 \end{figure}
 
 

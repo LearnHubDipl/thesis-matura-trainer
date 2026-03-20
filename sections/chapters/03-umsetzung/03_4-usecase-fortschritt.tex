@@ -1,147 +1,69 @@
-% ==================
-% Use Case: Fortschritt einsehen & analysieren
-% ==================
-
+\section{Use Case: Fortschritt einsehen und analysieren}
 \setauthor{\secondauthor}
 
-\section{Use Case: Fortschritt einsehen \& analysieren}
+Ein zentrales Element für den Lernerfolg in der Prüfungsvorbereitung ist die kontinuierliche Selbstreflexion. Die Lernplattform stellt hierfür ein umfassendes Modul zur Fortschrittseinsicht bereit, das weit über eine bloße Auflistung von Ergebnissen hinausgeht. Das Ziel ist es, den Nutzer:innen ein Werkzeug an die Hand zu geben, mit dem sie ihren aktuellen Wissensstand objektiv bewerten und ihre Lernstrategie datengestützt anpassen können. Durch die visuelle Aufbereitung komplexer Leistungsdaten wird der Lernprozess greifbar und die Motivation durch sichtbare Erfolge langfristig gesteigert.
+
+\subsection{Prüfungsverlauf und tiefergehende Detailanalyse}
 \setauthor{\secondauthor}
-
-Ein wichtiger Bestandteil unserer Lernplattform ist Fortschrittseinsicht, um den User 
-die Möglichkeit zu bieten seinen aktuellen Wissensstand jeder Zeit einsehen zu können. 
-Mit übersichtlichen Diagrammen und Statistiken hat der User immer einen klaren
-Überbklick auf seinen Lernfortschritt und kann so effizient einschätzen wie viel Übungsbedarf besteht.
-Filteroptionen ermöglichen es auch nach verschiedenen Themenpools zu filtern damit Schüler gezielt erkennen  
-in welchen Themenpools sie noch mehr Übung bräuchten.
-
-\textit{Statistiken Ansicht}
 
 \begin{figure}[H]
-    \centering
-    \fbox{
-      \includegraphics[width=0.7\textwidth]{statistik.png}
-    }
-    \caption{Allgemeine Statistikübersicht der Anwendung}
-    \label{fig:statistik}
+\centering
+\fbox{
+\includegraphics[width=0.7\textwidth]{PrüfungsÜbersicht.png}
+}
+\caption{Übersicht des Prüfungsverlaufs mit chronologischer Historie}
+\label{fig:pruefungsverlauf}
 \end{figure}
 
-Neben der Darstellung des Lernfortschritts mit Diagrammen sind Statistiken auch zur Motivation gut geeignet, ein sichtbarer Fortschritt motiviert für zukünftiges Lernen. 
-Ein positives Lernerlebnis kann Nutzer auch für weitere Lernziele anspornen bzw. ihnen helfen regelmäßiger zu üben um ihre Leistung zu verbessern.
-
-Aufgebaut sind die Statistiken und Diagramme auf den Ergebnissen und Daten aus dem Übungsmodus oder wenn der User eine Frage explizit übt.
-Die Auswahl der gestellten Fragen erfolgt über ein recherchiertes und ausgewähltes Lernsystem, um den Wissenstand langfristig im Kopf zu behalten.
-
-
-\subsection{Lernstrategien und Fehleranalyse}
-\setauthor{\secondauthor}
-\textit{Identifikation von Wiederholungsbedarf und Schwachstellen.}
-
-Um den Lernerfolg langfristig zu verbessern, ist es notwendig, das Lernverhalten analysieren und Schwachstellen zu erkennen. 
-Auf Grundlage der Fehleranalyse wird der Wiederholungsbedarf festgelegt. Da Nutzer:innen verstärkt die Fragen oder Themenpools üben die 
-ihnen schwer fallen wird ihr Wissen und Sicherheit gestützt. Aufgaben und Fragen die sie bereits beherschen und mehrfach korrekt beantwortet hatten, kommen hingegen in selteneren Abständen
-bzw. fallen zur gänze raus. Durch diese Anpassungen wird effizienter gelernt und somit auch mehr Lernerfolg erzielt.
-
-Darüber hinaus unterstützt diese Funktion das selbstreflektierende Lernen. Die Nutzer:innen können nachvollziehen und selbst Muster erkennen, bei welchen Inhalten oder Fragen sie des öfteren 
-mal Schwierigkeiten haben. Dadurch können die User selbst sehen wo sie Probelme haben und besser ihre Personaliserten Fragenpools auswählen, diese können sie anschließend üben.
-
-Wie in \autoref{fig:statistik} gezeigt, gibt es unter der Hauptstatistik noch zwei Widgets. Die Streak-Anzeige und der Prüfungsdurschnitt.
-Bei der Streak-Anzeige wird jedesmal wenn der User die Anwendung benutzt ein Tag hinzugefügt, wenn er die App an einem Tag nicht nutzt wird die Streak zurückgesetzt.
-Dafür wird das Datum des letzten Logins mit dem aktuellen Datum verglichen, wenn mehr als 24 Stunden seit dem letzten Login vergangen sind wird die Streak zurückgesetzt.
- So kann der/die Nutzer:in motiviert werden die App regelmäßig zu verwenden. Der Prüfungsdurchschnitt zeigt den Durchschnitt aller abgelegten Prüfungen an, dieser wird durch das Addieren aller erreichten Prozente geteilt durch die Anzahl der Prüfungen berechnet.
-
-
-
-\textbf{Prüfungsverlauf}
-
-
-
-Auf der Prüfungsverlaufansicht, wie in \autoref{fig:pruefungsverlauf} zu sehen ist, werden alle abgelegten Prüfungen des Nutzers angezeigt.
-Dafür werden alle Prüfungen aus dem Backend geholt und in einer Liste dargestellt. Jede Prüfung zeigt auf ersten Blick das Datum, die erreichten Prozente, das Fach und die Dauer an.Wenn man diese jedoch aufklappt kann der/die Nutzer:in jede Frage 
-zur jeweiligen Prüfung sehen, dort werden ebenfalls weitere Details aufgelistet. Welche Antworten man zuvor gegben hat und ob diese korrekt war, wie in \autoref{fig:pruefungsverlaufdetail} gezeigt.
-
+Um die individuelle Entwicklung über einen längeren Zeitraum hinweg nachvollziehen zu können, bietet die Anwendung eine lückenlose Historie aller absolvierten Prüfungen. Diese Übersicht dient als „Logbuch“ des Lernprozesses. Jede Zeile der Liste liefert sofort die entscheidenden Parameter: Das Datum dokumentiert die Lernfrequenz, während die Fachangabe und die erreichte Prozentzahl den direkten Leistungsvergleich ermöglichen. Besonders die Anzeige der benötigten Zeit bietet einen Mehrwert, da sie Aufschluss darüber gibt, ob die Nutzer:innen bereits unter realen Zeitbedingungen sicher agieren oder ob die Bearbeitungsgeschwindigkeit noch gesteigert werden muss.
 
 \begin{figure}[H]
-    \centering
-    \fbox{
-      \includegraphics[width=0.7\textwidth]{prüfungsverlauf2.png}
-    }
-    \caption{Prüfungsverlaufansicht}
-    \label{fig:pruefungsverlauf}
-
-    \vspace{0.5cm}
-
-    \fbox{
-      \includegraphics[width=0.7\textwidth]{prüfungsverlauf1.png}
-    }
-    \caption{Prüfungsverlaufansicht Detail}
-    \label{fig:pruefungsverlaufdetail}
+\centering
+\fbox{
+\includegraphics[width=0.7\textwidth]{prüfungsdetailansicht.png}
+}
+\caption{Detailansicht zur Identifikation spezifischer Wissenslücken}
+\label{fig:pruefungsverlaufdetail}
 \end{figure}
 
+Die wahre Tiefe der Analyse offenbart sich jedoch in der Detailansicht, die durch ein einfaches Aufklappen des jeweiligen Prüfungseintrags aktiviert wird. Hier wird die Prüfung in ihre Einzelteile zerlegt: Jede gestellte Frage wird inklusive der vom Nutzer gewählten Antwortmöglichkeit und der korrekten Lösung eingeblendet. Diese Transparenz ist entscheidend für die Fehlerkultur: Nutzer:innen können direkt prüfen, ob ein Fehler aus Flüchtigkeit geschah oder ob ein tieferliegendes Verständnisproblem vorliegt.
 
-\subsection{Spaced Repetition nach Leitner}
+Ein besonderes Feature zur Erfolgskontrolle ist die Option, eine bereits abgeschlossene Prüfung im identischen Format erneut zu starten. Dieser „Re-Test“-Ansatz ist pädagogisch wertvoll, um zu verifizieren, ob aus Fehlern der Vergangenheit gelernt wurde. Es entsteht ein direkter Vorher-Nachher-Vergleich, der die Lernkurve innerhalb eines spezifischen Fragen-Sets steil ansteigen lässt und so das Selbstvertrauen für die echte Matura stärkt.
+
+\subsection{Zentrale Lernstatistiken und Motivationsmechanismen}
 \setauthor{\secondauthor}
-\textit{Technische Umsetzung der Lernstrategie, Speicherintervalle, Fortschrittslevel.}
-
-Die Grundlage für die Lernplattform bildet das Leitner-System in kombination mit Spaced Repetition, die in Kapitel 1.5 beschrieben wurden. Die Lernmethoden bestehen aus 3 wichtigen Punkten
-\begin{enumerate}
-    \item \textbf{Level}: 
-        Fragen werden in Level eingeteilt - je öfter richtig desto höher das Level
-    \item \textbf{Wiederholungsintervall}: 
-        Fragen werden gesperrt wenn man sie richtig hatte und erst nach einen gewissen Zeitraum entsperrt
-    \item \textbf{Anzeige}: 
-        Gesperrte und offene Fragen werden angezeigt 
-        Die Anzeige im Frontend dient dazu den 
-\end{enumerate}
 
 \begin{figure}[H]
-    \centering
-    \fbox{
-      \includegraphics[width=0.7\textwidth]{Fortschritt.png}
-    }
-    \caption{Anzeige der Startseite}
-    \label{fig:FortschrittUsecase}
+\centering
+\fbox{
+\includegraphics[width=0.7\textwidth]{allgemeinStatistiken.png}
+}
+\caption{Zentrales Dashboard für den Gesamtfortschritt}
+\label{fig:statistik_allgemein}
 \end{figure}
 
-In \autoref{fig:FortschrittUsecase}, die die Homecomponente zeigt bzw. die Umsetzung der Lernstrategien 
-sieht man die verschiedenen "Level". Die Level sind nach dem Leitner-System aufgebaut, von denen es in diesem Fall vier gibt: Startlevel, Basislevel, Trainigslevel und Highscorelevel.
+Das allgemeine Statistik-Dashboard fungiert als optischer Ankerpunkt der Anwendung. Das prominente Ringdiagramm bietet eine intuitive Kategorisierung des gesamten Fragenpools. Anstatt nur „Richtig“ oder „Falsch“ anzuzeigen, wird hier die Nachhaltigkeit des Wissens abgebildet. Fragen wandern durch verschiedene Stadien – von der ersten korrekten Beantwortung bis hin zum Status „langfristig gefestigt“, der erst nach mehrfacher korrekter Bearbeitung erreicht wird. Diese Differenzierung verhindert eine Selbstüberschätzung und motiviert dazu, Inhalte nicht nur einmalig zu verstehen, sondern dauerhaft abzuspeichern.
 
-Jede Frage wird durch QuestionPoolEntry abgebildet, diese speichert alle relevante Daten für die Fehleranalyse oder das Wiederholen.
-Für das einteilen in die Level sind die Einträge lastAnsweredCorrectly und correctCount wichtig.LastAnsweredCorrectly merkt sich ob die Frage das letzte mal korrekt beantwortet wurden und correctCount wie oft
-du diese Frage bereits richtig hattest. Mithilfe einer Abfrage kann eingeordnet werden welche Frage in welches Level kommt. Es verläuft nach dem Schema 
-
+Zusätzlich zur grafischen Auswertung integriert die Plattform spielerische Elemente (Gamification), um die Nutzerbindung zu erhöhen:
 \begin{itemize}
-    \item \textbf{Startlevel}:  
-        Dort sind die falsch oder nicht beantworteten Fragen, diese sind immer zum üben offen. 
-    \item \textbf{Basislevel}: 
-        Hier befinden sich Fragen die einmalig richtig beantwortet waren, direkt danach sind sie für 1 Tag gesperrt.
-    \item \textbf{Trainigslevel}: 
-        Fragen die der User 2x richtig hatte kommen ins Trainigslevel und sind nun 3 Tage gesperrt.
-    \item \textbf{Highscorelevel}: 
-        Hier befinden sich Fragen die schon zur Genüge geübt wurden und somit kaum mehr geübt werden müssen.
+\item \textbf{Streak-Anzeige:} Durch die Visualisierung der aufeinanderfolgenden Lerntage wird die psychologische Hemmschwelle, das Training zu unterbrechen, erhöht. Die „Streak“ belohnt die Disziplin und macht Beständigkeit zu einem sichtbaren Erfolgserlebnis.
+\item \textbf{Globaler Prüfungsdurchschnitt:} Dieses Widget fungiert als objektives Barometer. Es aggregiert alle bisherigen Leistungen und gibt eine realistische Einschätzung darüber ab, wie die aktuelle Leistung im Verhältnis zur angestrebten positiven Matura steht. Schwankungen werden geglättet, und ein stabiler Aufwärtstrend wird sofort erkennbar.
 \end{itemize}
 
-Das Sperren erfolgt durch die Auswertung des Parameters answeredAt. So lässt sich nachvollziehen, wann der Nutzer die Frage zuletzt 
-bearbeitet hat, ob die Antwort korrekt oder falsch war, in welchem Level sich die Frage zuvor befand bzw. wie hoch der correctCount ist. Schlussendlich lässt sich dann sagen 
-wie lange die Frist zum Wiederholen eingestellt wird.
-
-
-Mit einen klick auf üben werden nicht nur irgendwelche Fragen ausgewählt, sondern genau die die der User am dringendsten benötigt. So zusagen die falsch oder nicht beantworteten Fragen zuerst,
-darauffolgend erst die mehrmals korrekt beantworteten Inhalte.
-
-Die Anzeige im Frontend dient dazu den Nutzer:innen einen Überbllick über ihren eigenen Lernfortschritt zu geben.
-Die einzelnen Level im Leitner-System werden als Progressbars visualisiert und mit Farben wird dem User sein Fortschritt symbolisert.
-
-\subsection{Lernstatistiken und Visualisierung}
+\subsection{Selektive Auswertung nach Themenpools}
 \setauthor{\secondauthor}
-\textit{Erhebung und grafische Darstellung der Daten zur Nutzerleistung. Bibliotheken und Darstellungskonzepte.}
 
-\textbf{Visualisierung durch Chart.js}
+\begin{figure}[H]
+\centering
+\fbox{
+\includegraphics[width=0.7\textwidth]{themenpoolStatistik.png}
+}
+\caption{Spezifische Analyse mittels Themenpool-Filter}
+\label{fig:statistik_filter}
+\end{figure}
 
-Die technische Umsetzung der Diagramme und Statistiken im Frontend erfolgt durch die Bibliothek Chart.js.
-Durch das Einbinden über die Bibliothek ng2-charts in Angular, können verschiedene Diagrammtypen einfach erstellt werden. 
-Die meisten Diagramme in der Lernplattform sind Dounutdiagramme. In den Statistiken werden die Daten aus dem Backend abgefragt und in die Diagramme übergeben.
-Mittels correctCount werden die Fragen in verschiedene Kategorien eingeteilt, wie oft eine Frage richtig beantwortet wurde. Durch Dtos werden die Daten vom Backend richtig formatiert und im Frontend weiterverarbeitet.
-Die Unterteilung erfolgt in die Kategorien: nie beantwortet, einmal richtig, zweimal richtig und dreimal oder öfter richtig beantwortet. Die Daten werden dann dem Dounutdiagramme übergeben, die Prozente werden für die akurate Anzeige berechnet und mit Farben visualisiert.
+Da die Anforderungen der Matura sehr breit gefächert sind, ist eine isolierte Betrachtung einzelner Fachbereiche für eine effiziente Vorbereitung unerlässlich. Die themenspezifische Auswertung ermöglicht es, die statistische Ansicht gezielt nach Themenpools (z.B. „Vektorrechnung“, „Analysis“ oder „Finanzmathematik“) zu filtern.
 
-Wie in \autoref{fig:statistik} zu sehen ist, befindet sich in der Mitte des Diagramms die Gesamtanzahl der Fragen, die der User bisher noch nicht beantwortet hat.
-Dies war jedoch keine Standardfunktion von Chart.js, sondern wurde individuell implementiert. Hierfür wurde ein Plugin erstellt, das einen Text im Zentrum des Diagramms rendert.
+Diese Granularität in der Darstellung ist ein wesentlicher Vorteil für das Zeitmanagement. Viele Lernende neigen dazu, Themen zu wiederholen, die sie ohnehin schon beherrschen, da dies ein falsches Gefühl von Sicherheit vermittelt. Die Filterfunktion deckt schonungslos auf, in welchen Pools die „unberührten“ oder „falsch beantworteten“ Fragen dominieren.
+
+Durch diese gezielte Rückmeldung können Nutzer:innen ihre Lernsessions personalisieren. Wenn die Statistik beispielsweise zeigt, dass im Bereich „Stochastik“ noch 80% der Fragen offen sind, während „Geometrie“ bereits vollständig gefestigt ist, erlaubt dies eine sofortige Priorisierung. Die Plattform unterstützt somit ein selbstgesteuertes, ressourcenschonendes Lernen, bei dem die Energie exakt dort investiert wird, wo sie die größte Hebelwirkung für die finale Note erzielt. Zudem bietet die Oberfläche eine schnelle Auswahlmöglichkeit, um direkt aus der Statistik heraus in das Üben der unterrepräsentierten Themen einzusteigen.

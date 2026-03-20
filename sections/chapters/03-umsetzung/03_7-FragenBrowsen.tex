@@ -1,0 +1,63 @@
+Hier ist eine deutlich erweiterte und vertiefte Fassung des Kapitels 3.2.1. Ich habe die strategische Bedeutung der Vorbereitung, die psychologische Nutzerführung sowie die funktionalen Details detaillierter ausgearbeitet, um den Text gehaltvoller zu gestalten.
+
+\section{Fragenpool erstellen und verwalten}
+\label{chap:fragenpool_erstellen}
+\setauthor{\secondauthor}
+
+\begin{figure}[H]
+\centering
+\fbox{
+\includegraphics[width=0.9\textwidth]{FragenpoolHinzufügen.png}
+}
+\caption{Zentrale Oberfläche zur individuellen Zusammenstellung des Fragenpools}
+\label{fig:fragen-browsen}
+\end{figure}
+
+Bevor der eigentliche Lernprozess initiiert werden kann, steht die strategische Konfiguration des persönlichen Lernbereichs im Vordergrund. Wenn der/die Nutzer:in im Partnerprojekt bereits selbst Fragen erstellt hat wurden diese schon automatisch in den Fragenpool übernommen.
+\subsection{Die „Fragen browsen“-Ansicht als digitaler Katalog}
+\label{chap:fragen_browsen}
+\setauthor{\secondauthor}
+
+Die „Fragen browsen“-Ansicht fungiert als das Herzstück der Inhaltsverwaltung. Sie ist als interaktiver, digitaler Katalog konzipiert, der den Zugriff auf die umfangreiche Fragenauswahl der Plattform ermöglicht. Bei der Gestaltung dieser Ansicht wurde besonderer Wert auf eine klare visuelle Trennung zwischen Navigation und Inhaltspräsentation gelegt, um eine effiziente Exploration des Stoffes zu gewährleisten.
+
+Das Interface ist für eine intuitive Bedienung in zwei funktionale Hauptbereiche unterteilt:
+
+\begin{itemize}
+\item \textbf{Strukturierte Navigations-Seitenleiste (Links)}:
+Um die Komplexität der verschiedenen Lehrpläne abzubilden, nutzt die Seitenleiste eine hierarchische Baumstruktur. Nutzer:innen finden hier eine geordnete Auflistung aller verfügbaren Hauptfächer. Durch ein interaktives Dropdown-System lassen sich diese Fächer in ihre jeweiligen Themengebiete und Unterkategorien aufgliedern. Diese Struktur erlaubt es, innerhalb weniger Klicks von einer globalen Fachansicht (z. B. Mathematik) zu einer spezifischen Problemstellung (z. B. Differenzialrechnung) zu navigieren. Die optische Hervorhebung des aktuell gewählten Pfades dient dabei als Orientierungshilfe.
+
+\item \textbf{Interaktiver Hauptbereich mit Vorschaufunktion (Rechts)}:
+Im Fokus des Hauptfensters stehen die Fragenkarten. Jede Karte ist so gestaltet, dass sie bereits in der Kompaktansicht die wesentlichen Informationen vermittelt. Neben dem prägnanten Fragentext werden auch mathematische Formeln oder Grafiken direkt gerendert. Ein wesentliches Merkmal für die Qualitätssicherung der Auswahl ist die integrierte \textbf{Schnellvorschau}: Jede Fragekarte kann durch einen Klick erweitert werden, wodurch zusätzliche Details und ein „Üben“-Button erscheinen. Dies ermöglicht es den Nutzer:innen, eine Frage probehalber zu bearbeiten, ohne den Kontext der Verwaltung verlassen zu müssen. So kann unmittelbar beurteilt werden, ob der Schwierigkeitsgrad oder der Inhalt der Frage der aktuellen Lernphase entspricht.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\fbox{
+\includegraphics[width=0.9\textwidth]{FragenBrowsenÜben.png}
+}
+\caption{Oberfläche zum direkten Testen einer Frage aus der Browsing-Ansicht}
+\label{fig:fragen-browsen-uben}
+\end{figure}
+
+\subsection{Methodik der Auswahl und Personalisierung}
+\label{chap:auswahl_logik}
+
+Die Architektur des Systems unterstützt verschiedene Lernansätze – von der punktuellen Ergänzung spezifischer Schwachstellen bis hin zum Aufbau eines kompletten Semesterstoffs. Hierfür wurden Mechanismen implementiert, die sowohl die Präzision als auch die Geschwindigkeit bei der Pool-Verwaltung optimieren.
+
+\textbf{Dynamisches Hinzufügen}
+
+Das primäre Werkzeug zur Individualisierung ist das \textbf{Stern-System}. In Anlehnung an bekannte Favoriten-Logiken aus modernen Web-Applikationen können Nutzer:innen durch das Anklicken des Sternsymbols eine Frage instantan ihrem aktiven Lernpool hinzufügen. Diese Entscheidung wird visuell sofort durch eine Farbänderung des Symbols bestätigt. Dieser Prozess ist bewusst niederschwellig gestaltet, um den „Flow“ beim Durchsichten der Kataloge nicht zu unterbrechen. Ebenso einfach lassen sich Fragen wieder entfernen, was eine dynamische Anpassung des Pools ermöglicht: Beherrscht ein Schüler ein Thema nach einiger Zeit perfekt, kann er es aus dem aktiven Pool nehmen, um Platz für neue Herausforderungen zu schaffen.
+
+\textbf{Ansichtssteuerung: „Alle“ / „Mein Pool“}
+
+Um die Übersichtlichkeit auch bei hunderten verfügbaren Fragen zu wahren, verfügt die Ansicht über einen umschaltbaren Filtermodus. Dieser ist entscheidend für die Selbstorganisation:
+\begin{itemize}
+\item \textbf{Explorations-Modus („Alle“)}: In dieser Ansicht wird das gesamte Potenzial der Datenbank sichtbar. Es dient der Akquise neuer Lerninhalte und zeigt auch jene Fragen an, die noch nicht Teil der persönlichen Sammlung sind.
+\textbf{Fokus-Modus („Bereits im Fragenpool“)}: Dieser Modus wirkt wie ein digitaler Schreibtisch, auf dem nur die aktuell relevanten Unterlagen liegen. Nutzer:innen können hier prüfen, wie umfangreich ihr persönlicher Katalog in einem bestimmten Fach bereits ist, und gezielte Bereinigungen vornehmen, ohne durch externe, noch nicht gewählte Fragen abgelenkt zu werden.
+\end{itemize}
+
+\textbf{Effizienzsteigerung durch Batch-Operationen}
+
+Da die Vorbereitung auf die Matura oft unter Zeitdruck geschieht, bietet das System Funktionen zur Massenverarbeitung. Anstatt jede der teilweise über 50 Fragen eines Themengebiets einzeln bewerten zu müssen, erlaubt der \textbf{„Alle auswählen“-Button} eine pauschale Übernahme ganzer Module. Dies ist besonders wertvoll für Nutzer:innen, die sich zu Beginn eines Lernzyklus ein komplettes Fachgebiet erschließen wollen. In Kombination mit der darauffolgenden selektiven Abwahl einzelner Fragen ermöglicht dieser „Top-Down-Ansatz“ eine extrem schnelle und dennoch präzise Konfiguration des Lernumfelds.
+
+Durch diese differenzierte Form der Verwaltung wird sichergestellt, dass die nachfolgenden Module wie die Startansicht (Kapitel \ref{chap:startansicht}) und der Übungsmodus (Kapitel \ref{chap:uebung}) eine hochgradig personalisierte Umgebung vorfinden. Die Nutzer:innen behalten zu jedem Zeitpunkt die volle Souveränität über ihre Lerninhalte, was die Eigenverantwortung und das Engagement im Lernprozess maßgeblich fördert.

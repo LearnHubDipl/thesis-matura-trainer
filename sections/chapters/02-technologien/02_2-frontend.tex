@@ -1,277 +1,274 @@
+% ==================
+% 2.2 Frontend
+% ==================
+
 \section{Frontend}
 \setauthor{\secondauthor}
-\textit{Frontend Auswahl}
 
-Das Frontend ist der Teil der Anwendung, der für die Interaktion mit der Nutzer:innen und dem System dient.Es ist dafür verantwortlich, die bereitgestellten Daten visuell darzustellen,
-Benutzereingaben zu erfassen und eine reibungslose und ansprechende Nutzererfahrung zu gewährleisten.
-In dieser Plattform spielt das Frontend die entscheidende Rolle des Vermittlers, indem es die Funktionalitäten des Backends zugänglich macht und den Lernprozess der Nutzer:innen in eine intuitive und 
-benutzerfreundliche Oberfläche übersetzt. 
-Eine wesentliche Aufgabe ist es, die verschiedenen Use Cases, wie den Übungsmodus, Prüfungsmodus und die Fortschrittsübersicht, effektiv umzusetzen und dabei sicherzustellen, dass die Nutzer:innen problemlos durch die Anwendung navigieren können.
+Das Frontend bildet die visuelle und interaktive Ebene der Anwendung. Es ist dafür verantwortlich, komplexe Datenstrukturen benutzerfreundlich aufzubereiten und eine performante Bedienung zu ermöglichen. Im Fokus steht hierbei die Umsetzung einer modernen Oberfläche, die durch kurze Reaktionszeiten und eine klare Benutzerführung überzeugt.
 
-Ein weiterer wichtiger Aspekt des Frontends ist die Verwaltung der Benutzerinteraktionen. Dies umfasst das Hochladen von Dateien, das Markieren von Favoriten im Fragenpool,
-das Absolvieren von Übungen sowie Prüfungen und das Auslösen von Sammel-Operationen zur Organisation der Lernmaterialien. Das Frontend stellt hierbei sicher, dass Eingaben korrekt erfasst und an das Backend weitergeleitet werden, um eine 
-nahtlose Kommunikation zwischen beiden Komponenten zu gewährleisten.
-
-Durch diese Aufgabenverteilung fungiert das Frontend als die interaktive Ebene, die die abstrakten Daten des Backends für die Nutzer:innen verständlich aufbereitet und nutzbar macht. 
-Als vermittelnde Komponente zwischen systemseitiger Datenverarbeitung und Lernprozess trägt es durch die Gewährleistung einer stabilen und benutzerfreundlichen Bedienung maßgeblich zum 
-individuellen Lernerfolg bei.
-
-Darüber hinaus ist die Responsivität des Frontends von großer Bedeutung.
-Die Anwendung soll auf verschiedenen Geräten und Bildschirmgrößen konsistent funktionieren, um eine breite Nutzerbasis zu erreichen.
-
-\textbf{Kriterien für Technologievergleich}
-
-Für die Entwicklung des Frontends wurden zwei verschiedene Technologien in Betracht gezogen.
-In folgenden Abschnitten werden die beiden Frameworks Angular und Flutter vorgestellt und deren Vor- und Nachteile erläutert. 
-Anhand dieser Analyse und speziellen Anforderungen der Lernplattform wurde nach folgenden Kriterien schließlich eine Entscheidung für das am besten geeignete Framework getroffen.
-
+Dabei muss das Frontend folgende projektspezifische Kernaufgaben erfüllen:
 \begin{itemize}
-    \item \textbf{Performance und Ladezeiten:}  
-        Dieses Kriterium bewertet, wie flüssig und effizient die Anwendung läuft, um eine gute Nutzererfahrung zu gewährleisten.
-    \item \textbf{Entwicklungsproduktivität:}
-        Hierbei wird betrachtet, welche Tools und Bibliotheken zur Verfügung stehen,um den Entwicklungsprozess zu beschleunigen und zu vereinfachen.
-    \item \textbf{Zustandsmanagement:}
-        Dies beschriebt die Fähigkeit des Frameworks, den Zustand der Anwendung zu verwalten und zu synchronisieren, insbesondere bei komplexen Interaktionen und Datenflüssen.
-    \item \textbf{Community-Support und Dokumentation:}
-        Ein große Community und gute Dokumentation sind entscheidend, um bei Problemen schnell Lösungen zu finden und bessere Methoden zu nutzen.
-    \item \textbf{Typensicherheit und Wartbarkeit des Codes}
-        Typensicherheit hilft, Fehler frühzeitig zu erkennen und verbessert die Wartbarkeit des Codes, was besonders bei größeren Projekten wichtig ist.
+\item \textbf{Dynamische Datenvisualisierung:} Aufbereitung von Lernfortschritten und Fehleranalysen in Form von interaktiven Statistiken, um den Lernerfolg visuell darzustellen.
+\item \textbf{Zustandsmanagement:} Effiziente clientseitige Verwaltung des Anwendungszustands, um einen flüssigen Wechsel zwischen verschiedenen Ansichten und Datenpools ohne spürbare Ladezeiten zu garantieren.
+\item \textbf{Schnittstellen-Konsumation:} Integration der REST-API zur asynchronen Datenverarbeitung, wobei die Kommunikation mit dem Server so optimiert wird, dass eine hohe Reaktivität der Anwendung erhalten bleibt.
 \end{itemize}
 
-Angesichts dieser vielfältigen Aufgabenbereiche wird deutlich, wie entscheidend die Wahl einer geeigneten Frontend-Technologie für die Usability und 
-Performance der Plattform ist. Im folgenden Abschnitt werden daher zwei verschiedene Frameworks analysiert und im Hinblick auf die spezifischen Anforderungen 
-dieser Lernplattform bewertet.
+Die technologische Wahl des Frameworks ist entscheidend für die Performance und die langfristige Wartbarkeit der Benutzeroberfläche. Im folgenden Vergleich werden die infrage kommenden Technologien gegenübergestellt.
+
+\vspace{1cm}
+\textbf{Analyse technischer Anforderungen}
+\setauthor{\secondauthor}
+
+Die Auswahl des Frontend-Stacks ist eine strategische Entscheidung, die bestimmt, wie effizient die Benutzeroberfläche gerendert wird und wie strukturiert der Code aufgebaut ist. Dabei wurden vor allem die Wartbarkeit und die Tooling-Unterstützung bewertet.
+
+Folgende Punkte wurden dabei kritisch untersucht:
+\begin{itemize}
+\item \textbf{Rendering-Verfahren und DOM-Manipulation:}
+Untersuchung, wie das Framework Änderungen am UI vornimmt (z. B. Virtual DOM). Ziel ist eine hohe Performance, damit die Anwendung auch bei einer großen Anzahl an darzustellenden Elementen flüssig reagiert.
+\item \textbf{Ökosystem und Community-Support:}
+Bewertung der Verfügbarkeit von etablierten Bibliotheken (z. B. für Routing oder UI-Komponenten). 
+\item \textbf{Entwickler-Produktivität und Tooling:}
+Analyse der verfügbaren Entwicklerwerkzeuge. Es wurde geprüft, wie gut Debugging-Möglichkeiten und Hot-Reload-Funktionen unterstützt werden, um den Entwicklungsprozess zu beschleunigen.
+\item \textbf{Styling und Design-System-Integration:}
+Vergleich der Möglichkeiten zur Gestaltung der Oberfläche. Hierbei steht die einfache Integration von modernen CSS-Lösungen im Vordergrund, um ein konsistentes Design-System umzusetzen.
+\item \textbf{Lernkurve und Syntax:}
+Bewertung der Komplexität des Frameworks. Da die Effizienz in der Umsetzung entscheidend ist, wurde untersucht, wie schnell die Konzepte des Frameworks sicher beherrscht werden können.
+\end{itemize}
 
 
-
+% ==================
+% 2.2.1 Angular
+% ==================
 \subsection{Angular}
-\textit{Was ist Angular. Vor- und Nachteile usw}
-
-Angular ist ein weit verbreitetes Open-Source-Framework für die Entwicklung von Webanwendungen, das von Google entwickelt und gepflegt wird. 
-Es basiert auf TypeScript, einer von Microsoft entwickelten Programmiersprache, die JavaScript erweitert und Typensicherheit bietet.
-Das Framework ist besonders für die Erstellung von Single-Page-Anwendungen (SPAs) geeignet, bei denen die gesamte Anwendung auf einer einzigen Webseite geladen wird und dynamisch Inhalte aktualisiert werden können, 
-ohne die Seite neu zu laden. Angular verfolgt das Model-View-ViewModel (MVVM)-Architekturmuster, das die Trennung von Logik, Darstellung und Datenmodell fördert und somit die Wartbarkeit und Skalierbarkeit von Anwendungen verbessert.
+\setauthor{\secondauthor}
 
 \begin{figure}[H]
-    \centering
-    \fbox{
-      \includegraphics[width=0.7\textwidth]{Angular-js-logo.png}
-    }
-    \caption{Logo von Angular}
-    \label{fig:angular}
-\end{figure}
-
-\textbf{Architekturprinzip}
-
-Angular zeichnet sich durch seine komponentenbasierte Architektur aus, die es Entwicklern ermöglicht, wiederverwendbare UI-Komponenten zu erstellen und zu verwalten, was schnelle Entwicklung und saubere Wartbarkeit ermöglicht.  
-Das Framework bietet eine Vielzahl von integrierten Funktionen, darunter Datenbindung, Dependency Injection, Routing und Formulare, die die Entwicklung komplexer Anwendungen erleichtern. Ein wesentlicher
-technisches Merkmal von Angular ist die Verwendung von Dependency Injection. Hierbei werden Abhängigkeiten, wie beispielsweise Services, automatisch zur Laufzeitverwaltet und bereitgestellt.
-Dies fördert lose Kopplung und erleichtert das Testen und die Wartung von Anwendungen.
-
-\textbf{Anglular Material}
-
-Angular Material ist die offizielle UI-Komponentenbibliothek für Angular, die von Google entwickelt wurde.
-Sie basiert auf den Prinzipien des Material Designs, einem von Google entwickelten Designsystem.
-Es ziehlt darauf ab, eine konsistente und funktionelle Benutzeroberfläche zu schaffen und es somit den Entwicklern zu erleichtern.
-Angular Material bietet eine Vielzahl von vorgefertigten UI-Komponenten, die speziell für Angular-Anwendungen entwickelt wurden.
-Diese Komponenten sind vollständig anpassbar und können problemlos in Angular-Projekte integriert werden.
-
-\begin{figure}[H]
-    \centering
-    \fbox{
-      \includegraphics[width=0.7\textwidth]{Angular-Material.png}
-    }
-    \caption{Logo von Angular Material}
-    \label{fig:angular-material}
-\end{figure}
-    
-\textbf{Technische Besonderheiten}
-
-\begin{itemize}
-    \item \textbf{RxJS (Reactive Extensions):}  
-        Ein Herzstück von Angular ist die reaktive Programmierung mit RxJS, die es ermöglicht, asynchrone Datenströme zu verwalten und komplexe Ereignisverarbeitungen effizient zu gestalten.
-        Observables und Operatoren bieten leistungsstarke Werkzeuge zur Handhabung der Daten.
-    \item \textbf{Angular CLI:}
-        Das Angular Command Line Interface (CLI) ist ein mächtiges Werkzeug, das den Entwicklungsprozess erheblich vereinfacht. 
-        Es ermöglicht das schnelle Erstellen, Testen und Bereitstellen von Angular-Anwendungen durch eine Vielzahl von Befehlen.
-    \item \textbf{Starke Typensicherheit:}
-        Durch die Verwendung von TypeScript bietet Angular eine starke Typensicherheit, die hilft, Fehler frühzeitig zu erkennen und die Codequalität zu verbessern.
-    \item \textbf{Ahead-of-Time Compilation (AOT):}
-        Angular nutzt Ahead-of-Time Compilation, bei der der Code vor der Ausführung also bereits 
-        während des Build-Prozesses optimiert wird. Dies verbessert die Ladezeiten und Performance der 
-        Anwendung, da dieser Schritt des Interpretierens für den Browser der Nutzer:innen entfällt. Ebenfalls können dadurch füher Fehler erkannt werden.
-    \end{itemize}
-
-
-\textbf{Vor-und Nachteile}
-
-\begin{table}[h]
 \centering
-\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
-\toprule
-\textbf{Vorteile} & \textbf{Nachteile} \\
-\midrule
-\textbf{Vollständiges Framework:} Bietet integrierte Lösungen für Routing, Formulare und HTTP-Anfragen aus einer Hand.
-&
-\textbf{Steile Lernkurve:} Erfordert eine intensive Einarbeitung in Konzepte wie RxJS und Dependency Injection.
-\\
-\textbf{Strikte Architektur:} Erzwingt eine komponentenorientierte Struktur, die auch bei großen Projekten für hohe Wartbarkeit sorgt.
-&
-\textbf{Bundle-Größe:} Die umfangreiche Bibliothek führt zu größeren Bundle-Größen, was die Ladezeiten beeinträchtigen kann.
-\\
-\textbf{Hohe Produktivität:} Das Angular CLI automatisiert repetitive Aufgaben und beschleunigt den Entwicklungsprozess.
-&
-\textbf{Hoher Overhead:} Für sehr einfache, statische Funktionen wirkt die Struktur oft überdimensioniert und überflüssig.
-\\
-\textbf{Typensicherheit:} Durch TypeScript werden Fehler bereits zur Entwicklungszeit erkannt und minimiert.
-&
-\textbf{Komplexität:} Die strikte vorgegebene Architektur kann zu Einschränkungen im individuellen Gestaltungsfreiheit führen.
-\\
-\bottomrule
-\end{tabular}
-\caption{Gegenüberstellung der Vor- und Nachteile von Angular}
-\label{tab:vorteile_nachteile_angular}
-\end{table}
-
-
-\subsection{Flutter}
-\textit{Was ist Flutter. Vor- und Nachteile usw}
-
-Flutter ein Open-Source-UI-Toolkit, das von Google entwickelt wurde und es ermöglicht, nativ kompilierte Anwendungen für mobile, Web- und Desktop-Plattforme zu erstellen. 
-Ursprünglich für die mobile Entwicklung(IOS und Android) konzipiert, hat sich Flutter zu einem vielseitigen Framework entwickelt, das eine breite Palette von Plattformen unterstützt, 
-wie auch Webanwendungen und Desktop-Anwendungen für alle Betriebsysteme.
- Flutter verwendet die Programmiersprache Dart, die ebenfalls von Google entwickelt wurde und sich durch ihreme einfache Syntax und hohe Performance auszeichnet.
-Der technische Kern von Flutter basiert auf einer eigenen Rendering-Engine, die es ermöglicht, benutzerdefinierte UI-Komponenten zu erstellen und eine konsistente Darstellung über verschiedene Plattformen hinweg zu gewährleisten.
-Im Gegensatz zu anderen Frameworks, die auf HTML-Elemente und CSS des Browsers basieren, zeichnet Flutter oft direkt auf 
-ein eigenenes Feld(Canvas).
-
-\begin{figure}[H]
-    \centering
-    \fbox{
-      \includegraphics[width=0.7\textwidth]{flutter-logo.png}
-    }
-    \caption{Logo von Flutter}
-    \label{fig:flutter}
+\fbox{
+\includegraphics[width=0.45\textwidth]{Angular-js-logo.png}
+}
+\caption{Logo von Angular}
+\label{fig:angular}
 \end{figure}
 
-\textbf{Architekturprinzip}
+\textbf{Historischer Kontext: Die Evolution vom Pionier zum Industriestandard}
 
-Die Oberfläche von Flutter-Anwendungen weist einen komponentenbasierten Aufbau auf. Bei diesem werden Widgets als Bausteine für die Benutzeroberfläche
-verwendet. Diese Widgets können sowohl einfache UI-Elemente wie Buttons und Textfelder als auch komplexe Layouts und Animationen umfassen.
-Flutter bietet eine Vielzahl von vorgefertigten Widgets, die anpassbar sind und die Entwicklung wesentlich erleichtern.
-Ein zentrales Merkmal von Flutter ist das Hot-Reload-Feature, das es Entwicklern ermöglicht, Änderungen am Code in Echtzeit zu sehen, ohne die Anwendung neu starten zu müssen.
-Zur Trennung von Logik und Darstellung wird in Flutter häufig das BLoC (Business Logic Component)-Muster verwendet, das eine klare Struktur für die Verwaltung des Anwendungszustands bietet.
-Dabei werden Events an den BLoC gesendet, diese werden verarbeitet und der aktualisierte State wird an die UI zurückgegeben.
-Der Provider ist währenddessen eine weitere beliebte Methode zur Zustandsverwaltung in Flutter-Anwendungen.
-Er ermöglicht die einfache übermittlung von Daten und Informationen bereitstellt und die abhängigen Widgets 
-automatisch aktualisiert, wenn sich der Zustand ändert.
+Um die heutige Rolle von Angular zu verstehen, muss man die fundamentale Krise der Web-Entwicklung um das Jahr 2010 betrachten. Damals dominierten statische Seiten oder mit jQuery „zusammengeflickte“ Interaktionen das Web. Google veröffentlichte 2010 \textit{AngularJS} (Version 1.x), um Ordnung in dieses Chaos zu bringen. Die Vision war es, HTML um dynamische Attribute zu erweitern und das \textit{Two-Way-Data-Binding} zu etablieren. Dies ermöglichte es erstmals, komplexe Single-Page-Applications (SPAs) mit vergleichsweise wenig Code zu erstellen.
 
-\textbf{Techniscche Besonderheiten}
+Mit dem rasanten Wachstum des Webs und der Komplexität von Enterprise-Anwendungen stieß AngularJS jedoch an seine Grenzen. Die Performance litt unter dem massiven Datenabgleich, und die fehlende Typisierung von JavaScript führte in großen Teams zu schwer wartbarem Code. Anstatt das alte System nur zu flicken, traf Google 2016 eine radikale Entscheidung: Der vollständige Rewrite unter dem Namen Angular (Version 2+). Man wechselte von JavaScript zu \textit{TypeScript}, implementierte eine strikte komponentenbasierte Architektur und ersetzte das langsame Data-Binding durch einen hocheffizienten Datenfluss. Dieser Bruch war so gewaltig, dass er keine Abwärtskompatibilität bot, aber er legte den Grundstein für ein hochstrukturiertes Enterprise-Framework, das heute den Goldstandard für komplexe Web-Plattformen darstellt.
 
-\begin{itemize}
-    \item \textbf{Widgets:}  
-        Widgets sind die grundlegenden Bausteine von Flutter-Anwendungen. Sie sind unveränderlich (immutable) und beschreiben das Design und das Verhalten der Benutzeroberfläche.
-    \item \textbf{Zustandsmanagement(State Management):}
-        Flutter bietet verschiedene Mechanismen zur Zustandsverwaltung, darunter den Provider, BLoC und Redux. Diese ermöglichen eine effiziente und skalierbare Verwaltung des Anwendungszustands.
-    \item \textbf{Rendering Engine:}
-        Flutter verwendet eine eigene Rendering-Engine, die es ermöglicht, benutzerdefinierte UI-Komponenten zu erstellen und eine konsistente Darstellung über verschiedene Plattformen hinweg zu gewährleisten.
-    \item \textbf{Single Codebase:}
-        Flutter ermöglicht es, mit einem einzigen Codebase Anwendungen für iOS, Android und Web zu erstellen.
-        Das reduziert den Entwicklungsaufwand und gleichzeitig vereinfacht es die Wartung der Anwendung.
-\end{itemize}
+\vspace{0.7cm}
+\textbf{Architektur-Paradigma: „Batteries Included“}
 
-\begin{table}[h]
-    \centering
-    \begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
-        \toprule
-        \textbf{Vorteile} & \textbf{Nachteile} \\
-        \midrule
-        \textbf{Plattformunabhängigkeit:} Ermöglicht die Entwicklung für Web, Mobile und Desktop aus einer einzigen Codebasis. 
-        & \textbf{Web-Performance:} Da die gesamte Engine geladen werden muss, sind initiale Ladezeiten im Browser oft höher. \\[2mm]
-        
-        \textbf{Schnelle UI-Entwicklung:} Dank umfangreicher Widget-Bibliotheken lassen sich komplexe und interaktive Oberflächen zügig umsetzen. 
-        & \textbf{SEO und Indexierung:} Da die Inhalte oft auf ein "Zeichenfeld" (Canvas) gemalt werden, können Suchmaschinen wie Google den Text der Seite schlechter lesen. Für öffentliche Webseiten ist das ein großer Nachteil. \\[2mm]
-        
-        \textbf{Hot Reload:} Code-Änderungen werden in Millisekunden sichtbar, ohne den aktuellen Anwendungszustand zu verlieren. 
-        & \textbf{Eingeschränkte Web-Integration:} Der Zugriff auf spezifische Browser-APIs oder bestehende JavaScript-Bibliotheken ist oft umständlicher. \\[2mm]
-        
-        \textbf{Hohe Design-Konsistenz:} Die eigene Rendering-Engine garantiert ein identisches Aussehen der Anwendung auf allen Endgeräten. 
-        & \textbf{Ökosystem-Fokus:} Viele Plugins sind primär für mobile Endgeräte optimiert und bieten im Web-Kontext teilweise weniger Stabilität. \\
-        \bottomrule
-    \end{tabular}
-    \caption{Gegenüberstellung der Vor- und Nachteile von Flutter}
-    \label{tab:vorteile_nachteile_flutter}
-\end{table}
+Angular verfolgt einen fundamental anderen Ansatz als modulare Bibliotheken wie React. Es versteht sich als vollumfängliches Framework, das bereits im Kern Lösungen für Routing, Formularvalidierung und HTTP-Kommunikation mitliefert. Für die Lernplattform bedeutet dies eine hohe Konsistenz: Da zwei Teams an unterschiedlichen Teilbereichen arbeiten, erzwingt Angular durch seine strikte, komponentenbasierte Architektur eine einheitliche Struktur. Jedes UI-Element wird in einer fest definiertem Trias aus TypeScript-Logik, HTML-Template und CSS-Styling gekapselt. Dies verhindert zwar individuelle Gestaltungsfreiheiten in der Codestruktur, garantiert aber, dass das Projekt auch bei steigender Anzahl an Lernmodulen wartbar bleibt.
 
+\vspace{0.7cm}
+\textbf{Technisches Herzstück: RxJS und das reaktive State-Management}
 
-\subsection{Ergebnis}
-\textit{Warum wir uns für Angular entschieden haben}
+Ein wesentliches Kriterium für die Lernplattform ist die effiziente Verwaltung des Anwendungszustands (State-Management), um flüssige Übergänge zwischen Fragenkatalogen zu ermöglichen. Angular setzt hierbei konsequent auf \textit{RxJS} (Reactive Extensions).
 
-Für die Entwicklung des richtigen Frontends ist die Wahl des passenden Frameworks von 
-entscheidender Bedeutung. Das passende Framework bildet den Grundstein für eine 
-gute Benutzerfahrung, eine effiziente Entwicklung und eine langfristige Wartbarkeit der Anwendung.
-In der folgende Abschnitten werden die beiden Frameworks Angular und Flutter anhand bestimmter Kriterien bewertet und miteinander verglichen.
-
-
-\textbf{Kriterienbewertung: Agular}
-
-\begin{itemize}
-    \item \textbf{Performance und Ladezeiten:}  
-        Angular bietet eine gute Performance für SPAs(Single-Page-Application) im Web die aus einer einzigen HTML Seite besteht. Insbesondere durch die Nutzung von Ahead-of-Time (AOT) Compilation, die den Code vor der Ausführung optimiert.
-    \item \textbf{Entwicklungsproduktivität:}
-        Mit dem Angular CLI und einer Vielzahl von integrierten Tools ermöglicht Angular eine hohe Entwicklungsproduktivität.
-    \item \textbf{Zustandsmanagement:}
-        Angular bietet verschiedene Möglichkeiten für das Zustandsmanagement, darunter Services und Bibliotheken wie NgRx, die eine effiziente Verwaltung des Anwendungszustands ermöglichen.
-    \item \textbf{Community-Support und Dokumentation:}
-        Angular verfügt über eine große und aktive Community sowie umfangreiche offizielle Dokumentation, die Entwicklern bei der Lösung von Problemen und der Implementierung neuer Funktionen hilft.
-    \item \textbf{Typensicherheit und Wartbarkeit des Codes}
-        Die Verwendung von TypeScript in Angular fördert die Typensicherheit und verbessert die Wartbarkeit des Codes erheblich.
-\end{itemize}
-
-\textbf{Kriterienbewertung: Flutter}
-
-\begin{itemize}
-    \item \textbf{Performance und Ladezeiten:}  
-        Flutter bietet eine solide Performance für Webanwendungen, jedoch können die initialen Ladezeiten aufgrund der Notwendigkeit, die gesamte Flutter-Engine zu laden, höher sein. 
-        Aufgrunddessen das Canvas Kit beim ersten Aufruf geladen werden muss. Danach läuft Flutter jedoch extrem flüssig.
-    \item \textbf{Entwicklungsproduktivität:}
-        Flutter ermöglicht eine schnelle UI-Entwicklung, insbesondere durch das Hot-Reload-Feature, das Änderungen am Code in Echtzeit sichtbar macht.
-        Zudem beschleunigt die umfangreichen vorgefertigten Widgets die Entwicklungszeit.
-    \item \textbf{Zustandsmanagement:}
-        Flutter bietet verschiedene Mechanismen zur Zustandsverwaltung, darunter den Provider und BLoC, die eine effiziente Verwaltung des Anwendungszustands ermöglichen.
-        Dadurch ist Flutter fexibler jedoch auch uneinheitlicher.
-    \item \textbf{Community-Support und Dokumentation:}
-        Flutter hat eine wachsende Community und eine gute Dokumentation, vorallem bei der Mobile-Entwicklung, bei Web-spezifischen Problemen jedoch noch nicht so umfangreich.
-    \item \textbf{Typensicherheit und Wartbarkeit des Codes}
-        Die Verwendung von Dart in Flutter bietet Typensicherheit, jedoch ist die Wartbarkeit des Codes stark von der gewählten Architektur und den verwendeten Zustandsmanagement-Methoden abhängig.
-\end{itemize}
-
-\textbf{Direkter Vergleich}
-
-\begin{table}[h]
+\begin{figure}[H]
 \centering
-\begin{tabular}{l p{0.3\textwidth} p{0.3\textwidth}}
-\toprule
-\textbf{Kriterium} & \textbf{Bewertung Angular} & \textbf{Bewertung Flutter} \\
-\midrule
-Performance und Ladezeiten & Gut & Befriedigend \\
-Entwicklungsproduktivität & Sehr gut & Sehr gut \\
-Zustandsmanagement & Sehr gut & Gut \\
-Community-Support und Dokumentation & Sehr gut & Gut \\
-Typensicherheit und Wartbarkeit & Sehr gut & Gut \\
-\bottomrule
-\end{tabular}
-\caption{Direkter Vergleich der Kriterienbewertung zwischen Angular und Flutter}
-\label{tab:direkter_vergleich_angular_flutter}
-\end{table}
+\includegraphics[width=0.85\textwidth]{angular.png}
+\caption{Funktionsweise von RxJS-Observables in der Datenverarbeitung}
+\label{fig:rxjs_explanation}
+\end{figure}
 
+Abbildung \ref{fig:rxjs_explanation} verdeutlicht das Prinzip der asynchronen Datenströme, auf denen Angular basiert. Anstatt Daten einfach als statische Variablen zu speichern, werden sie als asynchrone Datenströme (\textit{Observables}) behandelt. Die Grafik zeigt die Transformation eines Eingabestroms durch verschiedene Operatoren (wie Filter oder Map), bevor das Ergebnis an den Abonnenten (\textit{Subscriber}) – in diesem Fall die Benutzeroberfläche – weitergegeben wird. Dies führt zu einer hohen Reaktivität der Oberfläche:
+\begin{enumerate}
+\item \textbf{Asynchrone Schnittstellen-Verarbeitung:} Wenn die Lernplattform Statistiken oder neue Fragen vom Backend lädt, sorgt RxJS dafür, dass die UI nicht blockiert. Daten werden gestreamt und die Ansicht aktualisiert sich automatisch, sobald die Antwort eintrifft.
+\item \textbf{Vermeidung von Inkonsistenzen:} Durch Operatoren wie \texttt{switchMap} oder \texttt{debounceTime} lassen sich komplexe Nutzerinteraktionen so steuern, dass alte, noch laufende Anfragen automatisch verworfen werden. Dies schont die Ressourcen des Clients und verhindert die Anzeige veralteter Datenstände.
+\end{enumerate}
 
+\vspace{0.7cm}
+\textbf{Performance-Analyse: Change Detection und Rendering}
+
+Im Vergleich zu anderen Frameworks nutzt Angular eine „Dirty Checking“-Strategie für die Change Detection. Das Framework überwacht den Zustand der Anwendung und prüft bei Ereignissen, ob sich Daten geändert haben, die ein Re-Rendering erfordern.
+
+In einer komplexen Lernumgebung mit vielen interaktiven Elementen (z. B. Wissensstand-Indikatoren) kann dies jedoch zu Performance-Einbußen führen:
+\begin{itemize}
+\item \textbf{Rechenintensität:} Standardmäßig prüft Angular den gesamten Komponentenbaum. Je mehr Funktionen die Plattform erhält, desto mehr CPU-Zyklen werden verbraucht.
+\item \textbf{Optimierung durch OnPush:} Um eine flüssige Bedienung auf schwächeren Endgeräten sicherzustellen, kann auf die \texttt{OnPush}-Strategie umgestellt werden. Dies erfordert jedoch ein tiefes Verständnis der Objekt-Immutabilität, was die Lernkurve für das Team erhöht.
+\end{itemize}
+
+\vspace{0.7cm}
+\textbf{Entwickler-Produktivität: Angular CLI und Material}
+
+Wie bei Quarkus im Backend spielt auch im Frontend das Tooling eine entscheidende Rolle. Das \textit{Angular CLI} automatisiert das Scaffolding (Erstellen von Komponenten, Services) und stellt sicher, dass alle Teammitglieder dieselbe Projektstruktur verwenden.
+
+Für die visuelle Umsetzung bietet \textit{Angular Material} eine tief integrierte Komponentenbibliothek. Während dies die Entwicklung von Standard-Oberflächen (Buttons, Navigation) extrem beschleunigt, entsteht eine Abhängigkeit vom Material Design. Individuelle Design-Anpassungen sind oft komplex und erfordern tiefe Eingriffe in die CSS-Spezifität.
+
+\vspace{0.7cm}
+\textbf{Laufzeit-Overhead: AOT-Compilation vs. Bundle-Größe}
+
+Ein kritischer Punkt ist das resultierende „Bundle“, also die Dateigröße, die der Browser beim ersten Aufruf laden muss. Da Angular ein „Vollsortimenter“ ist, bringt es viel Code für Funktionen mit, die eventuell gar nicht überall benötigt werden.
+
+Zwar optimiert der \textit{Ahead-of-Time (AOT) Compiler} den Code bereits während des Build-Prozesses, dennoch bleibt Angular im Vergleich zu leichtgewichtigeren Alternativen massiver. Für die Lernplattform bedeutet dies:
+\begin{itemize}
+\item \textbf{Längere Initial-Ladezeiten:} Besonders bei schlechten Mobilfunkverbindungen kann der erste Start der Anwendung träge wirken.
+\item \textbf{Komplexes Debugging:} Der optimierte Code ist im Browser schwerer zu lesen, was die Fehlersuche in der Produktionsumgebung erschwert.
+\end{itemize}
+
+\vspace{0.7cm}
 \textbf{Fazit}
 
-Auf Basis der durchgeführten Kriterienbewertung und der Anforderungen der beiden Frameworks wurde Angular ausgewählt.
-Dadurh ist sichergestellt, dass die Lernplattform durch den komponentenbasierten Aufbau, die starke Typensicherheit und die umfangreichen integrierten 
-Funktionen von Angular eine hohe Wartbarkeit, Skalierbarkeit und Performance bietet.
-Während Flutter eine interessante Alternative darstellen würde, besonders aufgrund der Plattformübergreifenden Möglichkeiten.
-Angular überzeugte letztendlich mit der besseren Ladezeit und problemlosen Zusammenarbeit mit Quarkus im Backend.
+Angular bietet für ein Projekt mit zwei Teams eine enorme Stabilität durch seine strikten Vorgaben. Die „Batteries Included“-Philosophie minimiert Entscheidungsaufwände bei der Wahl von Bibliotheken. Dieser Komfort wird jedoch durch eine sehr steile Lernkurve (RxJS) und einen spürbaren Overhead bei der Bundle-Größe erkauft. Für die Lernplattform bietet es die sicherste Basis für langfristige Wartbarkeit, erfordert aber Disziplin bei der Performance-Optimierung.% ==================
 
 
+% ==================
+% 2.2.2 Flutter
+% ==================
+\subsection{Flutter}
+\setauthor{\secondauthor}
+
+\begin{figure}[H]
+\centering
+\fbox{
+\includegraphics[width=0.45\textwidth]{flutter-logo.png}
+}
+\caption{Logo von Flutter}
+\label{fig:flutter}
+\end{figure}
+
+\textbf{Historischer Kontext: Vom Experiment zur plattformübergreifenden Revolution} \
+Um die Entstehung von Flutter zu verstehen, muss man die technologische Sackgasse betrachten, in der sich die mobile App-Entwicklung Mitte der 2010er Jahre befand. Entwickler mussten sich zwischen performanten, aber teuren nativen Apps (Swift/Java) oder plattformübergreifenden Web-Wrappern (Cordova/PhoneGap) entscheiden, die jedoch oft träge reagierten und keine hochwertige User Experience boten.
+
+Google stellte Flutter erstmals 2015 unter dem Codenamen „Sky“ auf der Dart Developer Summit vor. Die ursprüngliche Motivation war radikal: Man wollte testen, ob eine Rendering-Engine 120 Bilder pro Sekunde erreichen kann, wenn man den Ballast der traditionellen Web-Technologien (wie das DOM-Modell) komplett abwirft. Flutter entwickelte sich schnell von einem internen Google-Experiment zu einem ernsthaften Herausforderer für Frameworks wie React Native. Während Letzteres weiterhin auf eine „Bridge“ (Brücke) angewiesen war, um JavaScript-Befehle in native System-Aufrufe zu übersetzen – was oft zu Performance-Flaschenhälsen führte –, implementierte das Flutter-Team eine eigene Grafik-Engine.
+
+Mit der Veröffentlichung von Flutter 1.0 im Jahr 2018 vollzog Google den Schritt zum universellen UI-Toolkit. Die Vision weitete sich: Flutter sollte nicht mehr nur mobile Apps bedienen, sondern als „Portable UI Framework“ überall dort funktionieren, wo Pixel gezeichnet werden können. Dieser Weg gipfelte 2021 in der stabilen Unterstützung für das Web. Für die Lernplattform bedeutet dies den Einsatz einer Technologie, die nicht aus der Notwendigkeit heraus entstand, Webseiten dynamischer zu machen (wie Angular), sondern mit dem Ziel, die performanteste grafische Darstellung über alle Systemgrenzen hinweg zu standardisieren.
+
+\vspace{0.7cm}
+\textbf{Technologischer Ansatz: "Everything is a Widget"} \
+Flutter bricht mit der traditionellen Web-Entwicklung, die auf HTML-Tags und CSS-Regeln basiert. Stattdessen folgt es einem rein deklarativen Ansatz, bei dem die gesamte Benutzeroberfläche aus verschachtelten Objekten, sogenannten \textit{Widgets}, besteht. Für die Lernplattform bedeutet dies eine radikale Vereinfachung des UI-Codes: Ein Button, eine Statistik-Karte oder ein ganzer Fragenkatalog sind strukturell identisch aufgebaut. Diese Konsistenz erlaubt es, Layouts extrem schnell zu prototypisieren, da Flutter eine riesige Bibliothek an vorgefertigten „Material Design“- und „Cupertino“-Widgets mitliefert, die pixelgenau auf allen Endgeräten identisch aussehen.
+
+\vspace{0.7cm}
+\textbf{Rendering-Paradigma: Die Skia-Engine im Web} \
+Der entscheidende technische Unterschied zu Frameworks wie Angular liegt im Rendering-Prozess. Während Angular den DOM (Document Object Model) des Browsers manipuliert, nutzt Flutter im Web standardmäßig das \textit{CanvasKit} (basierend auf der Skia-Engine).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{FlutterRender.png}
+\caption{Architektur-Ebenen und Rendering-Pipeline von Flutter}
+\label{fig:flutter_architecture}
+\end{figure}
+
+Abbildung \ref{fig:flutter_architecture} verdeutlicht den Schichtaufbau von Flutter, der diesen Rendering-Prozess ermöglicht. Das \textit{Framework} (oben) basiert auf der Sprache Dart und stellt die Reaktivität sowie die Widget-Bibliotheken bereit. Darunter liegt die \textit{Engine}, die mithilfe von Skia das eigentliche Zeichnen übernimmt. Der \textit{Embedder} fungiert schließlich als Bindeglied zur jeweiligen Plattform (in diesem Fall dem Browser). Dieser Aufbau hat direkte Auswirkungen auf die Performance der Lernplattform:
+\begin{enumerate}
+\item \textbf{Grafische Freiheit vs. Overhead:} Da Flutter die UI selbst auf ein HTML-Canvas „zeichnet“, können hochkomplexe Animationen (z. B. flüssige Übergänge bei der Auswertung von Lernerfolgen) ohne Rücksicht auf Browser-Inkonsistenzen realisiert werden. Der Preis dafür ist jedoch der Download der Engine: Der Browser muss beim ersten Start mehrere Megabyte an WebAssembly-Code laden, bevor die erste Interaktion möglich ist.
+\item \textbf{SEO und Barrierefreiheit:} Da der Inhalt der Lernplattform für den Browser lediglich ein grafisches Element (Canvas) darstellt, ist die automatische Indexierung durch Suchmaschinen oder das Auslesen durch Screenreader deutlich erschwert. Für eine geschlossene Lernumgebung mag dies zweitrangig sein, für die allgemeine Auffindbarkeit von Lerninhalten ist es jedoch ein struktureller Nachteil.
+\end{enumerate}
+
+\vspace{0.7cm}
+\textbf{Zustandsverwaltung: BLoC und Provider im Vergleich} \
+Um die Interaktivität der Lernmodi (z. B. das Umschalten zwischen Übung und Statistik) zu steuern, bietet Flutter verschiedene Muster für das State-Management an. Besonders relevant für die Lernplattform sind der \textit{Provider} und das \textit{BLoC}-Muster (Business Logic Component).
+
+\begin{itemize}
+\item \textbf{BLoC (Business Logic Component):} Trennt die UI strikt von der Logik mittels \textit{Streams}. Ein Klick auf eine Antwort sendet ein Event an den BLoC, dieser verarbeitet die Antwort (z. B. Validierung gegen das Backend) und gibt einen neuen Status an die UI zurück. Dies bietet eine exzellente Testbarkeit, erhöht aber die Komplexität des Codes durch viel „Boilerplate“-Code massiv.
+\item \textbf{Provider:} Ein leichtgewichtigerer Ansatz, der Daten über den Komponentenbaum hinweg zur Verfügung stellt. Für die schnelle Implementierung von Materialverwaltungen ist dies oft effizienter, stößt aber bei sehr komplexen, ineinander verschachtelten Zuständen an seine Grenzen.
+\end{itemize}
+
+\vspace{0.7cm}
+\textbf{Entwicklerproduktivität: Hot Reload und Dart} \
+Ein wesentlicher Faktor für die Umsetzungsgeschwindigkeit der Diplomarbeit ist das \textit{Hot Reload}-Feature. Änderungen am UI-Code werden in Millisekunden in der laufenden Anwendung sichtbar, ohne dass der aktuelle Lernfortschritt oder die Position in einem Fragenkatalog verloren geht. Dies verkürzt die Iterationszyklen im Vergleich zu Angular oder klassischen Java-Build-Prozessen im Backend drastisch.
+
+Die zugrunde liegende Sprache \textit{Dart} bietet zudem eine moderne Syntax, die Konzepte von Java und JavaScript vereint. Die starke Typisierung hilft dabei, die Datenmodelle des Backends (z. B. Fragen-Objekte) sicher im Frontend abzubilden, auch wenn die Tooling-Landschaft für Dart im Web-Bereich noch nicht die Reife von TypeScript erreicht hat.
+
+\vspace{0.7cm}
+\textbf{Schnittstellen und Web-Integration} \
+Obwohl Flutter als „Multi-Platform“-Toolkit beworben wird, zeigt sich in der Praxis eine Optimierung auf mobile Endgeräte. Der Zugriff auf Web-spezifische Funktionen (wie fortgeschrittene Browser-APIs oder die Integration spezieller JavaScript-Bibliotheken für komplexe Diagramme) ist oft umständlicher als bei nativen Web-Frameworks. Für die Lernplattform bedeutet dies, dass bei der Einbindung von Drittanbieter-Tools (z. B. für PDF-Viewer oder spezielle mathematische Formeln) oft aufwendige „Platform Channels“ oder unfertige Community-Plugins zurückgegriffen werden muss.
+
+\vspace{0.7cm}
+\textbf{Fazit} \
+Flutter glänzt durch seine enorme Entwicklungsgeschwindigkeit bei der UI-Erstellung und die garantierte visuelle Konsistenz. Das „Everything is a Widget“-Konzept ist intuitiv und das Hot-Reload-Feature spart wertvolle Zeit in der Implementierungsphase. Jedoch erkauft man sich diese Vorteile im Web-Kontext durch eine schlechtere initiale Performance (Bundle-Größe) und eine schwächere Integration in das native Web-Ökosystem. Für eine Anwendung, deren Fokus primär auf einer schnellen, interaktiven Bedienung liegt und die eventuell später als mobile App veröffentlicht werden soll, bietet Flutter eine starke Basis – sofern die Nachteile beim initialen Laden akzeptabel sind.
+
+% ==================
+% 2.2.3 React
+% ==================
+\subsection{React}
+\setauthor{\secondauthor}
+
+\begin{figure}[H]
+\centering
+\fbox{
+\includegraphics[width=0.45\textwidth]{react-logo.png}
+}
+\caption{Logo von React}
+\label{fig:react}
+\end{figure}
+
+\textbf{Historischer Kontext: Paradigmenwechsel durch Facebook} \
+React wurde 2011 intern bei Facebook entwickelt, um die massiven Herausforderungen bei der Synchronisierung von Daten in der komplexen Facebook-Timeline zu bewältigen. Der eigentliche Auslöser war eine „Zustands-Hölle“ innerhalb der Facebook-Chat- und Benachrichtigungs-Funktion: Oft zeigte das System eine ungelesene Nachricht an, obwohl diese bereits im Chat-Fenster geöffnet war. Die damaligen Ansätze des \textit{Imperative Programming} und das \textit{Two-Way-Binding} machten es fast unmöglich, den Status der UI über verschiedene komplexe Widgets hinweg konsistent zu halten.
+
+Jordan Walke, ein Softwareingenieur bei Facebook, entwickelte daraufhin \textit{FaxJS} (den Vorläufer von React), beeinflusst von funktionalen Programmierkonzepten. Das Ziel war es, die UI einfach als eine Projektion des aktuellen Zustands zu betrachten: Ändert sich der Zustand, wird die UI „einfach neu gerendert“. Zu einer Zeit, als die meisten Frameworks (wie das frühe AngularJS) versuchten, Logik und Darstellung durch komplexes Two-Way-Binding zu verbinden, führte React 2013 auf der \textit{JSConf US} das Konzept des „One-Way Data Flow“ und den „Virtual DOM“ ein. Die anfängliche Skepsis der Entwicklergemeinde gegenüber \textit{JSX} (HTML in JavaScript) wich schnell der Erkenntnis, dass dieser Paradigmenwechsel – weg von der direkten Manipulation des Browsers hin zu einem rein zustandsgesteuerten UI-Modell – die moderne Webentwicklung effizienter und vorhersehbarer macht. Für die Entwicklung von LearnHub bedeutet der Einsatz von React den Zugriff auf eine Technologie, die über ein Jahrzehnt hinweg für extrem datenintensive Anwendungen optimiert wurde und die größte Community im Web-Bereich vorweisen kann.
+
+\vspace{0.7cm}
+\textbf{Philosophie: Minimalismus und „Library first“}
+
+Im Gegensatz zu Angular oder Flutter ist React keine vollständige Framework-Lösung, sondern eine Bibliothek, die sich primär auf die Darstellungsschicht (View) konzentriert. Dieser minimalistische Ansatz bietet maximale Freiheit bei der Wahl zusätzlicher Werkzeuge für Routing oder API-Anbindungen. Für die Lernplattform bedeutet dies jedoch auch einen höheren Entscheidungsaufwand: Da zwei Teams am Projekt arbeiten, müssen Konventionen für die Ordnerstruktur und externe Bibliotheken explizit vereinbart werden, da React selbst – anders als Spring Boot im Backend – kaum Vorgaben macht („unopinionated“).
+
+\vspace{0.7cm}
+\textbf{Technologischer Kern: Der Virtual DOM}
+
+Der entscheidende Performance-Vorteil von React liegt in der Verwendung eines \textit{Virtual DOM}. Anstatt bei jeder Datenänderung (z. B. wenn ein Nutzer eine Antwortoption anklickt) die gesamte HTML-Seite im Browser neu zu berechnen, erstellt React eine virtuelle Kopie der Struktur im Arbeitsspeicher.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{reactDom.png}
+\caption{Visualisierung des Virtual DOM Diffing-Prozesses}
+\label{fig:react_vdom_diffing}
+\end{figure}
+
+Abbildung \ref{fig:react_vdom_diffing} illustriert diesen Kernprozess: Sobald sich der Zustand der Anwendung ändert, wird ein neuer \textit{Virtual DOM} erstellt. React vergleicht diesen Snapshot mit der vorherigen Version (Diffing). Wie in der Grafik durch die farblichen Markierungen angedeutet, identifiziert das Framework präzise die veränderten Knotenpunkte. Nur diese minimalen Differenzen werden in einem finalen Schritt an den echten DOM des Browsers übertragen. Dieser Prozess wirkt sich direkt auf die Benutzererfahrung der Lernumgebung aus:
+\begin{enumerate}
+\item \textbf{Effizientes Diffing-Verfahren:} React vergleicht den virtuellen Zustand mit dem tatsächlichen Browser-Zustand und aktualisiert nur die minimal notwendigen Elemente (z. B. nur die Farbe des ausgewählten Buttons). Dies sorgt für eine extrem hohe Reaktivität, selbst auf leistungsschwachen mobilen Browsern.
+\item \textbf{Deklarative Programmierung:} Entwickler beschreiben lediglich, wie die UI in einem bestimmten Zustand (z. B. „Frage beantwortet“) aussehen soll. React kümmert sich um die effiziente Umsetzung der Übergänge, was die Fehleranfälligkeit bei komplexen UI-Interaktionen reduziert.
+\end{enumerate}
+
+\vspace{0.7cm}
+\textbf{Zustandsmanagement: Hooks und das Ein-Weg-Datenfluss-Prinzip}
+
+Ein zentrales Kriterium der Analyse ist das State-Management. React nutzt ein striktes „Unidirectional Data Flow“-Prinzip: Daten fließen immer von oben (Eltern-Komponente) nach unten (Kind-Komponente).
+
+\begin{itemize}
+\item \textbf{React Hooks (\texttt{useState}, \texttt{useEffect}):} Diese ermöglichen es, Logik und Zustand direkt in funktionalen Komponenten zu kapseln. Für die Lernplattform erlaubt dies eine sehr modulare Bauweise – so kann beispielsweise die Zeitmessung eines Prüfungsmodus als eigene Logik-Einheit (\textit{Custom Hook}) geschrieben und überall wiederverwendet werden.
+\item \textbf{Prop-Drilling-Problematik:} Bei tief verschachtelten Oberflächen (z. B. Dashboard -> Kursliste -> Themenpool -> Einzelfrage) müssen Daten oft durch viele Ebenen gereicht werden. Um dies zu vermeiden, ist der Einsatz des \textit{Context-API} oder externer State-Manager wie \textit{Redux} oder \textit{Zustand} notwendig, was die Architektur komplexer macht.
+\end{itemize}
+
+\vspace{0.7cm}
+\textbf{Entwicklerproduktivität: JSX und das Ökosystem}
+
+React verwendet \textit{JSX}, eine Syntaxerweiterung, die es erlaubt, HTML-Strukturen direkt im JavaScript-Code zu schreiben. Dies führt zu einer sehr engen Kopplung von Logik und Design, was die Lesbarkeit für erfahrene Entwickler erhöht, aber die Trennung der Verantwortlichkeiten aufbricht.
+
+Das Ökosystem rund um React ist das größte im Frontend-Bereich. Für die Lernplattform bedeutet das den Zugriff auf tausende fertige Lösungen für Diagramme (z. B. \textit{Recharts} für Statistiken) oder UI-Kits (z. B. \textit{Tailwind CSS} oder \textit{MUI}). Die Gefahr besteht jedoch in einer „Abhängigkeits-Hölle“: Da React für fast alles externe Bibliotheken benötigt, steigt das Risiko für inkompatible Versionen und Sicherheitslücken im Projektverlauf.
+
+\vspace{0.7cm}
+\textbf{Rendering-Performance: Re-Rendering-Falle}
+
+Trotz der Schnelligkeit des Virtual DOM gibt es Ineffizienzen. Ohne explizite Optimierung (z. B. durch \texttt{React.memo} oder \texttt{useMemo}) rendert React oft Komponenten neu, obwohl sich deren relevante Daten gar nicht geändert haben. In einer datenintensiven Anwendung wie der Lernplattform, die viele Fortschrittsbalken und Statistiken gleichzeitig anzeigt, kann dies zu spürbarem „Lag“ führen, wenn der Abhängigkeits-Graph zu groß wird.
+
+\vspace{0.7cm}
+\textbf{Fazit}
+
+React überzeugt durch seine Leichtgewichtigkeit und die enorme Flexibilität. Es bietet die beste Performance bei der Manipulation von Oberflächenelementen und verfügt über das reichhaltigste Ökosystem. Für das Projekt bietet es die Chance auf eine sehr maßgeschneiderte Lösung, erfordert aber aufgrund der fehlenden internen Standards (im Vergleich zu Angular) eine sehr disziplinierte Arbeitsweise und klare Absprachen zwischen den Teams, um eine konsistente Code-Basis zu erhalten.
+
+% ==================
+% 2.2.4 Fazit und finale Technologieentscheidung
+% ==================
+
+\subsection{Fazit und finale Technologieentscheidung}
+\setauthor{\secondauthor}
+
+Die Gegenüberstellung der Frontend-Technologien zeigt, dass jedes Framework spezifische Schwerpunkte setzt, die die Entwicklung der Lernplattform unterschiedlich beeinflussen würden.
+
+\begin{itemize}
+\item \textbf{React} bietet zwar eine exzellente Rendering-Performance und maximale Flexibilität, erfordert jedoch aufgrund der fehlenden internen Standards (Library-Ansatz) einen hohen Abstimmungsaufwand zwischen den Teams. Das Risiko, in eine „Abhängigkeits-Hölle“ durch zu viele externe Bibliotheken zu geraten, wurde als kritisch für die Wartbarkeit eingestuft.
+
+\item \textbf{Flutter} besticht durch seine grafische Konsistenz und die schnelle UI-Entwicklung. Die Nachteile im Web-Kontext – insbesondere die hohen initialen Ladezeiten durch das Canvas-Rendering und die eingeschränkte SEO-Tauglichkeit – machen es jedoch zu einer weniger optimalen Wahl für eine primär browserbasierte Lernplattform.
+
+\item \textbf{Angular} erweist sich als die geeignetste Lösung für dieses Projekt. Die „Batteries Included“-Philosophie bietet eine stabile und vorstrukturierte Basis, die besonders bei der parallelen Arbeit an zwei Teilprojekten für die nötige Code-Konsistenz sorgt. Die tiefe Integration von TypeScript und RxJS ermöglicht zudem eine robuste Handhabung komplexer asynchroner Datenströme, wie sie für die interaktiven Lernmodi erforderlich sind.
+\end{itemize}
+
+Neben den rein technischen Aspekten spielte die Praxiserfahrung des Projektteams eine entscheidende Rolle bei der Wahl. Da Angular bereits fester Bestandteil des Lehrplans im Unterrichtsfach „Softwareentwicklung“ an der HTL Leonding war, sind fundierte Vorkenntnisse in der Architektur und den Konzepten des Frameworks vorhanden.
+
+Diese Vertrautheit mit dem Werkzeug minimiert die Einarbeitungszeit erheblich und ermöglicht es dem Team, sich von Beginn an auf die Umsetzung der komplexen Logik und der User Experience zu konzentrieren, anstatt grundlegende Framework-Konzepte neu erlernen zu müssen. Die Entscheidung für Angular ist somit eine strategische Wahl, um die begrenzte Zeit der Diplomarbeit effizient zu nutzen und gleichzeitig ein professionelles, typsicheres und skalierbares Endprodukt zu garantieren.

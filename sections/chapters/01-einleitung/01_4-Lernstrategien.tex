@@ -8,108 +8,70 @@
 \label{chap:lernstrategien}
 \setauthor{\secondauthor}
 
-In Folge der Entwicklung einer digitalen Lernplattform ist es notwendig, geeignete
-Lernstrategien zu betrachten. Diese sollen den Lernprozess unterstützen und bestmöglich auf Web und App
-anwendbar sein. In der Folgenden Analyse werden drei verschiedene Lernstrategien
-vorgestellt und Untersucht. Beachtet werden dabei das Leitner-System, Spaced Repetition und Microlearning.
-
-\textbf{Evaluationskriterien}
-
-\begin{itemize}
-    \item \textbf{Fortschrittsvisualisierung:} Hier wird betrachtet, inwiefern die Lernstrategien Daten liefern die gut in Grafiken und Statistiken aufbereitet werden können.
-    \item \textbf{Langfistiger Wissenserhalt:} Es wird untersucht, wie gut die Lernstrategien geeignet sind, um Wissen langfristig zu behalten.
-    \item \textbf{Platformunabhängig:} Es wird bewertet, wie gut die Lernstrategien auf verschiedenen Plattformen (Web, Mobile) umgesetzt werden können.
-    \item \textbf{Eignung für komplexe Maturathemen:} Es wird analysiert, wie gut die Lernstrategien geeignet sind, um komplexe Themengebiete abzudecken.
-\end{itemize}
-
-\subsection{Leitner-System}
-
-Das Leitner-System stellt eine systematische Lernmethode dar, die auf dem Karteikartenprinzip basiert und vom deutschen Wissenschaftsjournalisten Sebastian Leitner entwickelt wurde. Die Grundidee dieser Methode beruht auf der Erkenntnis, dass Lerninhalte unterschiedlich häufig wiederholt werden sollten, abhängig vom individuellen Beherrschungsgrad des Lernenden.
-
-\textbf{Funktionsweise}
-
-Das System arbeitet mit mehreren Fächern, üblicherweise fünf, in die Lernkarten eingeordnet werden. Jede neue Lernkarte beginnt in Fach 1, welches Inhalte repräsentiert, die noch nicht korrekt beantwortet wurden. Bei richtiger Beantwortung wandert die Karte in das nächsthöhere Fach, bei falscher Beantwortung verbleibt sie im aktuellen Fach oder wird zurück in ein niedrigeres Fach verschoben. Die Wiederholungsfrequenz nimmt mit steigender Fachnummer ab, sodass gut beherrschte Inhalte seltener, schwierige Inhalte hingegen häufiger wiederholt werden.
-
-\textbf{Effektivität}
-
-Die Effektivität des Leitner-Systems basiert auf einer gezielten Ressourcenallokation der Lernzeit. Durch die differentielle Wiederholungsfrequenz wird die verfügbare Lernzeit primär auf jene Inhalte konzentriert, die noch nicht ausreichend verinnerlicht wurden. Dies führt zu einem strukturierteren, zeiteffizienteren und zielgerichteteren Lernprozess. Das System eignet sich besonders gut für Faktenwissen und Definitionen, die eine präzise Reproduktion erfordern.
-
-\textbf{Umsetzung im Projekt}
-
-Die digitale Implementierung des Leitner-Systems bietet den Vorteil einer automatisierten Verwaltung der Kartenfächer. Die klare Struktur ermöglicht eine intuitive Bedienung und direkten Überblick über den Lernfortschritt. Allerdings ist die Fortschrittsvisualisierung primär auf die Einordnung in Fächer beschränkt, was für eine detaillierte statistische Auswertung gewisse Limitationen mit sich bringt.
+Im Rahmen der Entwicklung einer digitalen Lernplattform für HTL-Maturanten müssen Lernstrategien gewählt werden, die über reines Auswendiglernen hinausgehen. Die Matura zeichnet sich durch einen enormen Stoffumfang und eine hohe Komplexität aus. Gefragt ist nicht nur isoliertes Faktenwissen, sondern vor allem das Verständnis von Zusammenhängen und die Anwendung von Wissen auf neue, vernetzte Problemstellungen.
 
 \subsection{Spaced Repetition}
 
-Spaced Repetition, auch als verteiltes Lernen bezeichnet, repräsentiert eine wissenschaftlich fundierte Lernmethode, bei der Lerninhalte in zeitlich optimierten Abständen wiederholt werden. Diese Methode basiert auf der Ebbinghausschen Vergessenskurve und dem Spacing-Effekt, welche zeigen, dass zeitlich verteilte Wiederholungen zu einem nachhaltigeren Wissenserwerb führen als massierte Lerneinheiten.
+Spaced Repetition, oder verteiltes Lernen, ist eine kognitionswissenschaftliche Methode, die darauf abzielt, Informationen durch zeitlich versetzte Wiederholungen im Langzeitgedächtnis zu verankern. Sie stellt die wissenschaftliche Antwort auf die Ebbinghaus’sche Vergessenskurve dar.
 
-\textbf{Funktionsweise}
+\textbf{Allgemeine Funktionsweise} \\
 
-Das Prinzip der Spaced Repetition beruht darauf, dass Lerninhalte kurz vor dem prognostizierten Vergessen erneut präsentiert werden. Das Zeitintervall zwischen den Wiederholungen wird dabei mit jeder erfolgreichen Abfrage progressiv verlängert. Während die erste Wiederholung bereits nach wenigen Stunden erfolgt, können spätere Wiederholungen Wochen oder Monate auseinanderliegen. Dieser Ansatz nutzt die neurophysiologischen Mechanismen des Gedächtnisses optimal aus und führt zu einer nachhaltigen Konsolidierung der Lerninhalte im Langzeitgedächtnis.
 
-\textbf{Effektivität}
+\begin{figure}[H]
+    \centering
+    \fbox{
+      \includegraphics[width=0.7\textwidth]{SpacedRepetition.png}
+    }
+	\caption{Die Ebbinghaus’sche Vergessenskurve und die Wirkung von Spaced Repetition}
+    \label{fig:SpacedRepetition}
+\end{figure}
 
-Die Effektivität von Spaced Repetition ist durch zahlreiche kognitionspsychologische Studien belegt. Die Methode optimiert den Lernprozess durch die zeitliche Verteilung der Wiederholungen, wodurch das Gelernte signifikant länger im Gedächtnis verankert bleibt. Im Vergleich zu anderen Lernstrategien zeigt Spaced Repetition eine deutlich höhere Effizienz beim langfristigen Wissenserhalt. Die Methode ist sowohl für kleinere Stoffmengen als auch für umfangreiche Themenkomplexe, wie sie für die Maturavorbereitung relevant sind, geeignet.
+Diese Methode basiert auf dem Prinzip, dass Informationen genau dann wiederholt werden, wenn das Gehirn kurz davor ist, sie zu vergessen. Ein praxisnahes Beispiel ist das Lernen einer komplexen Formel aus der Nachrichtentechnik: Die erste Wiederholung findet nach 24 Stunden statt, die zweite nach drei Tagen und die dritte nach einer Woche. Mit jedem Erfolg vergrößert sich der zeitliche Abstand progressiv.
 
-\textbf{Umsetzung digital}
 
-Für die digitale Umsetzung bietet Spaced Repetition erhebliche Vorteile. Die automatisierte Berechnung der optimalen Wiederholungszeitpunkte anhand von Algorithmen entlastet den Lernenden von der manuellen Planung. Zudem liefert das System umfangreiche Daten für statistische Auswertungen und Fortschrittsvisualisierungen. Zahlreiche etablierte Lernanwendungen nutzen bereits Spaced-Repetition-Algorithmen, was die praktische Umsetzbarkeit und Akzeptanz dieser Methode unterstreicht. Die Implementierung ist sowohl im Web als auch in mobilen Applikationen gut realisierbar.
+
+\textbf{Kontext der Matura} \\
+Diese Methode erweist sich als extrem zeiteffizient, da sie das kurzfristige Auswendiglernen direkt vor der Prüfung durch eine nachhaltige Verankerung im Langzeitgedächtnis ersetzt. Für die Maturavorbereitung ist dies aufgrund des langen Zeitraums essenziell, um sicherzustellen, dass technische Grundlagen auch dann noch präsent sind, wenn am Ende des Jahres hochkomplexe Anwendungsbeispiele gelöst werden müssen.
+
+\subsection{Das Leitner-System}
+
+Das Leitner-System ist eine systematische Lernmethode, die die Organisation von Lerninhalten in verschiedenen Kategorien nutzt, um den Lernprozess zu strukturieren.
+
+\textbf{Allgemeine Funktionsweise} \\
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+      \includegraphics[width=0.7\textwidth]{LeitnerSystem.jpg}
+    }
+	\caption{Das Leitner-System}
+    \label{fig:LeitnerSystem}
+\end{figure}
+
+Das System nutzt das Prinzip von physischen oder digitalen Lernkartei-Boxen, um den Lernstoff nach dem individuellen Beherrschungsgrad zu sortieren. In einer digitalen Anwendung wandern Karten bei einer richtigen Antwort in ein höheres Fach, das seltener abgefragt wird, während sie bei Fehlern unmittelbar zurück in das erste Fach verschoben werden.
+
+
+
+\textbf{Kontext der Matura} \\
+Obwohl das System eine gute Visualisierung des Fortschritts bietet, ist es in seiner klassischen Form oft zu starr. Für Maturanten ist es dennoch hilfreich, da die Einteilung in Fächer den Fortschritt bei großen Themengebieten greifbar macht.
 
 \subsection{Microlearning}
 
-Microlearning bezeichnet einen didaktischen Ansatz, bei dem Wissen in kleine, leicht verarbeitbare Lerneinheiten segmentiert wird. Jede Einheit fokussiert auf ein klar abgegrenztes Thema und ist zeitlich auf wenige Minuten begrenzt.
+Microlearning bezeichnet das Lernen in sehr kurzen, inhaltlich fokussierten Einheiten, um umfangreiche Wissensbereiche handhabbar zu machen.
 
-\textbf{Funktionsweise}
+\textbf{Allgemeine Funktionsweise} \\
+Microlearning bricht Stoffmengen in kleinste Einheiten auf. Ziel ist es, Wissen in "mundgerechten" Häppchen zu vermitteln, was die Hemmschwelle senkt und schnelles Feedback ermöglicht.
 
-Der Lernstoff wird in kurze, modulare Einheiten zerlegt, die verschiedene Medienformate umfassen können: Mini-Videos, kompakte Texte, Quizfragen oder Infografiken. Diese Module können sequenziell oder nach individuellen Präferenzen bearbeitet werden, wobei der Lernprozess primär auf selbstgesteuertem Lernen basiert. Die Flexibilität des Ansatzes ermöglicht Lerneinheiten in verschiedenen Alltagssituationen, beispielsweise während kurzer Pausen oder Pendelzeiten.
+\textbf{Kontext der Matura} \\
+Während dies den Einstieg erleichtert, ist die Methode für die Matura nur bedingt geeignet. Die Gefahr besteht in einer Fragmentierung des Wissens: Die Matura verlangt das Verständnis großer, vernetzter Systeme. Werden diese zu stark zerstückelt, verlieren Schüler den Blick für die Kausalzusammenhänge. Microlearning versagt daher oft bei der Vermittlung der für die Matura essenziellen Tiefe.
 
-\textbf{Effektivität}
+\subsection{Kombination aus Leitner und Spaced Repetition}
 
-Die Effektivität von Microlearning beruht auf der kognitiven Entlastung durch kleine Informationseinheiten, die eine höhere Aufmerksamkeitsspanne und bessere Informationsverarbeitung ermöglichen. Der fokussierte Ansatz, bei dem jeweils nur ein Thema behandelt wird, fördert konzentriertes Lernen. Die zeitliche Kürze der Einheiten erleichtert die Integration in den Alltag und senkt die Hemmschwelle für regelmäßige Lernaktivitäten. Allerdings liegt der Fokus primär auf kurzfristiger Wissensaufnahme, weniger auf langfristiger Retention.
-
-\textbf{Anwendung}
-
-Microlearning eignet sich besonders für Lernanwendungen mit thematisch abgegrenzten Inhalten, die durch kurze Videos oder Texte vermittelt und anschließend durch Quizze gefestigt werden können. Die Methode ist optimal für mobile Lernszenarien konzipiert und lässt sich technisch sehr gut in Web- und App-Umgebungen umsetzen. Für komplexe Maturathemen kann Microlearning eingesetzt werden, sofern diese in mehrere kleinere Einheiten zerlegbar sind, stößt jedoch bei umfangreichen zusammenhängenden Themenkomplexen an Grenzen.
-
-\subsection{Vergleich verschiedener Lernstrategien und Schlussfolgerung}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|p{3.5cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
-\hline
-\textbf{Kriterium} & \textbf{Microlearning} & \textbf{Leitner-System} & \textbf{Spaced Repetition} \\
-\hline
-Fortschrittsvisualisierung & Prozentanzeige für erledigte Themengebiete & Eingeschränkt, primär Einordnung in Fächer & Optimal für statistische Auswertungen und detaillierte Visualisierungen \\
-\hline
-Langfristiger Wissenserhalt & Schwerpunkt auf kurzfristiger Wissensaufnahme & Effektiv bei regelmäßiger Anwendung & Sehr effektiv, wissenschaftlich optimierte Wiederholungen \\
-\hline
-Plattformunabhängigkeit & Sehr gut geeignet, ideal für mobile Nutzung & Umsetzbar, jedoch mit gewissen Einschränkungen & Gut integrierbar, bereits in zahlreichen Anwendungen implementiert \\
-\hline
-Eignung für Maturathemen & Bedingt geeignet, abhängig von Zerlegbarkeit in kleine Einheiten & Gut für Faktenwissen und Definitionen & Sehr gut, flexibel für verschiedene Stoffmengen und Komplexitätsgrade \\
-\hline
-\end{tabular}
-\caption{Vergleichende Bewertung der untersuchten Lernstrategien}
-\end{table}
-
-\textbf{Kombination von Leitner-System und Spaced Repetition}
-
-Die vergleichende Analyse zeigt, dass jede der untersuchten Lernstrategien spezifische Stärken aufweist. Für die Entwicklung einer digitalen Lernplattform zur Maturavorbereitung wird eine Kombination aus Leitner-System und Spaced Repetition empfohlen, da diese beiden Ansätze sich in ihrer Wirkung komplementär ergänzen.
-
-Das Leitner-System bietet eine klare, intuitiv verständliche Struktur, die sich hervorragend mit digitalen Karteikarten umsetzen lässt. Es ermöglicht einen unmittelbaren Überblick über den Beherrschungsgrad einzelner Lerninhalte und schafft damit eine transparente Lernumgebung. Die Stärke liegt in der einfachen Visualisierung des Lernfortschritts und der eindeutigen Kategorisierung von Lerninhalten.
-
-Spaced Repetition erweitert diesen Ansatz durch die wissenschaftlich fundierte Optimierung der Wiederholungszeitpunkte. Basierend auf kognitionspsychologischen Erkenntnissen über Gedächtnisprozesse und Vergessenskurven werden Wiederholungen automatisch zu den Zeitpunkten eingeplant, an denen die Erinnerung an den Lernstoff zu verblassen droht. Diese Präzision führt zu maximaler Effizienz im Lernprozess.
-
-Die Kombination dieser beiden Systeme bietet folgende Vorteile:
+Für den Maturatrainer wird eine Zusammensetzung aus dem Leitner-System und Spaced Repetition implementiert. Diese Kombination löst die Schwächen der Einzelmethoden auf:
 
 \begin{itemize}
-    \item \textbf{Individualisierte Wiederholungsintervalle:} Lerninhalte werden adaptiv an den individuellen Lernfortschritt angepasst, wodurch eine optimale Balance zwischen Wiederholungshäufigkeit und Zeiteffizienz erreicht wird.
-    
-    \item \textbf{Transparente Fortschrittsvisualisierung:} Die Struktur des Leitner-Systems ermöglicht eine anschauliche Darstellung des Lernfortschritts, beispielsweise durch digitale Kartenfächer oder grafische Statistiken.
-    
-    \item \textbf{Skalierbarkeit:} Das kombinierte System eignet sich sowohl für kleinere Wissenseinheiten als auch für umfangreiche Stoffmengen, wie sie für die Maturavorbereitung charakteristisch sind. Die intelligente Priorisierung von Lerninhalten ermöglicht eine effiziente Bewältigung großer Themenkomplexe.
-    
-    \item \textbf{Plattformunabhängige Implementierung:} Die technische Umsetzung ist sowohl in webbasierten Anwendungen als auch in mobilen Apps realisierbar, was eine flexible und ortsunabhängige Nutzung ermöglicht.
-    
-    \item \textbf{Alltagstauglichkeit:} Das System lässt sich problemlos in den Schulalltag von HTL-Schülern integrieren und unterstützt sowohl strukturiertes Lernen zu Hause als auch spontane Lerneinheiten unterwegs.
+    \item \textbf{Struktur durch Leitner:} Die Einteilung in fünf digitale Fächer dient als intuitive Benutzeroberfläche. Der Schüler sieht jederzeit, wie viele Karten sich im Bereich \textit{Beherrscht} befinden, was die Selbstwirksamkeit stärkt.
+    \item \textbf{Wiederholung durch Spaced Repetition:} Durch die Einteilung in die Leitner-Fächer wird die Spaced Repetition automatisch gesteuert. Fragen, die falsch beantwortet wurden, bleiben im ersten Fach, die häufig richtig beantworteten Karten wandern in die höheren Fächer, wodurch die Intervalle für die Wiederholung automatisch angepasst werden. Je höher das Fach, desto seltener die Wiederholung, was die Effizienz maximiert.
 \end{itemize}
 
-Während das Leitner-System die strukturelle Basis und intuitive Benutzerführung bereitstellt, sorgt Spaced Repetition für die zeitliche Optimierung des Lernprozesses. Diese Synergie resultiert in einem Lernsystem, das sowohl die unmittelbaren Anforderungen der Maturavorbereitung erfüllt als auch langfristigen Wissenserhalt gewährleistet. Die wissenschaftliche Fundierung in Kombination mit praktischer Anwendbarkeit macht diesen hybriden Ansatz zur optimalen Wahl für die geplante digitale Lernplattform.
+Dieser Mix ist für die Matura ideal, er bietet die motivierende Struktur des Leitner-Systems, kombiniert mit der Effizienz der Spaced Repetition, um sicherzustellen, dass das Wissen nachhaltig verinnerlicht ist.

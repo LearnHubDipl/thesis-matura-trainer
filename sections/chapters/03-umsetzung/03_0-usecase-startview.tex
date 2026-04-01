@@ -12,7 +12,7 @@
 \caption{Visualisierung der Lernlevel auf der Startseite}
 \label{fig:FortschrittUsecase}
 \end{figure}
-Zum Einstieg in den Maturatrainer ist das zentrale Dashboard der Anwendung zu sehen. Sie bietet den Nutzer:innen einen direkten Einstieg in die Lernsession und visualisiert den aktuellen Wissensstand auf einen Blick.
+Beim Einstieg in den Maturatrainer ist das zentrale Dashboard der Anwendung zu sehen. Sie bietet den Nutzer:innen einen direkten Einstieg in die Lernsession und zeigt den aktuellen Wissenstand deines individuellen Fragenpools auf einen Blick.
 
 \subsection{Aufbau und Funktionen der Startseite}
 \label{chap:startseite_funktionen}
@@ -20,18 +20,23 @@ Zum Einstieg in den Maturatrainer ist das zentrale Dashboard der Anwendung zu se
 
 Die Startseite ist so gestaltet, dass der persönliche Lernfortschritt motivierend dargestellt wird. Die zentrale Komponente ist dabei die Anzeige der verschiedenen Lernstufen, die den Weg von einer neuen Frage bis hin zum gefestigten Wissen abbilden.
 
-
-
 In \autoref{fig:FortschrittUsecase} ist die grafische Aufbereitung des Leitner-Systems zu sehen. Die Fragen des Nutzers werden dabei in vier aufeinanderfolgende Level unterteilt:
 
 \begin{itemize}
-    \item \textbf{Startlevel}:
+    \item \textbf{Startlevel}:\\
     Hier finden sich alle Fragen, die noch nicht bearbeitet wurden oder zuletzt falsch beantwortet wurden. Diese Fragen stehen jederzeit zum Üben bereit.
-    \item \textbf{Basislevel}:
-    In diesem Level \autoref{fig:Basislevel} befinden sich Fragen, die bereits einmal korrekt beantwortet wurden. Die Fragen die hier liegen, werden für einen Tag gesperrt. Dadurch wird verhindert, dass Nutzer:innen dieselben Fragen zu häufig hintereinander üben, was die Effektivität des Lernens beeinträchtigen könnte.
-    \item \textbf{Trainingslevel}: In diesem Bereich befinden sich Fragen, die bereits zweimal korrekt beantwortet wurden. Diese Fragen werden für drei Tage gesperrt, um eine gezielte Wiederholung zu ermöglichen.
-    \item \textbf{Highscorelevel}:
-    Fragen in diesem Bereich wurden bereits mehrfach erfolgreich wiederholt. Sie gelten als „ausgelernt“ und signalisieren den Nutzer:innen, dass dieser Stoff sicher beherrscht wird.
+    
+    \item \textbf{Basislevel}:\\
+    In diesem Level (\autoref{fig:Basislevel}) befinden sich Fragen, die bereits einmal korrekt beantwortet wurden. Nach der richtigen Beantwortung werden sie automatisch für einen Tag gesperrt. 
+    Während dieser Sperrzeit erscheinen sie in der Anzeige als \textit{„gesperrt“} (z.\,B. „10 Fragen gesperrt“) und stehen noch nicht zur Wiederholung bereit. 
+    Erst wenn die 24 Stunden vergangen sind, werden sie in der Übersicht als \textit{„für Wiederholung frei“} gekennzeichnet. 
+    Dadurch wird ein sinnvoller zeitlicher Abstand zwischen den Übungseinheiten geschaffen, was die langfristige Festigung des Wissens unterstützt.
+    
+    \item \textbf{Trainingslevel}:\\
+    In diesem Bereich befinden sich Fragen, die bereits zweimal korrekt beantwortet wurden. Diese Fragen werden für drei Tage gesperrt, bevor sie zur Wiederholung freigegeben werden.
+    
+    \item \textbf{Highscorelevel}:\\
+    Fragen in diesem Bereich wurden mehrfach erfolgreich wiederholt. Sie gelten als \textit{„ausgelernt“} und signalisieren den Nutzer:innen, dass dieser Stoff sicher beherrscht wird.
 \end{itemize}
 
 \begin{figure}[H]
@@ -51,9 +56,9 @@ Die Startansicht dient als Steuerungselement für den weiteren Lernweg:
 
 \begin{itemize}
     \item \textbf{Fortschrittskontrolle}:
-    Über farbige Fortschrittsbalken (\textit{Progressbars}) wird visualisiert, wie viel der Fragen sich in den jeweiligen Leveln befinden. Je mehr Fragen im Highscorelevel liegen, desto höher ist der Fortschritt. Die Anzeige unter den Balken zeigt die genaue Anzahl der Fragen in jedem Level an. Ebenfalls ist ersichtlich, wie viele davon bereit zum Wiederholen sind und welche momentan gesperrt sind.
+    Über farbige Fortschrittsbalken (\textit{Progressbars}) wird visualisiert, wie viele der Fragen sich in den jeweiligen Leveln befinden. Je mehr Fragen im Highscorelevel liegen, desto höher ist der Fortschritt. Die Anzeige unter den Balken zeigt die genaue Anzahl der Fragen in jedem Level an. Ebenfalls ist ersichtlich, wie viele davon bereit zum Wiederholen sind und welche momentan gesperrt sind.
     \item \textbf{Lernsession starten}:
-    Durch einen Klick auf die „Üben“-Schaltfläche gelangen die Nutzer:innen direkt in den Übungsmodus. Die Auswahl der Fragen basiert auf der Auswahl seines eigenen Fragenpools und den Filteroptionen die sich auf die ausgewählten Themenpools beziehen. 
+    Durch einen Klick auf die „Üben“-Schaltfläche gelangen die Nutzer:innen direkt in den Übungsmodus. Die Auswahl der Fragen basiert auf der Auswahl des eigenen Fragenpools und den Filteroptionen die sich auf die ausgewählten Themenpools beziehen. 
 \end{itemize}
 
 Durch diese strukturierte Darstellung wird der Lernprozess greifbar gemacht. Die Nutzer:innen sehen ihren eigenen Zuwachs an Wissen durch die Visualisierung der Level, was den Lernprozess übersichtlich und motivierend gestaltet.

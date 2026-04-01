@@ -19,41 +19,23 @@ Fragen, Themenbereichen, Übungsfortschritt und Prüfungssimulation.
   \fbox{
     \includegraphics[width=\textwidth]{datamodel.png}
   }
-  \caption{Datenbankmodell der Anwendung}
+  \caption{Für dieses Teilprojekt relevanter Ausschnitt des Datenbankmodells der Anwendung}
   \label{fig:datamodel}
 \end{figure}
 
-\autoref{fig:datamodel} zeigt das vollständige relationale Datenbankmodell der Anwendung. Nicht alle 
-dargestellten Tabellen werden in jedem beschriebenen Use Case dieser Arbeit verwendet, da einzelne Komponenten 
-von unterschiedlichen Teams umgesetzt wurden. Für die folgenden Abschnitte werden daher nur jene Entitäten 
-näher betrachtet, die für die Umsetzung der Übungs- und Prüfungsfunktionen relevant sind.
+\autoref{fig:datamodel} zeigt den für diese Diplomarbeit relevanten Ausschnitt des relationalen Datenbankmodells der Anwendung. Jene Entitäten, die eingerahmt sind, wurden im Zuge dieses Teilprojekts eigenständig implementiert. Die nicht eingerahmten Tabellen stellen geteilte Ressourcen dar, die vom Team ,,HTL-Maturatrainer'' lediglich genutzt werden, vom Partnerteam aber implementiert und verwaltet wurden. In der grafischen Darstellung beschränken sich diese Entitäten auf ihre Primärschlüssel, um es optisch auf die für dieses Teilprojekt wesentlichen Relationen zu reduzieren, da die Datenhoheit für detaillierte Attribute beim Partnerteam liegt.
 
 
 % ========================
 % 3.5.1.1 Übungsmodus
 % ========================
 \subsubsection{Zentrale Entitäten für den Übungsmodus}
-Für den Übungsmodus sind insbesondere die Entitäten \textit{Question}, \textit{Answer}, \textit{QuestionPool}, 
-\textit{QuestionPoolEntry} und \textit{User} relevant. Sie bilden die Grundlage, um Fragen darzustellen, Antworten 
-zu erfassen und den Lernfortschritt der Nutzer:innen nachzuvollziehen.
-
-\vspace{0.2cm}
-\textbf{Question} \\
-Die Entität \textit{Question} repräsentiert eine einzelne Übungsfrage. Sie enthält den Fragetext und den Fragetyp
-(\textit{MULTIPLE CHOICE}, \textit{TEXT}). Jede Frage kann mehrere Antworten besitzen, die in der Entität \textit{Answer} 
-hinterlegt sind.
-
-\vspace{0.2cm}
-\textbf{Answer} \\
-\textit{Answer}-Objekte beinhalten den Antworttext und einen Eintrag, ob die Antwort korrekt ist (\textit{isCorrect}). 
-Unabhängig vom Fragetypen werden alle richtigen und falschen Antworten auf eine Frage gespeichert. Bei Multiple-Choice-Fragen 
-müssen alle richtigen und keine falschen Antworten angegeben werden, um als korrekt gewertet zu werden. Für Freitext-Fragen 
-werden nur richtige Antworten angelegt. Die eingegebene Antwort muss hierbei einer der Einträge gleichen, um korrekt gewertet
-zu werden.
+Für den Übungsmodus sind insbesondere die Entitäten \textit{QuestionPool} und
+\textit{QuestionPoolEntry} relevant. Sie bilden die Grundlage, um den Lernfortschritt der Nutzer:innen nachzuvollziehen.
 
 \vspace{0.2cm}
 \textbf{QuestionPool und QuestionPoolEntry} \\
-Der individuelle Fragenpool der Nutzer:innen wird von einem \textit{Questionpool}-Objekt repräsentiert. Die Entität 
+Der individuelle Fragenpool der Nutzer:innen wird von einem \textit{Questionpool}-Objekt repräsentiert, welches mit genau einem \textit{User}-Objekt verbunden ist. Die Entität 
 \textit{QuestionPoolEntry} verbindet eine Frage mit einem Pool und speichert den individuellen Fortschritt des Nutzers/der Nutzerin. 
 Dazu zählen unter anderem:
 
@@ -63,27 +45,14 @@ Dazu zählen unter anderem:
   \item \textit{answeredAt}: Zeitpunkt, zu dem die Frage zuletzt beantwortet wurde
 \end{itemize}
 
-Diese Tabelle ermöglicht die Umsetzung der Wiederholungslogik im Übungsmodus, indem Fragen je nach Bearbeitungsstatus 
-und Lernerfolg wiederholt oder vorübergehend gesperrt werden.
 
-\vspace{0.2cm}
-\textbf{User} \\
-Die Entität \textit{User} enthält die grundlegenden Informationen über die Lernenden. Sie ist mit den \textit{QuestionPool}-Objekten 
-verbunden, um den individuellen Lernfortschritt zu speichern, sowie mit \textit{Question} und \textit{Solution}, um erstellte Fragen und 
-Lösungswege zu verwalten.
-
-\vspace{0.2cm}
-\textbf{Funktionale Zusammenhänge} \\
-In \autoref{fig:datamodel} sind die Beziehungen zwischen diesen Entitäten dargestellt. Zusammen ermöglichen sie:
+Das 4-Level-Modell des Übungsmodus wird maßgeblich durch das Attribut \textit{correctCount} gesteuert, wobei dieser nach jeder richtigen Beantwortung der Frage erhöht und bei jeder falschen Beantwortung auf 0 gesetzt wird:
 
 \begin{itemize}
-  \item Die flexible Auswahl von Fragen aus einem Pool für eine Übungssitzung
-  \item Das Tracking des individuellen Lernfortschritts pro Frage
-  \item Die Umsetzung von Wiederholungs- und Sperrlogiken im Übungsmodus
+	\item \textbf{Level 1 (Unbearbeitet/Zuletzt Falsch):} Fragen mit einem \textit{correctCount} von 0. Bei diesen herrscht keine Sperrlogik, damit neues Wissen eingeführt und das Verständnis für Fehler direkt ausprobiert werden kann.
+	\item \textbf{Level 2 bis 3 (Festigungsphase):} Mit jeder aufeinanderfolgenden korrekten Antwort steigt der \textit{correctCount} und das \textit{answeredAt}-Attribut wird aktualisiert. Dies löst im Backend eine temporäre Sperre aus. Die Frage wird erst nach Ablauf eines definierten Zeitintervalls (berechnet durch \textit{answeredAt}) wieder zur Bearbeitung freigegeben.
+	\item \textbf{Level 4 (Mastery/Abgeschlossen):} Erreicht der \textit{correctCount} den Wert 3, gilt die Frage als dauerhaft gelernt. Sie wird aus dem aktiven Übungspool entfernt, um Platz für neue Inhalte zu schaffen, bleibt aber für Prüfungssimulationen weiterhin verfügbar.
 \end{itemize}
-
-Diese Struktur ermöglicht, dass im Übungsmodus flexibel auf die Bedürfnisse der Nutzer:innen eingangen werden kann, während
-gleichzeitig eine saubere Trennung zwischen Fragen, Fragenpools der Nutzer:innen und  individuellen Fortschritten besteht.
 
 
 % ========================
@@ -93,12 +62,12 @@ gleichzeitig eine saubere Trennung zwischen Fragen, Fragenpools der Nutzer:innen
 Für die Darstellung von Lösungswegen im Übungsmodus sind vor allem die Entitäten \textit{Solution}, \textit{SolutionStep} und 
 \textit{SolutionVote} relevant. Durch diese können Nutzer:innen nicht nur die richtige Lösung sehen, sondern auch die einzelnen Schritte 
 nachvollziehen und Feedback von anderen Nutzer:innen erhalten. Zudem können individuelle Lösungswege hochgeladen werden, um 
-sich und anderen Nutzer:innen in der Zukunft zu unterstützen.
+sich selbst und andere Nutzer:innen in der Zukunft zu unterstützen.
 
 \vspace{0.2cm}
 \textbf{Solution} \\
 Die Entität \textit{Solution} repräsentiert einen Lösungsweg zu einer Frage. Jede Lösung gehört zu genau einer Frage (\textit{Question}) 
-und einem erstellenden Nutzer (\textit{User}) und stellt sich aus mehreren \textit{SolutionStep}-Objekten zusammen
+und einem erstellenden Nutzer (\textit{User}) und setzt sich aus mehreren \textit{SolutionStep}-Objekten zusammen
 
 \vspace{0.2cm}
 \textbf{SolutionStep} \\
@@ -108,19 +77,8 @@ den Lösungsweg nachvollziehen und gezielt lernen.
 
 \vspace{0.2cm}
 \textbf{SolutionVote} \\
-Diese Entität ermöglicht es anderen Nutzer:innen, eine Lösung positiv oder negativ zu bewerten (\textit{isUpVote}). So werden Lösungswege 
+Diese Entität ermöglicht es anderen Nutzer:innen, eine Lösung positiv oder negativ zu bewerten (\textit{isUpVote}). So werden 
 hochwertige Lösungswege mit mehr positiven Bewertungen hervorgehoben und die Community kann gegenseitig Feedback geben. 
-
-\vspace{0.2cm}
-\textbf{Funktionale Zusammenhänge} \\
-
-\begin{itemize}
-  \item Jede Frage kann mehrere von Nutzer:innen erstellte Lösungen besitzen.
-  \item Jede Lösung besteht aus mehreren Schritten.
-  \item Nutzer:innen können Lösungswege bewerten, wodurch die Qualität sichtbar wird.
-  \item Die Anzeige der Lösungen erfolgt im Übungsmodus direkt nach der Beantwortung, wodurch der Lernprozess unterstützt wird.
-\end{itemize}
-
 
 
 % ========================
@@ -138,24 +96,19 @@ abgelegt hat. Jede Prüfung kann mehrere Fragen enthalten, die über die Entitä
 
 \vspace{0.2cm}
 \textbf{ExamQuestion} \\
-\textit{ExamQuestion} speichert die gegebene Antworten auf die einzelne Frage innerhalb einer Prüfung und ist mit dem dementsprechendem
-Fragenpoolobjekt verknüpft. Sie speichert nicht nur die ausgewählte Antwort, sondern auch ob diese Frage korrekt beantwortet wurde. So
-können alle Fragen einer Prüfung individuell ausgewertet werden und im Reviewmodus angezeigt werden.
-
-\vspace{0.2cm}
-\textbf{Funktionale Zusammenhänge} \\
-Durch die Beziehung zwischen \textit{Exam} und \textit{ExamQuestion} wird folgendes ermöglicht:
+\textit{ExamQuestion} speichert die gegebene Antworten auf die einzelne Frage innerhalb einer Prüfung und ist mit dem entsprechenden
+Fragenpoolobjekt verknüpft. Obwohl die Struktur sehr ähnlich zum \textit{QuestionPoolEntry} im Übungsmodus ist, wurde eine bewusste Trennung aus folgenden Gründen implementiert:
 
 \begin{itemize}
-  \item Speicherung von Prüfungen für einzelne Nutzer:innen
-  \item Zuordnung der ausgewählten Antworten zu den jeweiligen Fragen
-  \item Berechnung des Gesamtergebnisses und der prozentual korrekt beantworteten Fragen
-  \item Nachträgliche Ansicht der Prüfung im Reviewmodus, inklusive der Anzeige von korrekt und falsch beantworteten Fragen
+	\item \textbf{Protokollierung:} \\
+	Während \textit{QuestionPoolEntry} den aktuellen Wissensstand darstellt, welcher sich bei der nächsten Übungssitzung ändert, fixiert \textit{ExamQuestion} den Zustand zum Zeitpunkt der Prüfung. Das ist vor allem für den Reviewmodus wichtig, um die Prüfung auch Wochen später noch exakt so anzeigen zu können, wie sie abgelegt wurde.
+	
+	\item \textbf{Fortschritts-Entkoppelung:} \\
+	Im Übungsmodus wird bei einer falschen Antwort der \textit{correctCount} sofort auf 0 gesetzt. Eine Prüfung soll den regulären Lernfortschritt nicht beeinflussen, da sie nur eine Messung des aktuellen Wissensstands darstellen soll, nicht aber Teil des eigentlichen Lernvorgangs ist.
+	
+	\item \textbf{Speicherung gewählter Antworten:} \\
+	\textit{ExamQuestion} speichert die in dieser Prüfung spezifisch gewählte Antwort auf eine Frage, was bei \textit{QuestionPoolEntry} nicht der Fall ist. Würde man diese Daten also lediglich im \textit{QuestionPoolEntry} verwalten, so würde der/die Nutzer:in zu einem späteren Zeitpunkt nicht mehr nachvollziehen können, welche konkrete Fehlentscheidung bei dieser Frage getroffen wurde.
 \end{itemize}
-
-Diese Struktur macht eine realistische Simulation einer Prüfungssituation möglich. Die Nutzer:innen bearbeiten Fragen unter Zeitdruck, 
-ihre Antworten werden erfasst und persisitiert und eine nachträgliche Auswertung ist jederzeit möglich.
-
 
 
 % ========================
@@ -186,9 +139,23 @@ Die Kernaufgaben des Backends umfassen:
   \item \textbf{Fortschritts- und Statistikfunktionen:} \\
   Der \textit{StatsService} liefert alle Daten für die Fortschritts- und Statistikübersichten im Frontend. Dazu gehören globale Statistiken, 
   Fortschritte in einzelnen Themenbereichen sowie die Umsetzung der Sperrlogik für Übungsfragen, um Wiederholungen strukturiert zu steuern.
+  
+  Um das richtige Level für die Anzeige im Frontend zu garantieren, wird bei jedem Abruf der Status einer Frage dynamisch auf Basis der Persistenzschicht berechnet. Die Glaubwürdigkeit der Level-Logik wird mit folgendem Beispiel verdeutlicht: 
+  
+  \begin{itemize}
+  	\item \textbf{Level-Berechnung:} \\
+  	Ruft das Frontend die Statistik für einen Themenbereich ab, so werden alle \textit{QuestionPoolEntries} des Nutzers durchlaufen. Ein Eintrag gilt zum Beispiel nur dann als ,,Level 3'' oder ,,Trainingslevel'', wenn \textit{correctCount} exakt den Wert 2 besitzt und \textit{lastAnsweredCorrectly} auf \textit{true} steht.
+  	
+  	\item \textbf{Sperrlogik-Validierung:} \\
+  	Damit ein Level-Aufstieg sicher nicht manipuliert werden kann, wird bei jeder Beantwortung einer Frage ein Zeitabgleich durchgeführt. Eine Frage in Level 2 (,,Basislevel'') hat einen Sperrintervall von 24 Stunden und wird nur dann vom \textit{QuestionRepository} für die nächste Übungssitzung freigegeben, wenn gilt: 
+  	
+  	$$\text{currentTimestamp} > (\textit{answeredAt} + 24\text{h})$$
+  	
+  	Ist diese Bedingung nicht erfüllt, so wird die Antwort zwar technisch entgegengenommen und evaluiert, trotz korrekter Antwort der correctCount und somit das Level der Frage aber nicht erhöht, wodurch die Persistenzschicht vor Manipulationen geschützt bleibt, während der Übungsfluss im Frontend nicht durch Fehlermeldungen unterbrochen wird.
+  \end{itemize}
 
   \item \textbf{Kommunikation mit dem Frontend:} \\
-  Das Backend stellt alle relevanten Daten für den \textit{Question Runner}, die Fortschrittsübersicht und die Ergebnisanzeige der Prüfungen 
+  Das Backend stellt alle relevanten Daten für das \textit{Fragenmodul}, die Fortschrittsübersicht und die Ergebnisanzeige der Prüfungen 
   bereit. Eingehende Antworten werden validiert, ausgewertet und in der Datenbank persistiert.
 
   \item \textbf{Datenzugriff:} \\
@@ -217,7 +184,7 @@ Das Frontend der Anwendung ist sowohl für die Darstellung der Inhalte als auch 
 Prüfungsmodus verantwortlich. Dabei ist eine klare Struktur und Wiederverwendung zentraler Komponenten Grundlage für die Gewährleistung 
 von konsistenten Nutzererlebnissen über alle Modi hinweg.
 
-Eine zentrale Rolle nimmt dafür der \textbf{Question Runner} ein. Diese Komponente wird sowohl im Übungs-, Prüfungs- als auch im Reviewmodus
+Eine zentrale Rolle nimmt dafür das \textbf{Fragenmodul} ein. Diese Komponente wird sowohl im Übungs-, Prüfungs- als auch im Reviewmodus
 verwendet und ist für die Darstellung einzelner Fragen, der zugehörigen Antwortmöglichkeiten sowie der Navigation zwischen Fragen 
 verantwortlich. Je nachdem, welcher Modus aktiv ist, verändert sich dabei das Verhalten der Komponente, in Bezug auf Feedback, 
 Darstellung des Zeitlimits oder Bearbeitbarkeit von Antworten, während die grundlegende Oberfläche unverändert bleibt.
@@ -232,7 +199,13 @@ Darstellung des Zeitlimits oder Bearbeitbarkeit von Antworten, während die grun
 
 In die jeweiligen Modi kann über eigene Views eingestiegen werden, wie etwa die Fortschrittsübersicht im Übungsmodus oder die Prüfungskonfiguration
 im Prüfungsmodus. Diese Komponenten sind vor allem für die Auswahl von Themenbereichen und den Start eines Durchlaufs zuständig und übergeben
-lediglich die notwendigen Parameter an den Question Runner.
+lediglich die notwendigen Parameter an das Fragenmodul:
+
+\begin{itemize}
+	\item \textbf{mode:} Definiert den Funktionskontext (\texttt{'practice' | 'exam' | 'review'}). Im Modus \texttt{'exam'} wird beispielsweise das sofortige Feedback unterdrückt, während im \texttt{'review'}-Modus die korrekten Lösungen angezeigt werden.
+	\item \textbf{exam:} Übergibt bei Bedarf das gesamte Prüfungsobjekt, um im Prüfungs- und Reviewmodus zum Beispiel die Navigation und die Visualisierung der beantworteten Fragen realisieren zu können. 
+	\item \textbf{timeLimit:} Steuert die Anzeige und Logik des Timers im Prüfungsmodus. Das Fragenmodul gibt bei Zeitablauf automatisch die aktuelle Prüfung ab.
+\end{itemize}
 
 Diese Aufteilung gewährleistet eine klare Trennung zwischen Darstellungslogik und fachlicher Logik. Zur gleichen Zeit ermöglicht dieser 
 modulare Aufbau eine einfache Erweiterbarkeit für weitere Modi, ohne bestehende Komponenten grundlegend anpassen zu müssen.

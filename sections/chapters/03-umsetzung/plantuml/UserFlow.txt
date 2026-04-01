@@ -4,28 +4,31 @@ title Activity Diagramm – Vereinfachter User Flow
 start
 
 :Login;
-:Dashboard anzeigen;
-:Modus auswählen;
 
-if (Üben) then (ja)
-  :Fragen auswählen;
-  :Fragen beantworten;
-  :Feedback erhalten;
-  :Ergebnis speichern;
+repeat
+  :Dashboard anzeigen;
+  :Modus auswählen;
 
-else (nein)
-  if (Prüfung) then (ja)
-    :Prüfung starten;
+  if (Üben) then (ja)
+    :Fragen auswählen;
     :Fragen beantworten;
-    :Prüfung abschließen;
-    :Auswertung erhalten;
+    :Feedback erhalten;
     :Ergebnis speichern;
-
   else (nein)
-    :Statistiken anzeigen;
+    if (Prüfung) then (ja)
+      :Prüfung starten;
+      :Fragen beantworten;
+      :Prigfung abschließen;
+      :Auswertung erhalten;
+      :Ergebnis speichern;
+    else (nein)
+      :Statistiken anzeigen;
+    endif
   endif
-endif
 
-:Zurück zum Dashboard;
+  backward: (Zurück zum Dashboard);
+repeat while (Logout?) is (nein)
+->ja;
+
 stop
 @enduml

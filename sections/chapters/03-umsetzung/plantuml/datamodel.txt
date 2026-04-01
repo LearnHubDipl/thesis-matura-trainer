@@ -30,6 +30,7 @@ package "Lernfortschritt & Status" {
   entity StreakTracking {
     * id : Long
     --
+    lastLoggedInAt: DateTime
     streak : Integer
   }
 }
@@ -39,14 +40,17 @@ package "Prüfungsmodul" {
   entity Exam {
     * id : Long
     --
-    score : Float
+    score : Double
     timeLimit : Integer
+    startedAt: DateTime
+    finishedAt: DateTime
   }
 
   entity ExamQuestion {
     * id : Long
     --
-    selectedAnswer : String
+    selectedAnswers : Answer
+    freeTextAnswer : String
     isCorrect : Boolean
   }
 }
@@ -59,6 +63,7 @@ package "Lösungswege" {
   entity SolutionStep {
     * id : Long
     --
+    title : String
     text : String
   }
 }

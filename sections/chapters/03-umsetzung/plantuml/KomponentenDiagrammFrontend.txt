@@ -5,7 +5,7 @@ package "Frontend" {
   component "Fortschrittsübersicht\n(Übungsstart)" as ProgressView
   component "Prüfungskonfiguration" as ExamConfig
   component "Statistik-Ansicht" as ReviewView
-  component "Question Runner\n(Zentrale UI-Komponente)" as QuestionRunner
+  component "Fragenmodul\n(Zentrale UI-Komponente)" as QuestionRunner
 }
 
 package "Backend" {
@@ -21,5 +21,4 @@ ExamConfig   --> QuestionRunner : startet Prüfungsmodus
 ReviewView   --> QuestionRunner : Reviewmodus
 
 QuestionRunner --> API : Fragen laden\nAntworten speichern\nAuswertung abrufen
-
 @enduml

@@ -30,7 +30,7 @@ Folgende Punkte wurden dabei kritisch untersucht:
 	\item \textbf{Technische Basis und Ressourceneffizienz:}
 	Untersuchung, wie das Framework intern arbeitet (Optimierung beim Starten vs. Optimierung beim Bauen). Hierbei ist wichtig, wie viel Arbeitsspeicher benötigt wird und wie schnell das Backend in einer Container-Umgebung einsatzbereit ist.
 	\item \textbf{Datenbankanbindung und Datenverwaltung:}
-	Analyse, wie einfach sich Datenbanken einbinden lassen und wie gut das Framework dabei hilft, diese als Objekte abzubilden und als solche dann zu persistieren (ORM). Ein wichtiger Punkt ist hier die Flexibilität bei verschiedenen Datenbanksystemen.
+	Analyse, wie einfach sich Datenbanken einbinden lassen und wie gut das Framework dabei hilft, diese als Objekte abzubilden und als solche dann zu persistieren (ORM). 
 	\item \textbf{Einrichtung und automatisierte Abläufe:}
 	Bewertung der Mechanismen für das \textit{Database Seeding}. Es wird geprüft, wie Stammdaten automatisch beim Starten in die Datenbank kommen und wie gut das Framework die nötige Infrastruktur (wie Docker-Container) während der Entwicklung selbst verwaltet.
 	\item \textbf{Konfiguration und Sicherheit:}
@@ -45,7 +45,7 @@ Folgende Punkte wurden dabei kritisch untersucht:
 % ==================
 % 2.1.1.Springboot
 % ==================
-\subsection{Spring Boot – Die Evolution des Java-Enterprise-Standards}
+\subsection{Spring Boot}
 \setauthor{\firstauthor}
 
 \begin{figure}[H]
@@ -54,8 +54,12 @@ Folgende Punkte wurden dabei kritisch untersucht:
 	\caption{Logo von Spring Boot}
 \end{figure}
 
-\textbf{Historischer Kontext} \\
+\textbf{Historischer Kontext} \cite{WhySpringBoot} \cite{SpringBootRelease} \\
 Spring Boot wurde 2014 veröffentlicht und hatte als Ziel, die massive Komplexität der damaligen Java-Enterprise-Entwicklung (J2EE/Jakarta EE) zu lösen. Zuvor verbrachten Entwickler einen erheblichen Teil ihrer Zeit mit der Konfiguration von XML-Dateien, wobei man hunderte Zeilen XML-Code schreiben musste, um einfache Datenbankverbindungen zu realisieren. Das wurde schnell zu einer redundanten Arbeit und bekannt als  \textit{,,Configuration-Hell''}, da man Fehler oft unglaublich schwer finden und ausbessern konnte. Mit Spring Boot mussten die Entwickler:innen nicht mehr wissen, wie ein Webserver startet, sie mussten ihn nur noch benutzen. Es basiert dabei auf dem bewährten Spring Framework und nutzt dessen \textit{Inversion of Control} Container, um die Abhängigkeiten der Anwendung zu verwalten. \cite{MediumEvolutionOfSpringBoot} \cite{InnoQAnnotations}
+
+Das eben genannte Prinzip der \textit{Inversion of Control} (dt. Umkehrung der Kontrolle) besagt, dass eine Klasse die benötigten Abhängigkeiten nicht mehr selbst durch den \textit{new}-Operator erzeugen muss, sondern dem Framework ihren Bedarf mitteilt. Der IoC-Container reicht dann die fertigen Objekte von außen hinein (\textit{Dependency Injection}), was auch das ,,Hollywood-Prinzip''\cite{HollywoodPrincipleIoC} genannt wird: \textit{,,Don't call us, we'll call you''}. Dabei verwaltet der Container die Lebenszyklen aller Komponenten,
+ die sogenannten Beans.  Somit herrscht eine lose Kopplung zwischen den Programmteilen und der Code ist wesentlich flexibler, leichter wartbar und einfacher testbar. \cite{InversionOfControlAndBeans}
+
 
 \vspace{0.7cm}
 \textbf{Technologischer Durchbruch: Convention over Configuration} \\
@@ -82,13 +86,14 @@ Sobald der \texttt{main}-Befehl ausgeführt wird, startet das Framework eine Ket
 
 \vspace{0.7cm}
 \textbf{Datenverwaltung und Entwicklerproduktivität im Projektkontext} \\
-Für den Erfolg der Lernplattform ist allerdings nicht nur die rein technische Laufzeitperformance ausschlaggebend, sondern auch die Effizienz während der Implementierungsphase. Spring Boot ist Teil des Spring-Ökosystems, und dieses bietet mit \textit{Spring Data JPA} eine der ausgereiftesten Abstraktionen für den Datenbankzugriff. Komplexe Relationen lassen sich durch dieses Object-Relational-Mapping sehr stabil modellieren. Dies stellt einen wesentlichen Vorteil für die Datenintegrität dar, da die Geschäftslogik schon durch die strikte Typisierung von Java geschützt wird, bevor sie überhaupt die Persistenzschicht errreicht.
+Für den Erfolg der Lernplattform ist allerdings nicht nur die rein technische Laufzeitperformance ausschlaggebend, sondern auch die Effizienz während der Implementierungsphase. Spring Boot ist Teil des Spring-Ökosystems, und dieses bietet mit \textit{Spring Data JPA} eine der ausgereiftesten Abstraktionen für den Datenbankzugriff. Komplexe Relationen lassen sich durch dieses Object-Relational-Mapping sehr stabil modellieren. Dies stellt einen wesentlichen Vorteil für die Datenintegrität dar, da die Geschäftslogik schon durch die strikte Typisierung von Java geschützt wird, bevor sie überhaupt die Persistenzschicht erreicht.
 
-Trotz dieser Erleichterungen erfolgt bei der praktischen Einrichtung der Infrastruktur ein deutlicher administrativer Aufwand. Dabei folgt Spring Boot einem sehr statischen Konfigurationsansatz über die zentrale Datei \texttt{application.properties}. Um das in einem konkreten Beispiel zu veranschaulichen: Das Framework kann zwar automatisch Objekte mit Tabellen verknüpfen, es kann allerdings nicht die benötigte Infrastruktur wie einen MySQL-Container selbständig verwalten. Daher muss jedes Teammitglied eine passende Datenbankumgebung starten und die Verbindungsparameter exakt denen in der Konfigurationsdatei angleichen.
+Trotz  dieser Erleichterungen im Code erfolgt bei der Einrichtung der restlichen Infrastruktur ein deutlicher administrativer Aufwand. Spring Boot verfolgt hier einen statischen Konfigurationsansatz über die zentrale Datei \texttt{application.properties}. Dabei kann das Framework automatisch Objekte mit Tabellen verknüpfen, das Bereitstellen der benötigten Infrastruktur wie einen MySQL-Container bleibt allerdings Aufgabe der Entwickler:innen. In der Praxis bedeutet das, dass jedes Teammitglied eine passende Datenbankumgebung händisch starten und die Verbindungsparameter exakt mit der Konfigurationsdatei abgleichen muss.
 
-Natürlich lässt sich der manuelle Setup-Aufwand durch den Einsatz von \textit{Docker-Compose} standardisieren, indem die benötigte Datenbank-Infrastruktur in einer separaten Konfigurationsdatei definiert wird. Während der Entwicklung jedoch müssen die Zugangsdaten und Ports in der \texttt{docker-compose.yml} stets manuell mit jenen in \texttt{application.properties} synchronisiert werden. 
+Natürlich lässt sich dieser manuelle Setup-Aufwand durch den Einsatz von \textit{Docker Compose} standardisieren, indem die benötigte Datenbank-Infrastruktur in einer separaten Datei definiert wird. Obwohl das der aktuelle Industriestandard ist, entsteht dadurch eine Redundanz, durch die bei der Entwicklung die Zugangsdaten und Ports in der \texttt{docker-compose.yml} stets händisch mit jenen in den \texttt{application.properties} synchronisiert werden müssen. In einem modernen Entwicklungszyklus wird dieser manuelle Abgleich zunehmend als kritisch betrachtet, da er die kognitive Last erhöht und den Fokus von der eigentlichen Geschäftslogik auf die Infrastruktur-Verwaltung verschiebt.  \cite{ThoughtWorksRadar}
 
-Durch diese Redundanz zwischen Infrastruktur-Definition und Applikations-Konfiguration entsteht eine potenzielle Fehlerquelle. Da zwei Teams gleichzeitig am Code arbeiten, führen Änderungen an der Datenbankstruktur oder den Verbindungsparametern häufig zu ,,Connection-Refused''-Fehlern bei anderen Teammitgliedern, wenn bei diesen die lokale Umgebung nicht exakt synchronisiert wurde. Spring Boot bietet dafür keine native Integration, die den Lebenszyklus der Docker-Container während der Entwicklung steuert oder auf Strukturänderung im Code reagiert. \cite{InnoQAnnotations}
+Durch diese notwendige Doppelführung der Konfiguration entsteht eine potenzielle Fehlerquelle. Da zwei Teams gleichzeitig am Code arbeiten, führen Änderungen an der Datenbankstruktur oder den Verbindungsparametern häufig zu ,,Connection-Refused''-Fehlern bei anderen Teammitgliedern, wenn bei diesen die lokale Umgebung nicht exakt synchronisiert wurde. Spring Boot bietet dafür keine native Integration, die den Lebenszyklus der Docker-Container während der Entwicklung steuert oder auf Strukturänderung im Code reagiert. \cite{InnoQAnnotations}
+
 
 \vspace{0.7cm}
 \textbf{Database Seeding via \texttt{import.sql}} \cite{BaeldungMultipleImports} \\
@@ -98,8 +103,10 @@ In der praktischen Umsetzung für die Lernplattform offenbaren sich jedoch deutl
 \begin{itemize}
 	\item \textbf{Mangelnde Refactoring-Sicherheit:} Es besteht keine Kopplung zum Java-Quellcode, wodurch eine Umbenennung eines Attributs im Code nicht zu einem Compiler-Fehler im SQL-Skript führt. Der Fehler tritt also erst zur Laufzeit auf, was die Fehlersuche erschweren kann.
 	\item \textbf{Eingeschränkte Ausdrucksstärke:} Komplexe Anforderungen, wie das korrekte Hashen von Test-Passwörtern, sind über das SQL-Skript nicht möglich.
-	\item \textbf{Kopplung an den Schema-Lebenszyklus:} Die \texttt{import.sql} ist strikt an das Neuerstellen der Tabellen gebunden. Das bedeutet, dass bei jeder Änderung an den Testdaten die gesamte Datenbankstruktur gelöscht und neu aufgebaut werden muss. In Kombination mit den bereits beschriebenen langen Startzeiten von Spring Boot führt dies zu einem noch trägeeren Entwicklungszyklus, da kein inkrementelles Update der Daten möglich ist.
+	\item \textbf{Kopplung an den Schema-Lebenszyklus:} Die \texttt{import.sql} ist strikt an das Neuerstellen der Tabellen gebunden. Das bedeutet, dass bei jeder Änderung an den Testdaten die gesamte Datenbankstruktur gelöscht und neu aufgebaut werden muss. In Kombination mit den bereits beschriebenen langen Startzeiten von Spring Boot führt dies zu einem noch trägeren Entwicklungszyklus, da kein inkrementelles Update der Daten möglich ist.
 \end{itemize}
+
+Es existieren zwar auch programmatische Alternativen in Spring Boot für das Database Seeding über Schnittstellen wie den \texttt{CommandLineRunner} oder \texttt{ApplicationRunner} \cite{MediumCommandLineRunnerApplicationRunner}, jedoch stellen diese für das Framework bewusste Abweichungen vom Standard-Vorgehen dar. Es entsteht also ein zusätzlicher Implementierungsaufwand, weshalb in der Praxis meist der unflexiblere, aber einfacher zu konfigurierende SQL-basierte Ansatz dominiert.
 
 
 \vspace{0.7cm}
@@ -114,7 +121,7 @@ Aufgrund dieses Preises für Flexibilität und des tatsächlichen Ressourcenverb
 % 2.1.1.Node js
 % ==================
 
-\subsection{Node.js - Das ereignisgesteuerte Gegenmodell}
+\subsection{Node.js}
 \setauthor{\firstauthor}
 
 \begin{figure}[H]
@@ -123,10 +130,10 @@ Aufgrund dieses Preises für Flexibilität und des tatsächlichen Ressourcenverb
     \caption{Logo von Node.js}
 \end{figure}
 
-\textbf{Historischer Kontext} \\
+\textbf{Historischer Kontext} \cite{NodeJsOriginalSlides} \cite{NodeJsOriginalPresentation} \\
 Node.js wurde schon im Jahr 2009 von Ryan Dahl vorgestellt und gilt als Wendepunkt in der Server-Programmierung. Zu dieser Zeit dominierten Frameworks wie das Spring Framework oder der Apache HTTP Server den Markt. Diese verwendeten das klassische ,,Thread-per-Request''-Modell. Das heißt für jeden Besucher, der eine Webseite aufrief, wurde ein eigener Thread im Arbeitsspeicher reserviert. Bei einer geringen Nutzerzahl funktionierte dieses Modell auch reibungslos, wenn man aber dann tausende gleichzeitige Verbindungen laufen hatte, verbrauchten diese Systeme den Großteil ihres Arbeitsspeichers nur für die Verwaltung der Threads, anstatt die eigentliche Logik auszuführen. \cite{Esono5FaktenNodeJs}
 
-Dabei erkannte Dahl, dass das Problem nicht bei der CPU lag, sondern bei dem Warten auf Ein- und Ausgabeprozesse wie Datenbankabfragen oder das Lesen von Dateien. Deshalb ersetzte er das blockierende Modell mit einer ereignisgesteuerten Architektur, welche er mit der extrem schnellen V8-JavaScript-Engine von Google Chrome kombinierte. Anstatt also auf eine Antwort der Datenbank zu warten und dabei einen Thread blockieren zu müssen, verwendet Node.js eine \textit{Event-Loop}. Durch diese Architektur war es plötzlich möglich, tausende Verbindungen zu verarbeiten, und dabei nur einen Bruchteil des Arbeitsspeichers zu verwenden, den eine vergleichbare Java-Anwendung benötigt hatte. Das machte JavaScript, das zuvor fast nur im Browser für Animationen genutzt wurde, zu einer wettbewerbsfähigen Technologie für hochperformante Backends. \cite{NodeJsEventLoop}
+Dabei erkannte Dahl, dass das Problem nicht bei der CPU lag, sondern beim Warten auf Ein- und Ausgabeprozesse wie Datenbankabfragen oder das Lesen von Dateien. Deshalb ersetzte er das blockierende Modell mit einer ereignisgesteuerten Architektur, welche er mit der extrem schnellen V8-JavaScript-Engine von Google Chrome kombinierte. Anstatt also auf eine Antwort der Datenbank zu warten und dabei einen Thread blockieren zu müssen, verwendet Node.js eine \textit{Event-Loop}. Durch diese Architektur war es plötzlich möglich, tausende Verbindungen zu verarbeiten, und dabei nur einen Bruchteil des Arbeitsspeichers zu verwenden, den eine vergleichbare Java-Anwendung benötigt hatte. Das machte JavaScript, das zuvor fast nur im Browser für Animationen genutzt wurde, zu einer wettbewerbsfähigen Technologie für hochperformante Backends. \cite{NodeJsEventLoop}
 
 \vspace{0.7cm}
 \textbf{Risiken des Single Threaded Ansatzes} \\
@@ -136,7 +143,7 @@ Anders als bei Spring Boot, bei welchem rechenintensive Operationen einfach auf 
 
 Obwohl Node.js oft als rein ,,single-threaded'' bezeichnet wird, agiert im Hintergrund eigentlich die C++ Bibliothek \textit{libuv}, welche die zeitintensiven I/O-Operationen in einen internen Worker-Pool auslagert. Das ändert allerdings nichts am fundamentalen Risiko für die Lernplattform: Da der eigentliche JavaScript-Code trotzdem strikt auf einem einzigen Haupt-Thread läuft, können komplexe Berechnungen innerhalb der Business-Logik nicht automatisch auf diesen Worker-Pool verteilt werden. Dafür benötigt es den expliziten Einsatz von \textit{Worker-Threads} durch die Entwickler:innen, ohne welchen eine hohe CPU-Last im JavaScript-Code zu einer Blockade der Event-Loop führt, da \textit{libuv} nur systemnahe Aufgaben, aber keine benutzerdefinierten Rechenoperationen automatisch parallelisiert. \cite{NodeJsSingleThreadedAndMultiThreaded} \cite{NodeJsDontBlockEventLoop}
 
-Für die Lernplattform heißt das, dass eine strikte Trennung zwischen leichtgewichtigen API-Abfragen und schweren Hintergrundprozessen vorherrschen muss. Das wäre zum Beispiel durch Worker-Threads oder durch Microservices möglich, stellt aber auch einen zusätzlichen Architekturaufwand dar. Es ist also notwendig, diesen Aufwand gegen die Vorteile der schnellen Startzeiten gegenüber Spring Boot abzuwägen.
+Für die Lernplattform heißt das, dass eine strikte Trennung zwischen leichtgewichtigen API-Abfragen und schweren Hintergrundprozessen vorherrschen muss. Zwar sind im Zuge dieser Diplomarbeit keine CPU-lastigen Features geplant, jedoch stellt die Architektur ein Risiko für zukünftige Erweiterungen dar. Wie in \autoref{chap:FutureOfLearnhub} beschrieben, ist einer der größten möglichen Erweiterungspunkte die Einbindung von KI-Funktionen. Bereits der Upload einer Mitschrift würde für die Weiterverwendung vektorisiert werden müssen. Da dies einen sehr CPU-intensiven Prozess darstellt, würde dies die Event-Loop von Node.js blockieren und für alle anderen Anfragen temporär unzugänglich machen. Das wäre zum Beispiel durch Worker-Threads oder durch Microservices möglich, stellt aber auch einen zusätzlichen Architekturaufwand dar. Es ist also notwendig, diesen Aufwand gegen die Vorteile der schnellen Startzeiten gegenüber Spring Boot abzuwägen.
 
 \vspace{0.7cm}
 \textbf{Datenverwaltung und Infrastruktur-Steuerung} \\
@@ -162,15 +169,15 @@ Im Database Seeding zeigt sich ein deutlicher funktionaler Unterschied. Während
 \textbf{Konfigurationsmanagement und Umgebungsvariablen} \\
 Bei der Konfiguration bietet Node.js kein direktes Äquivalent zur zentral verankerten \texttt{application.properties}-Datei von Spring Boot. Stattdessen setzt das Node.js-Ökosystem meist auf Umgebungsvariablen, die häufig über \texttt{.env}-Dateien verwaltet werden. \cite{NodeJsConfigurationManagement}
 
-Dieser Ansatz birgt allerdings wesentliche Nachteile im Vergleich zur strukturierten in Java für die Wartbarkeit. Während Spring Boot durch \textit{Configuration Properties} die Werte aus der Einstellungsdatei direkt in typsichere Java-Objekte umwandelt und diese beim Start validiert, werden Umgebungsvariablen in Node.js als einfache Strings eingelesen. Dabei ist Spring Boot ,,Fail-Fast'', das heißt es stoppt sofort bei Fehlern, und Node.js ist oftmals ,,Lazy'', das heißt, dass Fehler erst auftreten, wenn der Code-Pfad erreicht wird. Dadurch werden Konfigurationsfehler, wie es zum Beispiel ein fehlender API-Schlüssel oder ein falsch formatierter Port wären, erst spät zur Laufzeit bemerkt und nicht schon beim Start der App abgefangen. Weiters fehlt Node.js ein eingebautes System für Profile wie \texttt{dev} oder \texttt{prod}. Somit müssen die Teams manuell sicherstellen, dass für jede Umgebung die passende \texttt{.env}-Datei geladen wird, was bei der parallelen Arbeit von zwei Teams die Fehleranfälligkeit bei der Bereitstellung der Teilprojekte erhöht.
+Dieser Ansatz birgt allerdings wesentliche Nachteile im Vergleich zur strukturierten Vorgehensweise in Java für die Wartbarkeit. Während Spring Boot durch \textit{Configuration Properties} die Werte aus der Einstellungsdatei direkt in typsichere Java-Objekte umwandelt und diese beim Start validiert, werden Umgebungsvariablen in Node.js als einfache Strings eingelesen. Dabei ist Spring Boot ,,Fail-Fast'', das heißt es stoppt sofort bei Fehlern, und Node.js ist oftmals ,,Lazy'', das heißt, dass Fehler erst auftreten, wenn der Code-Pfad erreicht wird. Dadurch werden Konfigurationsfehler, wie es zum Beispiel ein fehlender API-Schlüssel oder ein falsch formatierter Port wären, erst spät zur Laufzeit bemerkt und nicht schon beim Start der App abgefangen. Weiters fehlt Node.js ein eingebautes System für Profile wie \texttt{dev} oder \texttt{prod}. Somit müssen die Teams manuell sicherstellen, dass für jede Umgebung die passende \texttt{.env}-Datei geladen wird, was bei der parallelen Arbeit von zwei Teams die Fehleranfälligkeit bei der Bereitstellung der Teilprojekte erhöht.
 
 \vspace{0.7cm}
 \textbf{Fazit} \\
-Node.js ist also ein hochperformantes Backend-Framework, allerdings nur spezifische Anwendungsfälle vollständig geeignet. Durch seine ereignisgesteuerte Architektur und die effiziente \textit{Event-Loop} löst es das Ressourcen-Problem von klassischen Java-Anwendungen und bietet zugleich eine Agilität im Entwicklungsprozess, die sich durch nahezu sofortige Feedback-Zyklen auszeichnet. Vor allem beim Database-Seeding übertrifft Node.js durch die Flexibilität von programmatischen Skripten die statischen Ansätze von Spring Boot deutlich.
+Node.js ist also eine hochperformantes Laufzeitumgebung, allerdings nur für spezifische Anwendungsfälle vollständig geeignet. Durch seine ereignisgesteuerte Architektur und die effiziente \textit{Event-Loop} löst es das Ressourcen-Problem von klassischen Java-Anwendungen und bietet zugleich eine Agilität im Entwicklungsprozess, die sich durch nahezu sofortige Feedback-Zyklen auszeichnet. Vor allem beim Database-Seeding übertrifft Node.js durch die Flexibilität von programmatischen Skripten die standardmäßig eher statisch orientierten Ansätze von Spring Boot deutlich.
 
 Dennoch ergeben sich für die Entwicklung der geplanten Lernplattform kritische Nachteile. Die Single-Threaded-Architektur stellt ein wesentliches Risiko für die zukünftige Erweiterbarkeit dar, da rechenintensive Operationen die gesamte Anwendung blockieren könnten. Ein schwerwiegenderes Problem ergibt sich allerdings im Mangel an Standardisierung und nativer Typsicherheit innerhalb des Ökosystems. Da zwei Entwicklerteams an diesem Projekt arbeiten, würde die manuelle Verwaltung von Infrastruktur, Validierung und Konfiguration ein erhöhtes Fehlerrisiko bei der Integration bedeuten.
 
-Somit stehen sich zwei Extreme gegenüber: Auf der einen Seite das robuste, aber ressourcenintensive Spring Boot und auf der anderen Seite das leichtgewichtige, aber architektonisch weniger gefestigte Node.js. Im Zuge dieser Analyse wird also ein weiteres Framework betrachtet. Im bestenfall bringt es die Stabilität, Typsicherheit und die bewährten Standards des Java-Ökosystems, aber auch die Effizienz und moderne Entwickler-Experience von Node.js zusammen. Dieses Anforderungsprofil führt zu \textbf{Quarkus}, einem Framework, das explizit als ,,Supersonic Subatomic Java'' entwickelt wurde, um diese Lücke zu schließen.
+Somit stehen sich zwei Extreme gegenüber: Auf der einen Seite das robuste, aber ressourcenintensive Spring Boot und auf der anderen Seite das leichtgewichtige, aber architektonisch weniger gefestigte Node.js. Im Zuge dieser Analyse wird also ein weiteres Framework betrachtet. Im besten Fall bringt es die Stabilität, Typsicherheit und die bewährten Standards des Java-Ökosystems, aber auch die Effizienz und moderne Entwickler-Experience von Node.js zusammen. Dieses Anforderungsprofil führt zu \textbf{Quarkus}, einem Framework, das explizit als ,,Supersonic Subatomic Java'' entwickelt wurde, um diese Lücke zu schließen.
 
 
 
@@ -188,7 +195,7 @@ Somit stehen sich zwei Extreme gegenüber: Auf der einen Seite das robuste, aber
 \end{figure}
 
 
-\textbf{Historischer Kontext: Die Java-Krise in der Ära der Containerisierung} \\
+\textbf{Historischer Kontext} \cite{QuarkusAbout} \cite{QuarkusWhyAndHowPresentation} \\
 Um die Entstehung von Quarkus im Jahr 2019 zu verstehen, muss man zuerst die Geschichte von Java in Server-Umgebungen und den mit den Jahren zum Problem gewordenen Standards kennen. Über Jahrzehnte war Java die unangefochtene erste Wahl für Unternehmenssoftware. Frameworks wie Spring Boot in 2014 perfektionierten die Entwicklung von großen Microservices, die auf leistungsstarken Servern mit gigantischen Arbeitsspeicherkapazitäten liefen. Dabei war Java darauf optimiert, einmal zu starten und über mehrere Wochen hinweg durch den Just-In-Time Compiler \cite{JustInTimeCompiler} im laufenden Betrieb immer mehr an Schnelligkeit zu gewinnen.
 
 Mit der Zeit verschob sich der Standard allerdings immer mehr in Richtung Containerisierung und damit kam der Aufstieg von Docker-Containern und Kubernetes. So änderten sich die Anforderungen fundamental: In modernen Cloud-Umgebungen werden Anwendungen nicht mehr monatelang betrieben, sondern wenn nötig im Bruchteil einer Sekunde hochgefahren und bei Nichtgebrauch sofort wieder abgeschaltet, um Kosten zu sparen. In dieser neuen Welt, in der Minimalverbrauch von Ressourcen eine entscheidende Anforderung wurde, verlor Java zunehmend seinen bisherigen Monopolstatus.
@@ -270,10 +277,10 @@ Ein weiterer Faktor, der im Zuge der Analyse behandelt wird, ist die Verwaltung 
 
 \begin{itemize}
 	\item \textbf{Trennung von Umgebungen:} \\
-	Anders als bei Node.js, wo man für unterschiedliche Umgebungen verschiedene Dateien nutzt, erlaubt Quarkus die Definition von Profilen innerhalb einer Datei mit Präfixen (\texttt{\%dev.db.url} oder \texttt{\%prod.db.url}). Dadurch wird also niemals versehentlich die Konfiguration für die lokale Entwicklung die Live-Datenbank mit den echten Materialdaten überschreibt.
+	Anders als bei Node.js, wo man für unterschiedliche Umgebungen verschiedene Dateien nutzt, erlaubt Quarkus die Definition von Profilen innerhalb einer Datei mit Präfixen (\texttt{\%dev.db.url} oder \texttt{\%prod.db.url}). Dadurch wird also niemals versehentlich die Konfiguration für die lokale Entwicklung der Live-Datenbank mit den echten Daten überschrieben.
 	
 	\item \textbf{Typsichere Konfiguration:}  \\
-	Bei Node.js werden Konfigurationen meist als einfache Zeichenketten eingelesen. Da hingegen bietet Quarkus typsichere Konfigurationsobjekte und bricht den Startvorgang sofort mit klaren Fehlermeldungen ab, sollte ein wichtiger Parameter fehlen oder im falschen Format stehen. Somit fährt die Lernplattform nie in einem instabilen Zustand hoch.
+	Bei Node.js werden Konfigurationen meist als einfache Zeichenketten eingelesen. Im Gegensatz dazu bietet Quarkus typsichere Konfigurationsobjekte und bricht den Startvorgang sofort mit klaren Fehlermeldungen ab, sollte ein wichtiger Parameter fehlen oder im falschen Format stehen. Somit fährt die Lernplattform nie in einem instabilen Zustand hoch.
 	
 	\item \textbf{Sicherheit und Credentials:} 
 	Für den Umgang mit Passwörtern und API-Keys unterstützt Quarkus die Einbindung von externen Quellen wie Umgebungsvariablen oder Key-Vaults. Das bedeutet, dass sensible Daten nicht im Quellcode stehen müssen, sondern sicher beim Start der Container-Umgebung injiziert werden können.
@@ -283,14 +290,14 @@ Dadurch ergiebt sich ein robustes Konfigurationsmodell, das besonderns bei der A
 
 
 \subsection{Fazit und finale Technologieentscheidung} 
-Die Analyse verdeutlicht, dass die Wahl des Backend-Frameworks ein Abwägen zwischen Reife, Agilität und Ressourceneffizienz darstellt.
+Die Analyse verdeutlicht, dass die Wahl des Backend-Frameworks ein Abwägen zwischen Reife, Agilität und Ressourceneffizienz darstellt. Spring Boot wurde dabei als Vertreter des klassischen, thread-basierten Enterprise-Standards gewählt, während Node.js den Vertreter für moderne, ereignisgesteuerte und besonders agile Entwicklungszyklen darstellt. Auf die Analyse anderer Sprachen wie \textit{Go} oder \textit{Rust} wurde dabei verzichtet, da sich die bestehende Expertise der Entwicklerteams primär auf die Java- und JavaScript-Ökosysteme erstreckt. Ein Technologiewechsel auf Sprachen mit völlig anderer Speicherverwaltung oder den \textit{,,Go-Routines''} hätte den Einarbeitungsaufwand in ein zeitlich begrenztes Diplomarbeitsprojekt unnötig erhöht. 
 
 \begin{itemize}
 	\item \textbf{Spring Boot} weist zwar eine besondere technologische Reife auf, scheidet aber trotzdem aufgrund des hohen Overheads und der fehlenden nativen Infrastruktur-Automatisierung aus, da dies die parallele Arbeit der beiden Teams unnötig erschweren würde.
 	
 	\item \textbf{Node.js} löst zwar das Problem des langsamen Feedback-Zyklus in Spring Boot, birgt jedoch durch die fehlende Striktheit der Standardisierung und nativer Typsicherheit ein zu hohes Risiko für die Datenkonsistenz zwischen den Teilprojekten.
 	
-	\item \textbf{Quarkus} erweist sich als die optimale Lösung für die Lernplattform. Es vereint die Typsicherheit und Robustheit des Java-Ökosystems mit einer modernen Entwickler-Experience. Die administrativen Hürden, die bei den anderen Frameworks als kritisch identifiziert wurden, werden durch Features wie \textit{Dev Services} und den \textit{Hot Reload} eliminiert.
+	\item \textbf{Quarkus} erweist sich als die optimale Lösung für die Lernplattform. Es vereint die Typsicherheit und Robustheit des Java-Ökosystems mit einer modernen Entwickler-Experience. Die administrativen Hürden, die bei den anderen Frameworks als kritisch identifiziert wurden, werden durch Features wie \textit{Dev Services} und den \textit{Hot Reload} eliminiert. Aktuelle Benchmarks (Stand März 2026) belegen die technologische Überlegenheit im Vergleich zu Spring Boot. Quarkus kann im Durchschnitt 2,7-mal mehr Transaktionen pro Sekunde verarbeiten und benötigt dabei nur die Hälfte des Arbeitsspeichers \cite{QuarkusBenchmarks}.
 \end{itemize}
 
 Somit ist die Entscheidung nicht nur aufgrund einer performanten Laufzeitumgebung auf Quarkus gefallen, sondern war strategisch für eine effiziente und fehlerresistente Zusammenarbeit im Team.

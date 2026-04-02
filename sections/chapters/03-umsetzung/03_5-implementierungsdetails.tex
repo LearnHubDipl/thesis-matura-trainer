@@ -151,8 +151,7 @@ Die Kernaufgaben des Backends umfassen:
   	
   	$$\text{currentTimestamp} > (\textit{answeredAt} + 24\text{h})$$
   	
-  	Ist diese Bedingung nicht erfüllt, so wird die Antwort zwar technisch entgegengenommen und evaluiert, trotz korrekter Antwort der correctCount und somit das Level der Frage aber nicht erhöht, wodurch die Persistenzschicht vor Manipulationen geschützt bleibt, während der Übungsfluss im Frontend nicht durch Fehlermeldungen unterbrochen wird.
-  \end{itemize}
+    Ist diese Bedingung nicht erfüllt, wird die Frage nicht in die Auswahl für den Übungsmodus aufgenommen, sodass der correctCount und somit das Level der Frage nicht erhöht werden können, wodurch die Persistenzschicht vor Manipulationen geschützt bleibt, während der Übungsfluss im Frontend nicht durch Fehlermeldungen unterbrochen wird.  \end{itemize}
 
   \item \textbf{Kommunikation mit dem Frontend:} \\
   Das Backend stellt alle relevanten Daten für das \textit{Fragenmodul}, die Fortschrittsübersicht und die Ergebnisanzeige der Prüfungen 
@@ -221,76 +220,40 @@ Die Implementierung der Lernplattform erfordert die Integration externer Bibliot
 
 \subsubsection{Visualisierung von Statistiken mit Chart.js}
 
-Um den Lernfortschritt der Nutzer:innen übersichtlich darzustellen, wird Chart.js verwendet. Die Open-Source-Bibliothek integriert sich nahtlos in Angular und bietet reaktive Donutdiagramme mit dynamischen Datenaktualisierungen. Chart.js wurde gewählt wegen seiner Performance, umfangreichen Dokumentation und der \texttt{update()}-Methode für flüssige Animationen ohne Seitenneuladen.
+Die Fortschrittsübersicht zeigt den Lernfortschritt der Nutzer:innen in übersichtlichen Diagrammen an. Chart.js wird dafür verwendet, da es leicht in Angular integriert werden kann und Diagramme dynamisch aktualisiert werden können, ohne die Seite neu zu laden.
 
-\textbf{Donutdiagramm-Implementierung}
-
-Donutdiagramme zeigen prozentuale Verteilungen des Lernkarten-Status (offen, 1x richtig, 2x richtig, 3x richtig, falsch). Der zentrale Freiraum enthält Schlüsselkennzahlen (siehe \autoref{fig:chartjs}).
+Eine zentrale Rolle nimmt dabei das \textbf{Donutdiagramm} ein. Dieses Diagramm wird in der \texttt{StatsHomeComponent} verwendet und zeigt die Verteilung aller Lernkarten nach Status (offen, 1x richtig, 2x richtig, 3x richitg, falsch). Im Zentrum steht die Anzahl offener Karten.
 
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=0.7\textwidth]{chartjs.png}}
-    \caption{Donutdiagramm: Globale Lernstatistik mit Farbkodierung}
+    \caption{Donutdiagramm: Globale Lernstatistik}
     \label{fig:chartjs}
 \end{figure}
 
-\textbf{Datenfluss: Von der Datenbank zum Canvas-Rendering}
+Die Komponente übergibt die notwendigen Daten an Chart.js über ng2-charts:
 
-\begin{enumerate}
-\item \textbf{Angular Lifecycle: ngOnInit()}\\
-Wenn die Komponente geladen wird, startet sie das Laden der Statistikdaten. Der \texttt{StatsService} wird dafür verwendet, damit die Komponente selbst nicht direkt mit dem Backend arbeiten muss.
-\begin{verbatim}
-ngOnInit(): void {
-  this.statsService.getStatsOverview(this.userId).subscribe(data => {
-\end{verbatim}
-
-\item \textbf{REST API Request: HttpClient}\\
-Angular sendet eine GET-Anfrage an das Backend und übergibt dabei die Benutzer-ID in der URL.
-
-\item \textbf{JAX-RS Controller}\\
-Im Backend wird diese Anfrage von der passenden Methode angenommen und an den Statistik-Service weitergeleitet.
-\begin{verbatim}
-@GET @Path("/{userId}/overview")
-public StatsOverviewDto getStatsOverview(Long userId) {
-  return statsService.calculateStatsOverview(userId);
-}
-\end{verbatim}
-
-\item \textbf{JPA Repository: SQL Aggregation}\\
-Im Hintergrund wird eine SQL-Abfrage ausgeführt, die die Antwort-Status des Benutzers zusammenzählt. Dadurch muss nicht jede Frage einzeln geladen werden.
-\begin{verbatim}
-SELECT COUNT(CASE WHEN status='UNANSWERED' THEN 1 END) as unanswered,
-       COUNT(CASE WHEN status='CORRECT_ONCE' THEN 1 END) as correctOnce
-FROM question_pool_entries WHERE user_id = 123;
-\end{verbatim}
-
-\item \textbf{JSON Serialisierung: Jackson}\\
-Das Backend gibt die berechneten Werte als JSON zurück, damit sie im Frontend weiterverwendet werden können.
-\begin{verbatim}
-{
-  "unanswered": 15, "correctOnce": 25,
-  "legend": [{"label":"Offen","value":15,"color":"#E0E0E0"}]
-}
-\end{verbatim}
-
-\item \textbf{Data-Binding: RxJS und Angular Change Detection}\\
-Die Antwort wird im Frontend entgegengenommen und in das Format umgewandelt, das Chart.js benötigt. Hier werden vor allem Labels, Werte und Farben aus dem Backend übernommen.
-\begin{verbatim}
+\begin{itemize}
+  \item \textbf{doughnutChartData:} Enthält Labels, Werte und Farben für das Diagramm
+  \begin{verbatim}
 this.doughnutChartData = {
   labels: data.legend.map(e => e.label),
   datasets: [{data: data.legend.map(e => e.value),
               backgroundColor: data.legend.map(e => e.color)}]
 };
-\end{verbatim}
-Wenn sich diese Daten ändern, erkennt Angular das automatisch und bereitet das Diagramm für ein neues Rendering vor.
+  \end{verbatim}
+  \texttt{labels} = Diagrammentexte, \texttt{data} = Zahlenwerte, \texttt{backgroundColor} = Segmentfarben.
 
-\item \textbf{Canvas Rendering: Chart.js und ng2-charts}\\
-Chart.js zeichnet das Donutdiagramm auf ein HTML-Canvas. Die Angular-Direktive \texttt{ng2-charts} verbindet dabei die Angular-Daten mit Chart.js.
-\begin{verbatim}
-<canvas baseChart [data]="doughnutChartData" [type]="doughnutChartType">
-\end{verbatim}
-Sobald sich \texttt{doughnutChartData} ändert, wird das Diagramm automatisch aktualisiert und neu dargestellt.
-\end{enumerate}
+  \item \textbf{baseChart Direktive:} Verbindet Angular-Daten mit Chart.js Canvas
+  \begin{verbatim}
+<canvas baseChart 
+        [data]="doughnutChartData" 
+        [type]="doughnutChartType">
+  \end{verbatim}
+  ng2-charts überwacht Datenänderungen und triggert Chart.js \texttt{update()}.
+\end{itemize}
+
+Diese Aufteilung gewährleistet eine klare Trennung zwischen Datenbeschaffung und Diagrammdarstellung. Chart.js kümmert sich nur um die Visualisierung, während Angular die Daten automatisch aktualisiert.
 
 \subsubsection{Wiederverwendbare CSS-Klassen}
 

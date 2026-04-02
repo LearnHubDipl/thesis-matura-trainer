@@ -9,10 +9,10 @@
 \fbox{
 \includegraphics[width=0.7\textwidth]{Leitnersystem.png}
 }
-\caption{Visualisierung der Lernlevel auf der Startseite}
+\caption{Visualisierung des Fragenpools in Lernlevel auf der Startseite}
 \label{fig:FortschrittUsecase}
 \end{figure}
-Beim Einstieg in den Maturatrainer ist das zentrale Dashboard der Anwendung zu sehen. Sie bietet den Nutzer:innen einen direkten Einstieg in die Lernsession und zeigt den aktuellen Wissenstand deines individuellen Fragenpools auf einen Blick.
+Beim Einstieg in den Maturatrainer ist das zentrale Dashboard der Anwendung zu sehen. Sie bietet den Nutzer:innen einen direkten Einstieg in die Lernsession und zeigt den momentanen Fortschritt im individuellen Fragenpools auf einen Blick.
 
 \subsection{Aufbau und Funktionen der Startseite}
 \label{chap:startseite_funktionen}
@@ -29,20 +29,20 @@ In \autoref{fig:FortschrittUsecase} ist die grafische Aufbereitung des Leitner-S
     \item \textbf{Basislevel}:\\
     In diesem Level (\autoref{fig:Basislevel}) befinden sich Fragen, die bereits einmal korrekt beantwortet wurden. Nach der richtigen Beantwortung werden sie automatisch für einen Tag gesperrt. 
     Während dieser Sperrzeit erscheinen sie in der Anzeige als \textit{„gesperrt“} (z.\,B. „10 Fragen gesperrt“) und stehen noch nicht zur Wiederholung bereit. 
-    Erst wenn die 24 Stunden vergangen sind, werden sie in der Übersicht als \textit{„für Wiederholung frei“} gekennzeichnet. 
+    Erst wenn die 24 Stunden vergangen sind, werden sie in der Übersicht als \textit{„für das Wiederholungen frei“} gekennzeichnet. 
     Dadurch wird ein sinnvoller zeitlicher Abstand zwischen den Übungseinheiten geschaffen, was die langfristige Festigung des Wissens unterstützt.
     
     \item \textbf{Trainingslevel}:\\
     In diesem Bereich befinden sich Fragen, die bereits zweimal korrekt beantwortet wurden. Diese Fragen werden für drei Tage gesperrt, bevor sie zur Wiederholung freigegeben werden.
     
     \item \textbf{Highscorelevel}:\\
-    Fragen in diesem Bereich wurden mehrfach erfolgreich wiederholt. Sie gelten als \textit{„ausgelernt“} und signalisieren den Nutzer:innen, dass dieser Stoff sicher beherrscht wird.
+    Fragen in diesem Bereich wurden mehrfach erfolgreich wiederholt. Sie gelten als \textit{„ausgelernt“} und signalisieren den Nutzer:innen, dass dieser Stoff sicher beherrscht wird. Diese Fragen werden nicht mehr aktiv zum Üben angeboten, können aber jederzeit eingesehen und bei Bedarf erneut geübt werden.
 \end{itemize}
 
 \begin{figure}[H]
 \centering
 \fbox{
-\includegraphics[width=0.7\textwidth]{Basislevel.png}
+\includegraphics[width=0.7\textwidth]{WiederholenFrei.png}
 }
 \caption{Visualisierung der Sperrzeiten für Fragen im Basislevel}
 \label{fig:Basislevel}

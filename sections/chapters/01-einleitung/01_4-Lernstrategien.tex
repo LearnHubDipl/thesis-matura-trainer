@@ -4,15 +4,11 @@
 
 \setauthor{\secondauthor}
 
-% ==================
-% Lernstrategien: Leitner-System & Spaced Repetition
-% ==================
-
 \section{Lernstrategien}
 \label{chap:lernstrategien}
 \setauthor{\secondauthor}
 
-Im Rahmen der Entwicklung einer digitalen Lernplattform für HTL-Maturanten müssen Lernstrategien gewählt werden, die über reines Auswendiglernen hinausgehen. Die Matura zeichnet sich durch enormen Stoffumfang und hohe Komplexität aus. Gefragt ist nicht nur isoliertes Faktenwissen, sondern vor allem das Verständnis von Zusammenhängen und die Anwendung von Wissen auf neue, vernetzte Problemstellungen \cite{StudySmarterApp}.
+Im Rahmen der Entwicklung einer digitalen Lernplattform für HTL-Maturanten und HTL-Maturantinnen müssen Lernstrategien gewählt werden, die über reines Auswendiglernen hinausgehen. Die Matura zeichnet sich durch enormen Stoffumfang und hohe Komplexität aus. Gefragt ist nicht nur isoliertes Faktenwissen, sondern vor allem das Verständnis von Zusammenhängen und die Anwendung von Wissen auf neue, vernetzte Problemstellungen \cite{StudySmarterApp}.
 
 \subsection{Spaced Repetition}
 
@@ -20,50 +16,85 @@ Spaced Repetition, auch verteiltes Lernen genannt, ist eine kognitionswissenscha
 
 \textbf{Allgemeine Funktionsweise}
 
-Die Ebbinghaus’sche Vergessenskurve (1885) beschreibt empirisch, dass neu gelernte Informationen exponentiell vergessen werden: Nach 20 Minuten bleiben nur 58\,\% erhalten, nach 1 Stunde 44\,\%, nach einem Tag ca. 33\,\%. Mathematisch modelliert als \( R = e^{-t/S} \) (Retention \(R\), Zeit \(t\), Stärke \(S\)) \cite{StudySmarterSpaced}.
+Die Ebbinghaus’sche Vergessenskurve (1885) beschreibt, dass neu gelernte Informationen exponentiell vergessen werden: Nach 20 Minuten bleiben nur 58\,\% erhalten, nach 1 Stunde 44\,\%, nach einem Tag ca. 33\,\%. \cite{StudySmarterSpaced}.
 
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=0.7\textwidth]{SpacedRepetition.png}}
-    \caption{Ebbinghaus’sche Vergessenskurve (steile graue Linie: natürliches Vergessen) und Wirkung von Spaced Repetition (blaue Punkte: Wiederholungen flachen die Kurve ab, stabilisieren Langzeitgedächtnis). Quelle: \cite{HeylamaSpacedRepetition}.}
+    \caption{Ebbinghaus’sche Vergessenskurve \cite{HeylamaSpacedRepetition}}
     \label{fig:SpacedRepetition}
 \end{figure}
 
-Informationen werden genau dann wiederholt, wenn das Vergessen einsetzt. Beispiel: Formel aus Nachrichtentechnik – 1. Tag, 3. Tag, 1. Woche; Intervalle wachsen bei Erfolg progressiv \cite{pfhSpacedRepetition}.
+Diese Methode basiert auf dem Prinzip, dass Informationen genau dann wiederholt
+werden, wenn das Gehirn kurz davor ist, sie zu vergessen. Ein praxisnahes Beispiel ist
+das Lernen einer komplexen Formel aus der Nachrichtentechnik: Die erste Wiederholung
+findet nach 24 Stunden statt, die zweite nach drei Tagen und die dritte nach einer
+Woche. Mit jedem Erfolg vergrößert sich der zeitliche Abstand progressiv.\cite{pfhSpacedRepetition}
 
 \textbf{Kontext der Matura}
-Extrem zeiteffizient ersetzt es kurzfristiges Pauken durch nachhaltige Verankerung – essenziell für technische Grundlagen bei Jahresendprüfungen \cite{StudySmarterSpaced}.
+Diese Methode erweist sich als extrem zeiteffizient, da sie das kurzfristige Auswendigler-
+nen direkt vor der Prüfung durch eine nachhaltige Verankerung im Langzeitgedächtnis
+ersetzt. Für die Maturavorbereitung ist dies aufgrund des langen Zeitraums essenziell,
+um sicherzustellen, dass technische Grundlagen auch dann noch präsent sind, wenn am
+Ende des Jahres hochkomplexe Anwendungsbeispiele gelöst werden müssen.\cite{StudySmarterSpaced}.
 
-\subsection{Das Leitner-System}
+\subsection{Das Leitner-System}\cite{PocketPrepLeitner}
 
-Das Leitner-System (1973) organisiert Lernkarten in Boxen nach Beherrschungsgrad und basiert auf Spaced Repetition \cite{LeitnerWikipedia}.
+Das Leitner-System ist eine systematische Lernmethode, die die Organisation von Lern-
+inhalten in verschiedenen Kategorien nutzt, um den Lernprozess zu strukturieren.
 
 \textbf{Allgemeine Funktionsweise}
 
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=0.7\textwidth]{LeitnerSystem.jpg}}
-    \caption{Leitner-System mit 5 Boxen: Korrekte Antwort → Vorfach (seltener abgefragt), Fehler → Box 1 (täglich). Visualisiert Fortschritt. Quelle: \cite{PocketPrepLeitner}.}
+    \caption{Leitner-System mit 3 Boxen\cite{PocketPrepLeitner}}
     \label{fig:LeitnerSystem}
 \end{figure}
 
-Digitale Umsetzung: Karten wandern bei Erfolg in spätere Boxen (Wochen-/Monatsabstände), bei Fehlern sofort zurück \cite{hymerLeitner}.
+Das System nutzt das Prinzip von physischen oder digitalen Lernkartei-Boxen, um den
+Lernstoff nach dem individuellen Beherrschungsgrad zu sortieren. In einer digitalen
+Anwendung wandern Karten bei einer richtigen Antwort in ein höheres Fach, das seltener
+abgefragt wird, während sie bei Fehlern unmittelbar zurück in das erste Fach verschoben
+werden\cite{hymerLeitner}.
 
 \textbf{Kontext der Matura}
-Bietet greifbare Fortschrittsvisualisierung für große Themenblöcke, trotz starrer Intervalle \cite{managementLeitner}.
+Obwohl das System eine gute Visualisierung des Fortschritts bietet, ist es in seiner klassischen Form oft zu starr. Für Maturanten und Maturantinnen es dennoch hilfreich, da die Einteilung
+in Fächer den Fortschritt bei großen Themengebieten greifbar macht\cite{managementLeitner}.
 
 \subsection{Microlearning}
 
+Microlearning bezeichnet das Lernen in sehr kurzen, inhaltlich fokussierten Einheiten,
+um umfangreiche Wissensbereiche handhabbar zu machen.
+
+\textbf{Allgemeine Funktionsweise}
 Microlearning zerlegt Stoff in kurze, fokussierte Einheiten (5–10 Minuten) für schnelles Feedback und niedrige Hemmschwellen \cite{SerloAbout}.
 
 \textbf{Kontext der Matura}
-Bedingt geeignet: Risiko der Wissensfragmentierung – Matura verlangt vernetzte Systemverständnis und kausale Zusammenhänge \cite{FeedbackTimeMultimediaLearning}.
+Während dies den Einstieg erleichtert, ist die Methode für die Matura nur bedingt
+geeignet. Die Gefahr besteht in einer Fragmentierung des Wissens: Die Matura verlangt
+das Verständnis großer, vernetzter Systeme. Werden diese zu stark zerstückelt, verlieren
+Schüler den Blick für die Kausalzusammenhänge. Microlearning versagt daher oft bei
+der Vermittlung der für die Matura essenziellen Tiefe \cite{FeedbackTimeMultimediaLearning}.
 
 \subsection{Kombination aus Leitner und Spaced Repetition}
 
-Der Maturatrainer kombiniert beide Methoden optimal:
+Für den Maturatrainer wird eine Zusammensetzung aus dem Leitner-System und Spaced
+Repetition implementiert. Diese Kombination löst die Schwächen der Einzelmethoden
+auf:
 
 \begin{itemize}
-    \item \textbf{Struktur durch Leitner:} 5 digitale Fächer als intuitive UI – Schüler sehen ``Beherrscht''-Quote, stärkt Selbstwirksamkeit \cite{LeitnerWikipedia}.
-    \item \textbf{Effizienz durch Spaced Repetition:} Box 1 = täglich, Box 5 = monatlich; automatische Intervallsteuerung maximiert Langzeitretention \cite{hymerLeitner}.
+    \item \textbf{Struktur durch Leitner:} Die Einteilung in fünf digitale Fächer dient als intuitive
+Benutzeroberfläche. Der/ die SchülerIn sieht jederzeit, wie viele Karten sich im Bereich
+Beherrscht befinden, was die Selbstwirksamkeit stärkt\cite{LeitnerWikipedia}.
+    \item \textbf{Effizienz durch Spaced Repetition:} Durch die Einteilung in die Leitner-
+Fächer wird die Spaced Repetition automatisch gesteuert. Fragen, die falsch
+beantwortet wurden, bleiben im ersten Fach, die häufig richtig beantworteten
+Karten wandern in die höheren Fächer, wodurch die Intervalle für die Wiederholung
+automatisch angepasst werden. Je höher das Fach, desto seltener die Wiederholung,
+was die Effizienz maximiert\cite{hymerLeitner}.
 \end{itemize}
+
+Dieser Mix ist für die Matura ideal, er bietet die motivierende Struktur des Leitner-
+Systems, kombiniert mit der Effizienz der Spaced Repetition, um sicherzustellen, dass
+das Wissen nachhaltig verinnerlicht wird.

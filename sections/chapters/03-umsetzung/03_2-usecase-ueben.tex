@@ -3,11 +3,25 @@
 % =============
 \section{Use Case: Üben}
 
-Nachdem der/die Nutzer:in den individuellen Fragenpool zur eigenen Zufriedenheit angepasst hat, kann der Übergang in den eigentlichen Übungsmodus erfolgen, welcher Schüler:innen ermöglicht, gezielt
+Der Kern der Anwendung ist der Übungsmodus, welcher Schüler:innen ermöglicht, gezielt
 Maturafragen zu trainieren und ihr Wissen Stück für Stück auszubauen. Anders als beim
 Prüfungsmodus steht hier nicht der Leistungsdruck im Vordergrund, sondern das aktive 
 Lernen mit direktem Feedback. Nutzer:innen soll es ermöglicht werden, ein Fundament für 
 ihr Wissen festigen zu können. 
+
+Funktionen umfassen das Auswählen von bestimmten Themen, das Zusammenstellen 
+von einem eigenen Fragenpool und das Beantworten von Fragen ohne Stress. Nutzer:innen können hierbei also genau die Themen lernen, die ihnen
+Probleme bereiten, und das durch eigene Fragen oder Fragen anderer Nutzer:innen. 
+
+Die Plattform unterstützt dabei verschiedene Fragetypen, um das Lernerlebnis flexibler zu 
+gestalten. Um nicht einfach nur ein Ergebnis von ,,richtig'' und,,falsch'' zu liefern, 
+können Nutzer:innen auch Lösungswege einsehen, um das Verständnis nachhaltig zu fördern.
+
+Durch diese wiederholbare und flexible Übungsumgebung eignet sich die Anwendung sowohl
+für den schnellen Gebrauch als Wissenscheck als auch für die langfristige Vorbereitung
+auf Tests, Schularbeiten oder die Matura.
+
+
 
 
 % =============
@@ -17,9 +31,23 @@ ihr Wissen festigen zu können.
 \label{chap:uebung}
 \setauthor{\firstauthor}
 
-Über die Startseite kann die nächste Lernsitzung im Übungsmodus gestartet werden. Dafür können Rechts neben der Statusübersicht die Themenbereiche gewählt werden, auf die sich die nächste Übungssitzung beschränken soll. So kann sich der Übungsmodus auf bestimmte Fächer oder Themenbereiche eingrenzen lassen. Wird aber bei dieser Auswahl \textit{,,Alle Fragen''} angegeben, so wird der Übungsmodus auch auf alle Themenbereiche im eigenen Fragenpool ausgeweitet.
+Beim Aufruf des Übungsmodus landet der User zunächst auf einer Übersichtsseite, auf der eine Zusammenfassung
+des aktuellen Lernstands zu finden ist und die einen Einstieg in den nächsten Übungsdurchlauf ermöglicht. 
+Diese Ansicht dient dazu, einen schnellen Überblick darüber zu geben, wie gut einzelne Fragen bereits 
+beherrscht werden und welche Bereiche noch wiederholt werden sollten.
 
-%TODO - Bild ändern wegen Cropping Issues
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{progress-view.png}
+	\caption{Fortschrittsübersicht des Übungsmodus}
+	\label{fig:progress-screen}
+\end{figure}
+
+Rechts neben der Statusübersicht können die Themenbereiche gewählt werden, auf die sich sowohl die Fortschrittsübersicht als auch 
+die nächste Übungssitzung beschränken soll. So kann sich der Übungsmodus auf bestimmte Fächer oder Themenbereiche eingrenzen 
+lassen. Wird aber bei dieser Auswahl \textit{,,Alle Fragen''} angegeben, so wird der Übungsmodus auch auf alle 
+Themenbereiche im eigenen Fragenpool ausgeweitet.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{progress-view-topicpool-selection.png}
@@ -27,28 +55,31 @@ ihr Wissen festigen zu können.
 	\label{fig:progress-screen-topicpool-selection}
 \end{figure}
 
-Nachdem die gewünschten Themenbereiche ausgewählt wurden, kann der Übungsdurchlauf über den ,,Üben''-Button direkt unter der 
-Auswahl der Themenbereiche gestartet werden. Das System wechselt automatisch in das Fragemodul und lädt die nächste verfügbare Frage aus den gewählten Themenbereichen. Dabei werden alle Fragen ausgeschlossen, die aktuell für die Wiederholung gesperrt sind und erst zu einem späteren Zeitpunkt erneut für die Beantwortung freigegeben werden. 
+Nachdem die gewünschten Themenbereiche ausgewählt wurden, kann der Übungsdurchlauf über den "Üben"-Button direkt unter der 
+Auswahl der Themenbereiche gestartet werden. Das System wechselt automatisch in den Question Runner und lädt die nächste
+passende Frage aus den ausgewählten Themenbereichen, je nachdem bei welchem Fragenstatus aktuell am meisten Übungsbedarf 
+besteht. Auf diese Weise kann die Übungssitzung direkt an dem Punkt starten, an dem es zu diesem Zeitpunkt am wichtigsten
+ist.
 
 % =============
 % 3.2.2 Fragenhandling und Fragetypen
 % =============
-\subsubsection{Bearbeiten der Fragen im Fragenmodul}
+\subsubsection{Bearbeiten der Fragen im Question Runner}
 \setauthor{\firstauthor}
 
-Beim Start in den Übungsmodus gelangt der/die Nutzer:in, wie in \autoref{fig:question-runner-example} dargestellt, in das Fragemodul, also der zentralen Ansicht, bei der Fragen beantwortet und ausgewertet werden können. Diese Komponente ist eine dynamische Ansicht, da sie je nach gewähltem Modus (Üben, Prüfen oder Review) verschiedene Steuerungselemente bereitstellt. 
+Beim Start in den Übungsmodus gelangt der/die Nutzer:in, wie in \autoref{fig:question-runner-example} dargestellt, in den Question-Runner, also der zentralen Ansicht, bei der Fragen beantwortet und ausgewertet werden können. Diese Komponente ist eine dynamische Ansicht, da sie je nach gewähltem Modus (Üben, Prüfen oder Review) verschiedene Steuerungselemente bereitstellt. 
 
 \vspace{1cm}
-\textbf{Benutzeroberfläche des Fragemoduls}
+\textbf{Benutzeroberfläche des Question Runners}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{question-runner-mc.png}
-	\caption{Beispielhafte Ansicht einer Frage im Fragemodul}
+	\caption{Beispielhafte Ansicht einer Frage im Question Runner}
 	\label{fig:question-runner-example}
 \end{figure}
 
-%TODO Fragenanzahl
+Die Ansicht ist hierarchisch aufgebaut, um für eine schnelle Orientierung zu sorgen:
 \begin{itemize}
 	\item \textbf{Informationsbereich:} \\
 	Am oberen Rand wird das aktuelle Fach sowie der spezifische Themenpool angezeigt.
@@ -63,7 +94,7 @@ Beim Start in den Übungsmodus gelangt der/die Nutzer:in, wie in \autoref{fig:qu
 \vspace{1cm}
 \textbf{Unterstützung verschiedener Fragetypen}
 
-Neben der Unterscheidung der Modi werden im Quest ion Runner die verschiedenen Fragetypen berücksichtigt. Aktuell werden zwei Haupttypen unterstützt:
+Neben der Unterscheidung der Modi werden im Question Runner die verschiedenen Fragetypen berücksichtigt. Aktuell werden zwei Haupttypen unterstützt:
 
 \begin{itemize}
 	\item \textbf{Multiple-Choice-Fragen:} 
@@ -98,10 +129,17 @@ Neben der Unterscheidung der Modi werden im Quest ion Runner die verschiedenen F
 	\label{fig:question-runner}
 \end{figure}
 
+Durch diese Gestaltung unterstützt der Question Runner den/die Nutzer:in auf effektive Weise beim 
+Lernen, beim Prüfen des eigenen Wissens und beim Überprüfen bereits bearbeiteter Aufgaben.  
+Die modulare Darstellung der Fragen, der direkte Zugriff auf Feedback im Übungsmodus und die 
+klare Trennung der Modi tragen dazu bei, dass sich der/die Nutzer:in jederzeit auf das Lernen 
+konzentrieren kann, ohne von technischen Details abgelenkt zu werden.
+
+
 
 \subsubsection{Direktes Feedback im Übungsmodus}
 
-Im Übungsmodus liegt das Stressfreie Lernen im Fokus. Der/Die Nutzer:in steht hier also nicht unter Zeitdruck und kann die Frage in Ruhe lesen, überdenken und schließlich beantworten. Erst nachdem eine Antwort ausgewählt beziehungseise eingegeben wurde, kann diese über den \textit{,,Prüfen''}-Button bestätigt werden. Anschließend wird die Antwort ausgewertet und das Ergebnis unmittelbar im Fragenmodul angezeigt.
+Im Übungsmodus liegt das Stressfreie Lernen im Fokus. Der/Die Nutzer:in steht hier also nicht unter Zeitdruck und kann die Frage in Ruhe lesen, überdenken und schließlich beantworten. Erst nachdem eine Antwort ausgewählt beziehungseise eingegeben wurde, kann diese über den \textit{,,Prüfen''}-Button bestätigt werden. Anschließend wird die Antwort ausgewertet und das Ergebnis unmittelbar im Question Runner angezeigt.
 
 Das direkte Feedback ist so gestaltet, dass es den Lernprozess aktiv unterstützt. Nach der Auswertung wird die Frage deshalb
 visuell markiert und Antworten werden entsprechend farbig markiert. Korrekte Antworten werden mit einem positiven Grünton, 
@@ -126,6 +164,11 @@ Missverständnisse direkt geklärt werden.
 	\label{fig:question-answer-in-correctly}
 \end{figure}
 
+Durch diese Form der Rückmeldung wird das Gelernte mit der jeweils bearbeiteten Frage verknüpft. So bleibt der Lernprozess
+nicht abstrakt, sondern findet direkt am Beispiel der Aufgabe statt. Zugleich ermöglicht die strukturierte Darstellung, 
+dass auch falsch beantwortete Fragen nicht nur negativ und als Fehler wahrgenommen, sondern auch als positiver
+Bestandteil des Lernprozesses genutzt werden.
+
 Nachdem die Auswertung erfolgt ist, wechselt der \textit{"Prüfen"}-Button zum \textit{"Nächste Frage"}-Button. Dieser 
 Button bringt den/die Nutzer:in direkt zur nächsten passenden Frage der ausgewählten Themenbereiche, wobei die Auswahl der 
 nächsten Frage der in Kapitel \ref{chap:lernstrategien} beschriebenen Lernstrategie folgt. Der Übungsmodus führt die Nutzer:innen 
@@ -133,20 +176,35 @@ somit schrittweise durch die Inhalte, die für den weiteren Lernfortschritt am r
 selbstständig die nächste Frage auswählen, sondern kann sich einfach vom System leiten lassen.
 
 
+\subsubsection{Wiederholungslogik und erneute Präsentation von Fragen}
+
+Nach der Bearbeitung einer Frage wird deren Ergebnis gespeichert. Richtig beantwortete Fragen gelten zunächst als 
+\textit{zum Wiederholen gesperrt} und sind erst nach einer definierten Wartezeit wieder im Übungsmodus vorzufinden. So wird
+vermieden, dass dieselbe Frage unmittelbar hintereinander erneut gestellt wird, sondern erst zu einem späteren Zeitpunkt,
+wenn der Lerneffekt größer ist. Falsch beantwortete Fragen bleiben im Übungsmodus, bis sie korrekt beantwortet wurden,
+sodass der/die Nutzer:in direkt das Verständnis der gemachten Fehler überprüfen kann. Das soll verhindern, dass Fehler 
+ein weiteres Mal gemacht werden und es zu einem endlosen Kreislauf wird, da man den Fehler nie wirklich verstehen konnte.
+
+Fragen, die mehrfach korrekt beantwortet wurden, werden nach und nach als gefestigt eingestuft. Wurde eine Frage bereits 
+dreimal hintereinander richtig beantwortet, so gilt sie als ausgelernt und wird dauerhaft aus dem aktiven Fragenpool für 
+den Übungsmodus entfernt. Sie erscheint also nicht mehr im Übungsmodus, da davon ausgegangen werden kann, dass der Inhalt 
+ausreichend gefestigt ist.
+
+
 \subsubsection{Verhalten bei Sitzungsfortsetzung und Abschluss des Übungsdurchlaufs}
 
-Das explizite Abbrechen des Übungsdurchlaufs ist nicht vorgesehen, verlässt der/die Nutzer:in das Fragenmodul während der 
+Das explizite Abbrechen des Übungsdurchlaufs ist nicht vorgesehen, verlässt der/die Nutzer:in den Question Runner während der 
 Bearbeitung dennoch, geht der aktuelle Bearbeitungsstand verloren, die bereits beantworteten Fragen bleiben aber gespeichert.
-Deshalb kehrt der/die Nutzer:in beim erneuten Aufrufen des Übungsmodus also auch automatisch zur zuletzt offenen Frage zurück.
+Deshalb kehrt der/die Nutzer:in beim erneuten Aufrufen des Übungsmodus also auch automatisch zur zueletzt offenen Frage zurück.
 
 Sind für den ausgewählten Themenbereich vorübergehend keine weiteren Fragen mehr verfügbar, weil alle Fragen entweder
-ausgelernt oder zur Wiederholung gesperrt sind, so wird der \textit{,,Prüfen''}-Button zum \textit{,,Abschließen''}-Button. Durch
+ausgelernt oder zur Wiederholung gesperrt sind, so wird der \textit{"Prüfen}-Button zum \textit{"Abschließen"}-Button. Durch
 diesen gelangt man zurück zur vorherigen Ansicht, also der Fortschrittsübersicht.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{check-button-to-end.png}
-	\caption{,,Prüfen''-Button wurde zum ,,Abschließen''-Button}
+	\caption{"Prüfen"-Button wurde zum "Abschließen"-Button}
 \end{figure}
 
 
@@ -162,7 +220,7 @@ Sobald eine Frage im Übungsmodus über den „Prüfen“-Button ausgewertet wur
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{Lösungsweg.png}
+\includegraphics[width=0.8\textwidth]{Loesungsweg.png}
 \caption{Anzeige eines detaillierten Lösungsweges}
 \label{fig:solution-view}
 \end{figure}
@@ -180,7 +238,7 @@ Die Lernplattform lebt von der Interaktion und dem Wissensaustausch innerhalb de
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{LösungswegErstetllen.png}
+\includegraphics[width=0.8\textwidth]{Lösungsweg_Erstellen.png}
 \caption{Editor zum Erstellen eines neuen Lösungsweges}
 \label{fig:solution-editor}
 \end{figure}

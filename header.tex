@@ -122,17 +122,19 @@ morekeywords={base,var,in,out,dynamic,from,where,select,orderby,function,\$,grou
 
 \newcommand{\setauthor}[1]{\ohead[]{#1}}
 
-\usepackage[automark]{scrlayer-scrpage}
+\usepackage{scrlayer-scrpage}
+\clearpairofpagestyles
 \pagestyle{scrheadings}
-\automark{chapter}
-\renewcommand\sectionmark[1]{\markright{\MakeMarkcase {\thesection\hskip .5em\relax#1}}}
-\rohead{\ifnum\expandafter\pdfstrcmp\botmark=0 \rightmark\else\leftmark{} --- \rightmark\fi}
-\ihead[]{\headmark}
-\chead[]{}
-\ohead{}
-\cfoot[]{}
+\renewcommand*{\sectionmark}[1]{%
+	\markboth{\thesection\enskip #1}{\thesection\enskip #1}%
+}
+\ihead{\leftmark}
 \ofoot[\pagemark]{\pagemark}
 \setheadsepline{.1pt}
+
+\renewcommand*{\chaptermark}[1]{%
+	\markboth{#1}{#1}%
+}
 
 \usepackage[hyphens]{url}
 

@@ -18,7 +18,7 @@ repeat
     if (Prüfung) then (ja)
       :Prüfung starten;
       :Fragen beantworten;
-      :Prigfung abschließen;
+      :Prüfung abschließen;
       :Auswertung erhalten;
       :Ergebnis speichern;
     else (nein)

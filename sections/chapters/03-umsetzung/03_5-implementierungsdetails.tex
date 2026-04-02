@@ -51,7 +51,23 @@ Das 4-Level-Modell des Übungsmodus wird maßgeblich durch das Attribut \textit{
 \begin{itemize}
 	\item \textbf{Level 1 (Unbearbeitet/Zuletzt Falsch):} Fragen mit einem \textit{correctCount} von 0. Bei diesen herrscht keine Sperrlogik, damit neues Wissen eingeführt und das Verständnis für Fehler direkt ausprobiert werden kann.
 	\item \textbf{Level 2 bis 3 (Festigungsphase):} Mit jeder aufeinanderfolgenden korrekten Antwort steigt der \textit{correctCount} und das \textit{answeredAt}-Attribut wird aktualisiert. Dies löst im Backend eine temporäre Sperre aus. Die Frage wird erst nach Ablauf eines definierten Zeitintervalls (berechnet durch \textit{answeredAt}) wieder zur Bearbeitung freigegeben.
-	\item \textbf{Level 4 (Mastery/Abgeschlossen):} Erreicht der \textit{correctCount} den Wert 3, gilt die Frage als dauerhaft gelernt. Sie wird aus dem aktiven Übungspool entfernt, um Platz für neue Inhalte zu schaffen, bleibt aber für Prüfungssimulationen weiterhin verfügbar.
+	\item \textbf{Level 4 (Mastery/Abgeschlossen):} Erreicht der \textit{correctCount} den Wert 3, gilt die Frage als dauerhaft gelernt und wird für zukünftige Übungssitzungen nicht mehr wiederholt.
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Streak-Tracking} \\
+Zusätzlich zum Fortschritt bei einzelnen Fragen nutzt die Anwendung ein \textit{Streak-System}. Die Entität \textit{StreakTracking} ist direkt mit dem \textit{User}-Objekt verknüpft und dient dazu, die Nutzer:innen für regelmäßiges Üben zu belohnen. Die dafür nötigen Attribute sind:
+
+\begin{itemize}
+	\item \textit{streak}: Gibt die Anzahl der aufeinanderfolgenden Tage an, an denen der/die Nutzer:in sich eingeloggt hat.
+	\item \textit{lastLoggedInAt}: Der Zeitstempel der letzten Lernsession.
+\end{itemize}
+
+Um die Streak zuverlässig erhöhen zu können, prüft das System bei jeder beantworteten Frage das Datum der letzten Aktivität. Ein Tag wird dabei als ,,neu'' angesehen, sobald sich das Datum verändert hat:
+
+\begin{itemize}
+	\item \textbf{Erhöhung:} Lernt der/die Nutzer:in am darauffolgenden Kalendertag, wird der \textit{streak} um eins erhöht. Mehrfaches Üben am selben Tag führt dabei zu keiner weiteren Erhöhung.
+	\item \textbf{Reset:} Erst wenn über zwei Tage hinweg keine Aktivität verzeichnet wurde, wird der Zähler zurückgesetzt.
 \end{itemize}
 
 

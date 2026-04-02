@@ -11,6 +11,13 @@ entity User #F5F5F5 {
 
 entity Question #F5F5F5 {
   * id : Long
+  --
+}
+
+' NEUE ENTITÄT: Die Antwortmöglichkeiten einer Frage
+entity Answer #F5F5F5 {
+  * id : Long
+  --
 }
 
 ' --- Lernfortschritt ---
@@ -49,7 +56,7 @@ package "Prüfungsmodul" {
   entity ExamQuestion {
     * id : Long
     --
-    selectedAnswers : Answer
+    ' selectedAnswers wird jetzt über die Relation zu Answer abgebildet
     freeTextAnswer : String
     isCorrect : Boolean
   }
@@ -82,11 +89,16 @@ User ||--o{ Solution
 QuestionPool ||--o{ QuestionPoolEntry
 QuestionPoolEntry }o--|| Question
 
-' Prüfung basiert auf dem Pool-Eintrag (Deine Korrektur!)
+' Die Antwort-Logik
+Question ||--o{ Answer : "besitzt"
+' Relation für die gewählten Antworten in einer Prüfung
+ExamQuestion }o--o{ Answer : "ausgewählte Antworten"
+
+' Prüfung basiert auf dem Pool-Eintrag
 Exam ||--o{ ExamQuestion
 ExamQuestion }o--|| QuestionPoolEntry
 
-' Lösungen (direkt an der Frage für alle User sichtbar)
+' Lösungen
 Question ||--o{ Solution
 Solution ||--o{ SolutionStep
 @enduml

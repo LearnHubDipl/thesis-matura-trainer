@@ -250,25 +250,29 @@ Eine zentrale Rolle nimmt dabei das \textbf{Donutdiagramm} ein. Dieses Diagramm 
 Die Komponente übergibt die notwendigen Daten an Chart.js über ng2-charts:
 
 \begin{itemize}
-  \item \textbf{doughnutChartData:} Enthält Labels, Werte und Farben für das Diagramm
-  \begin{verbatim}
-this.doughnutChartData = {
-  labels: data.legend.map(e => e.label),
-  datasets: [{data: data.legend.map(e => e.value),
-              backgroundColor: data.legend.map(e => e.color)}]
-};
-  \end{verbatim}
-  \texttt{labels} = Diagrammentexte, \texttt{data} = Zahlenwerte, \texttt{backgroundColor} = Segmentfarben.
-
-  \item \textbf{baseChart Direktive:} Verbindet Angular-Daten mit Chart.js Canvas
-  \begin{verbatim}
-<canvas baseChart 
-        [data]="doughnutChartData" 
-        [type]="doughnutChartType">
-  \end{verbatim}
-  ng2-charts überwacht Datenänderungen und triggert Chart.js \texttt{update()}.
+	\item \textbf{doughnutChartData:} Enthält Labels, Werte und Farben für das Diagramm
+	
+	\begin{lstlisting}[language=TypeScript, caption={Initialisierung der Doughnut-Chart-Daten}, label={lst:chartdata}]
+		this.doughnutChartData = {
+			labels: data.legend.map(e => e.label),
+			datasets: [{
+				data: data.legend.map(e => e.value),
+				backgroundColor: data.legend.map(e => e.color)
+			}]
+		};
+	\end{lstlisting}
+	\texttt{labels} = Diagrammentexte, \texttt{data} = Zahlenwerte, \texttt{backgroundColor} = Segmentfarben.
+	
+	\item \textbf{baseChart Direktive:} Verbindet Angular-Daten mit Chart.js Canvas
+	
+	\begin{lstlisting}[language=HTML, caption={Einbindung der baseChart-Direktive im HTML-Template}, label={lst:basechart}]
+		<canvas baseChart 
+			[data]="doughnutChartData" 
+			[type]="doughnutChartType">
+		</canvas>
+	\end{lstlisting}
+	ng2-charts überwacht Datenänderungen und triggert Chart.js \texttt{update()}.
 \end{itemize}
-
 Diese Aufteilung gewährleistet eine klare Trennung zwischen Datenbeschaffung und Diagrammdarstellung. Chart.js kümmert sich nur um die Visualisierung, während Angular die Daten automatisch aktualisiert.
 
 \subsubsection{Wiederverwendbare CSS-Klassen}
